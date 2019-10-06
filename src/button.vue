@@ -1,8 +1,6 @@
 <template>
-        <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-            <svg v-if="icon" class="icon">
-                <use :xlink:href=`#i-${icon}`></use>
-            </svg>
+        <button class="t-button" :class="{[`icon-${iconPosition}`]: true}">
+            <t-icon class="icon" v-if="icon" :name="icon"></t-icon>
             <div class="content">
                 <slot></slot>
             </div>
@@ -26,7 +24,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .g-button{
+    .t-button{
         display: inline-flex;
         justify-content: center;
         align-items: center;
