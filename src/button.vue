@@ -1,7 +1,7 @@
 <template>
     <button class="t-button" :class="{[`icon-${iconPosition}`]: true}">
         <t-icon class="icon" v-if="icon" :name="icon"></t-icon>
-        <t-icon class="loading"  name="loading"></t-icon>
+        <t-icon class="icon loading"  name="loading"></t-icon>
         <div class="content">
             <slot></slot>
         </div>
@@ -75,6 +75,6 @@
         }
     }
     .loading {
-        animation: spin 1.5s infinite linear;
+        animation: spin 2s infinite linear;
     }
 </style>
