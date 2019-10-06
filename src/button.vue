@@ -2,7 +2,7 @@
     <button class="t-button"
             :class="{[`icon-${iconPosition}`]: true}"
             @click="$emit('click')">
-        <t-icon v-if="!loading && !'unfined'" class="icon" v-if="icon" :name="icon"></t-icon>
+        <t-icon v-if="!loading && icon" class="icon" :name="icon"></t-icon>
         <t-icon v-if="loading" class="icon loading" name="loading"></t-icon>
         <div class="content">
             <slot></slot>
