@@ -7,8 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>tione</title>
     <style>
-        *{margin:0; padding:0; box-sizing: border-box;}
-        :root{
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
             --button-height: 32px;
             --font-size: 14px;
             --button-bg: white;
@@ -18,20 +23,37 @@
             --border-color: #999;
             --border-color-hover: #666;
         }
-        #app{
+
+        #app {
             margin: 20px;
         }
-        body{
+
+        body {
             font-size: var(--font-size);
+        }
+
+        .icon {
+            width: 1em;
+            height: 1em;
         }
     </style>
 </head>
 <body>
 <div id="app">
-    <g-button></g-button>
+    <g-button>
+        我爱
+    </g-button>
+    <g-button icon="settings" icon-position="left">
+        我爱
+    </g-button>
+    <g-button icon="settings" icon-position="right">
+        我爱
+    </g-button>
+
 </div>
 
 <script src="./src/app.js"></script>
+<script src="//at.alicdn.com/t/font_1445113_oxocojr7y2n.js"></script>
 
 </body>
 </html>
