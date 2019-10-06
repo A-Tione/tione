@@ -23,7 +23,9 @@
         vertical-align: middle;
         > .t-button {
             border-radius: 0;
-            margin-right: -1px;
+            &:not(:last-child){
+                margin-right: -1px;
+            }
             &:first-child {
                 border-top-left-radius: var(--border-radius);
                 border-bottom-left-radius: var(--border-radius);
