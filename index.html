@@ -35,16 +35,15 @@
 </head>
 <body>
 <div id="app">
-    <t-button>
+    <t-button :loading="loading1" @click="loading1 = !loading1">
         我爱
     </t-button>
     <t-button icon="settings" icon-position="left">
         我爱
     </t-button>
-    <t-button icon="loading" icon-position="right">
+    <t-button icon="settings" icon-position="right" :loading="true">
         我爱
     </t-button>
-
 </div>
 
 <script src="./src/app.js"></script>

@@ -1,7 +1,9 @@
 <template>
-    <button class="t-button" :class="{[`icon-${iconPosition}`]: true}">
-        <t-icon class="icon" v-if="icon" :name="icon"></t-icon>
-        <t-icon class="icon loading"  name="loading"></t-icon>
+    <button class="t-button"
+            :class="{[`icon-${iconPosition}`]: true}"
+            @click="$emit('click')">
+        <t-icon v-if="!loading && !'unfined'" class="icon" v-if="icon" :name="icon"></t-icon>
+        <t-icon v-if="loading" class="icon loading" name="loading"></t-icon>
         <div class="content">
             <slot></slot>
         </div>
@@ -12,6 +14,10 @@
     export default {
         props: {
             icon: {},
+            loading: {
+                type: Boolean,
+                default: false
+            },
             iconPosition: {
                 type: String,
                 default: 'left',
@@ -35,7 +41,7 @@
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
         background: var(--button-bg);
-        vertical-align: top;
+        vertical-align: middle;
         &:hover {
             border-color: var(--border-color-hover);
         }
