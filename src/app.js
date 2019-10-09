@@ -3,9 +3,9 @@ import Button from './button'
 import Icon from './icon'
 import ButtonGroup from './button-group'
 
-Vue.component('t-button',Button)
-Vue.component('t-icon',Icon)
-Vue.component('t-button-group',ButtonGroup)
+Vue.component('t-button', Button)
+Vue.component('t-icon', Icon)
+Vue.component('t-button-group', ButtonGroup)
 
 new Vue({
     el: '#app',
@@ -17,7 +17,11 @@ new Vue({
 });
 
 //单元测试  chai库
-import  chai from 'chai'
+import chai from 'chai'
+import spies from 'chai-spies'
+
+chai.use(spies)
+
 const expect = chai.expect
 
 // icon
@@ -90,14 +94,20 @@ const expect = chai.expect
 {
     //mock
     const Constructor = Vue.extend(Button)
-    const tButton = new Constructor({
+    const vm = new Constructor({
         propsData: {
             icon: 'settings',
         }
     })
-    tButton.$mount()
-
+    vm.$mount()
+    //间谍函数，劫持真正的函数
+    let spy = chai.spy(() => {
+    })
+    vm.$on('click', spy)
     // 希望这个函数被执行
-    let button = tButton.$el
+    let button = vm.$el
     button.click()
+    expect(spy).to.have.been.called()
+    vm.$el.remove()
+    vm.$destroy()
 }
