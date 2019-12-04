@@ -26,7 +26,7 @@
                 }
             }
         },
-        name: "button",
+        name: "tButton",
     }
 </script>
 

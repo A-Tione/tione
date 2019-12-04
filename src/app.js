@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import Button from './button'
+import tButton from './button'
 import Icon from './icon'
 import ButtonGroup from './button-group'
 
-Vue.component('t-button', Button)
+Vue.component('t-button', tButton)
 Vue.component('t-icon', Icon)
 Vue.component('t-button-group', ButtonGroup)
 
@@ -18,7 +18,7 @@ new Vue({
 
 //单元测试  chai库
 import chai from 'chai'
-import spies from 'chai-spies'
+import spies from 'chai-spies'//用于点击监听事件的库
 
 chai.use(spies)
 
@@ -26,7 +26,7 @@ const expect = chai.expect
 
 // icon
 {
-    const Constructor = Vue.extend(Button)
+    const Constructor = Vue.extend(tButton)
     const vm = new Constructor({
         propsData: {
             icon: 'settings'
@@ -40,9 +40,9 @@ const expect = chai.expect
     vm.$el.remove()
     vm.$destroy()
 }
-// loading
+
 {
-    const Constructor = Vue.extend(Button)
+    const Constructor = Vue.extend(tButton)
     const vm = new Constructor({
         propsData: {
             icon: 'settings',
@@ -56,14 +56,14 @@ const expect = chai.expect
     vm.$el.remove()
     vm.$destroy()
 }
-// icon的前后顺序
+
 {
     const div = document.createElement('div')
     document.body.appendChild(div)
-    const Constructor = Vue.extend(Button)
+    const Constructor = Vue.extend(tButton)
     const vm = new Constructor({
         propsData: {
-            icon: 'settings',
+            icon: 'settings'
         }
     })
     vm.$mount(div)
@@ -72,11 +72,13 @@ const expect = chai.expect
     expect(order).to.equal('1')
     vm.$el.remove()
     vm.$destroy()
+
 }
+
 {
     const div = document.createElement('div')
     document.body.appendChild(div)
-    const Constructor = Vue.extend(Button)
+    const Constructor = Vue.extend(tButton)
     const vm = new Constructor({
         propsData: {
             icon: 'settings',
@@ -89,25 +91,27 @@ const expect = chai.expect
     expect(order).to.equal('2')
     vm.$el.remove()
     vm.$destroy()
+
 }
-// button 点击事件
+
 {
-    //mock
-    const Constructor = Vue.extend(Button)
+    const Constructor = Vue.extend(tButton)
     const vm = new Constructor({
         propsData: {
             icon: 'settings',
+            iconPosition: 'right'
         }
     })
     vm.$mount()
-    //间谍函数，劫持真正的函数
-    let spy = chai.spy(() => {
-    })
-    vm.$on('click', spy)
-    // 希望这个函数被执行
+    let spy = chai.spy(()=>{})//间谍函数
+    vm.$on('click', spy)//间谍函数劫持点击事件
+
     let button = vm.$el
     button.click()
-    expect(spy).to.have.been.called()
+    expect(spy).to.have.been.called()//当button click时，期待间谍函数被调用
     vm.$el.remove()
     vm.$destroy()
+
 }
+
+
