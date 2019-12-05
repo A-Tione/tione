@@ -24,6 +24,10 @@ chai.use(spies)
 
 const expect = chai.expect
 
+/** 单元测试必有的两步：
+ * 1、作用域隔离
+ * 2、断言**/
+
 // icon
 {
     const Constructor = Vue.extend(tButton)
@@ -91,7 +95,6 @@ const expect = chai.expect
     expect(order).to.equal('2')
     vm.$el.remove()
     vm.$destroy()
-
 }
 
 {

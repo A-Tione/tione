@@ -11,7 +11,14 @@
 </template>
 
 <script>
+    import Icon from './icon'
+
+
     export default {
+        name: "tButton",
+        components: {
+            't-icon': Icon
+        },
         props: {
             icon: {},
             loading: {
@@ -26,7 +33,6 @@
                 }
             }
         },
-        name: "tButton",
     }
 </script>
 
