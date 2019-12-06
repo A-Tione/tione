@@ -16,6 +16,7 @@ describe('Button', () => {
         expect([1,2,3]).to.deep.eq([1,2,3])  // deep 深入进去比较是否相等
         expect(NaN).to.be.NaN  // 专门为NaN做的断言
     })
+
     it('可以设置icon.', () => {
         const Constructor = Vue.extend(Button)
         const vm = new Constructor({
