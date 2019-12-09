@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import tButton from './button'
-import Icon from './icon'
-import ButtonGroup from './button-group'
+import tIcon from './icon'
+import tButtonGroup from './button-group'
+import tInput from './input'
 
 Vue.component('t-button', tButton)
-Vue.component('t-icon', Icon)
-Vue.component('t-button-group', ButtonGroup)
+Vue.component('t-icon', tIcon)
+Vue.component('t-button-group', tButtonGroup)
+Vue.component('t-input', tInput)
 
 new Vue({
     el: '#app',

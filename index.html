@@ -36,28 +36,30 @@
 </head>
 <body>
 <div id="app">
-    <t-button :loading="loading1" @click="loading1 = !loading1">
-        我爱
-    </t-button>
-    <t-button :loading="loading2" icon="settings" icon-position="left" @click="loading2 = !loading2">
-        我爱
-    </t-button>
-    <t-button :loading="loading3" icon="settings" icon-position="right" @click="loading3 = !loading3">
-        我爱
-    </t-button>
-    <t-button-group>
+    <t-input></t-input>
+    <div>
+        <t-button :loading="loading1" @click="loading1 = !loading1">
+            我爱
+        </t-button>
+        <t-button :loading="loading2" icon="settings" icon-position="left" @click="loading2 = !loading2">
+            我爱
+        </t-button>
+        <t-button :loading="loading3" icon="settings" icon-position="right" @click="loading3 = !loading3">
+            我爱
+        </t-button>
+        <t-button-group>
             <t-button icon="left">
                 左边
             </t-button>
-        <t-button>更多</t-button>
-        <t-button icon="right" icon-position="right">
-            右边
-        </t-button>
-    </t-button-group>
+            <t-button>更多</t-button>
+            <t-button icon="right" icon-position="right">
+                右边
+            </t-button>
+        </t-button-group>
+    </div>
 </div>
 
 <script src="./src/app.js"></script>
-<script src="//at.alicdn.com/t/font_1445113_w5afsvu02ul.js"></script>
 
 </body>
 </html>
