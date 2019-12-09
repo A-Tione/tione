@@ -4,7 +4,7 @@
   "description": "一个基于vue的ui组件库",
   "main": "dist/index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel index.html --no-cache",
     "dev-test": "parcel watch test/* --no-cache & karma start",
     "test": "parcel build test/* --no-minify && karma start --single-run"
   },
