@@ -5,18 +5,6 @@ import Input from '../src/input'
 Vue.config.productionTip = false
 Vue.config.devtools = false
 
-function commonMethod(value,input,expectAnswer) {
-    const Constructor = Vue.extend(Input)
-    const vm = new Constructor({
-        propsData: {
-            value
-        }
-    }).$mount()
-    const inputElement = vm.$el.querySelector(input)
-    expect(inputElement.value).to.equal(expectAnswer)
-    vm.$destroy()
-}
-
 describe('Input', () => {
 
     it('存在', function () {
@@ -24,10 +12,14 @@ describe('Input', () => {
     });
 
     describe('props', () => {
+        const Constructor = Vue.extend(Input)
+        let vm = null
+        afterEach(()=>{
+            vm.$destroy()
+        })
+
         it('接收 value', function () {
-            commonMethod()
-            const Constructor = Vue.extend(Input)
-            const vm = new Constructor({
+            vm = new Constructor({
                 propsData: {
                     value: '1234'
                 }
@@ -38,8 +30,7 @@ describe('Input', () => {
         });
 
         it('接收 disabled', function () {
-            const Constructor = Vue.extend(Input)
-            const vm = new Constructor({
+            vm = new Constructor({
                 propsData: {
                     disabled: true
                 }
@@ -50,8 +41,7 @@ describe('Input', () => {
         });
 
         it('接收 readonly', function () {
-            const Constructor = Vue.extend(Input)
-            const vm = new Constructor({
+            vm = new Constructor({
                 propsData: {
                     readonly: true
                 }
@@ -62,8 +52,7 @@ describe('Input', () => {
         });
 
         it('接收 error', function () {
-            const Constructor = Vue.extend(Input)
-            const vm = new Constructor({
+            vm = new Constructor({
                 propsData: {
                     error: '这是一个错误信息'
                 }
@@ -77,16 +66,23 @@ describe('Input', () => {
     });
 
     describe('事件', () => {
-        it('支持change事件', function () {
-            const Constructor = Vue.extend(Input)
-            const vm = new Constructor({
-                propsData: {
-                    value: '1234'
-                }
-            }).$mount()
-            const inputElement = vm.$el.querySelector('input')
-            expect(inputElement.value).to.equal('1234')
+        const Constructor = Vue.extend(Input)
+        let vm = null
+        afterEach(()=>{
             vm.$destroy()
+        })
+
+        it('支持 change/input/focus/blur 事件', function () {
+            ['change','input','focus','blur'].forEach(eventName => {
+                vm = new Constructor({}).$mount()
+                const callback = sinon.fake();
+                vm.$on(eventName, callback)
+                //触发input的change事件
+                let event = new Event(eventName)
+                let inputElement = vm.$el.querySelector('input')
+                inputElement.dispatchEvent(event)
+                expect(callback).to.have.been.calledWith(event)//测试change、以及change事件的第一个参数
+            })
         });
     });
 

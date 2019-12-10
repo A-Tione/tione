@@ -17,8 +17,8 @@ new Vue({
         loading3: true
     },
     methods: {
-        inputChange(e,qq) {
-            console.log(e,qq);
+        inputChange(e) {
+            console.log(e);
         }
     }
 });
