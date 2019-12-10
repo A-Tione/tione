@@ -4,9 +4,9 @@
                :value="value"
                :disabled="disabled"
                :readonly="readonly">
-        <template>
-            <icon name="settings"></icon>
-            <span>{{error}}</span>
+        <template v-if="error">
+            <icon name="error" class="icon-error"></icon>
+            <span class="errorMessage">{{error}}</span>
         </template>
     </div>
 </template>
@@ -55,7 +55,9 @@
     $red: #cc0000;
     .wrapper {
         font-size: $font-size;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 10px;
         > input {
             height: $height;
             border: 1px solid $border-color;
@@ -79,11 +81,19 @@
             }
         }
         &.error{
+            *:not(:last-child){margin-right: .5em;}
             >input{
                 border-color: $red;
                 &:focus {
                     box-shadow: 0 0 2px 0 $red;
                 }
+            }
+            .icon-error{
+                font-size: 16px;
+                fill: $red;
+            }
+            .errorMessage{
+                color: $red;
             }
         }
     }
