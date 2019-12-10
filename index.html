@@ -40,10 +40,10 @@
 <body>
 <div id="app">
     <div class="box">
-        <t-input :value="'李四'"></t-input>
-        <t-input :value="'龙五'" disabled></t-input>
-        <t-input :value="'九妹'" readonly></t-input>
-        <t-input :value="'老王'" :error="'姓名不能少于2个字符'"></t-input>
+        <t-input value="李四" @change="inputChange"></t-input>
+        <t-input value="龙五" disabled></t-input>
+        <t-input value="九妹" readonly></t-input>
+        <t-input value="老王" :error="'姓名不能少于2个字符'"></t-input>
     </div>
     <div class="box">
         <t-button :loading="loading1" @click="loading1 = !loading1">

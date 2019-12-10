@@ -3,7 +3,10 @@
         <input type="text"
                :value="value"
                :disabled="disabled"
-               :readonly="readonly">
+               :readonly="readonly"
+                @change="$emit('inputChange', $event)"
+               @change="$emit('inputChange', $event)"
+               @change="$emit('inputChange', $event)">
         <template v-if="error">
             <icon name="error" class="icon-error"></icon>
             <span class="errorMessage">{{error}}</span>
@@ -15,7 +18,7 @@
     import Icon from './icon'
 
     export default {
-        components:{
+        components: {
             Icon
         },
         name: "tInput",
@@ -48,10 +51,10 @@
 <style lang="scss" scoped>
     $height: 32px;
     $border-color: #999;
-    $border-color-hover: rgba(0,0,0,0.6);
+    $border-color-hover: rgba(0, 0, 0, 0.6);
     $border-radius: 4px;
     $font-size: 12px;
-    $box-shadow-color: rgba(0,0,0,0.5);
+    $box-shadow-color: rgba(0, 0, 0, 0.5);
     $red: #cc0000;
     .wrapper {
         font-size: $font-size;
@@ -80,19 +83,21 @@
                 cursor: not-allowed;
             }
         }
-        &.error{
-            *:not(:last-child){margin-right: .5em;}
-            >input{
+        &.error {
+            *:not(:last-child) {
+                margin-right: .5em;
+            }
+            > input {
                 border-color: $red;
                 &:focus {
                     box-shadow: 0 0 2px 0 $red;
                 }
             }
-            .icon-error{
+            .icon-error {
                 font-size: 16px;
                 fill: $red;
             }
-            .errorMessage{
+            .errorMessage {
                 color: $red;
             }
         }
