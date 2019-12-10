@@ -77,11 +77,14 @@ describe('Input', () => {
                 vm = new Constructor({}).$mount()
                 const callback = sinon.fake();
                 vm.$on(eventName, callback)
-                //触发input的change事件
                 let event = new Event(eventName)
+                //将target中的value变为可枚举
+                Object.defineProperty(
+                    event, 'target', {value: {value: 'hello'}, enumerable: true}
+                )
                 let inputElement = vm.$el.querySelector('input')
                 inputElement.dispatchEvent(event)
-                expect(callback).to.have.been.calledWith(event)//测试change、以及change事件的第一个参数
+                expect(callback).to.have.been.calledWith('hello')
             })
         });
     });
