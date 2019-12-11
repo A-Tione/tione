@@ -1,5 +1,5 @@
 <template>
-   <div class="col" :class="[`col-${span}`]">
+   <div class="col" :class="[span && `col-${span}`, offset && `offset-${offset}`]">
        <slot></slot>
    </div>
 </template>
@@ -9,6 +9,12 @@
         name: "tioneCol",
         props: {
             span: {
+                type: String,Number,
+                default () {
+                    return 0
+                }
+            },
+            offset: {
                 type: String,Number
             }
         }
@@ -22,9 +28,15 @@
         background: orange;
         border: 1px solid orangered;
         $class-prefix: col-;
+        $class-offset: offset-;
         @for $in from 1 through 24 {
             &.#{$class-prefix}#{$in} {
                 width: ($in / 24) * 100%;
+            }
+        }
+        @for $in from 1 through 24 {
+            &.#{$class-offset}#{$in} {
+                margin-left: ($in / 24) * 100%;
             }
         }
 
