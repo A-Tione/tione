@@ -10,9 +10,6 @@
         props: {
             span: {
                 type: String,Number,
-                default () {
-                    return 0
-                }
             },
             offset: {
                 type: String,Number

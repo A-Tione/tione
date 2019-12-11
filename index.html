@@ -35,31 +35,26 @@
         .box {
             margin: 10px 0;
         }
-
-
-        .row {
-            display: flex;
-        }
     </style>
 </head>
 <body>
 <div id="app">
-    <div class="row">
+    <t-row>
         <t-col>12</t-col>
         <t-col>12</t-col>
-    </div>
-    <div class="row">
+    </t-row>
+    <t-row>
         <t-col span="5">5</t-col>
         <t-col span="19">19</t-col>
-    </div>
-    <div class="row">
+    </t-row>
+    <t-row>
         <t-col span="2">2</t-col>
         <t-col span="22">22</t-col>
-    </div>
-    <div class="row">
+    </t-row>
+    <t-row>
         <t-col span="2">2</t-col>
         <t-col span="19" offset="3">19</t-col>
-    </div>
+    </t-row>
 
     <div class="box">
         <t-input v-model="message"></t-input>

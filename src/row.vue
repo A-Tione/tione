@@ -1,13 +1,22 @@
 <template>
-    
+    <div class="row" :style="{marginLeft: -gutter/2+'px',marginRight: -gutter/2+'px'}">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "row"
+        name: "tioneRow",
+        props: {
+            gutter: {
+                type: Number,String
+            }
+        }
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .row {
+        display: flex;
+    }
 </style>
