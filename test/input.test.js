@@ -78,12 +78,11 @@ describe('Input', () => {
                 const callback = sinon.fake();
                 vm.$on(eventName, callback)
                 let event = new Event(eventName)
-                //将target中的value变为可枚举
-                Object.defineProperty(
+                Object.defineProperty(// 将target中的value变为可枚举，测试v-model双向绑定
                     event, 'target', {value: {value: 'hello'}, enumerable: true}
                 )
                 let inputElement = vm.$el.querySelector('input')
-                inputElement.dispatchEvent(event)
+                inputElement.dispatchEvent(event)// 向一个指定的事件目标派发事件
                 expect(callback).to.have.been.calledWith('hello')
             })
         });
