@@ -1,6 +1,11 @@
 <template>
-   <div class="col" :class="[span && `col-${span}`, offset && `offset-${offset}`]">
-       <slot></slot>
+   <div class="col"
+        :class="[span && `col-${span}`, offset && `offset-${offset}`]"
+        :style="{paddingLeft: gutter/2+'px',paddingRight: gutter/2+'px'}">
+       <div style="border: 1px solid green; height: 100px">
+           <slot></slot>
+       </div>
+
    </div>
 </template>
 
@@ -9,10 +14,15 @@
         name: "tioneCol",
         props: {
             span: {
-                type: String,Number,
+                type: [String,Number]
             },
             offset: {
-                type: String,Number
+                type: [String,Number]
+            },
+        },
+        data() {
+            return {
+                gutter: 0
             }
         }
     }
@@ -22,8 +32,8 @@
     .col {
         width: 50%;
         height: 100px;
-        background: orange;
-        border: 1px solid orangered;
+        /*background: orange;*/
+        /*border: 1px solid orangered;*/
         $class-prefix: col-;
         $class-offset: offset-;
         @for $in from 1 through 24 {

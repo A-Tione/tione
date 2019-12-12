@@ -9,8 +9,13 @@
         name: "tioneRow",
         props: {
             gutter: {
-                type: Number,String
+                type: [String,Number]
             }
+        },
+        mounted() {
+            this.$children.forEach((vm) => {
+                vm.gutter = this.gutter
+            })
         }
     }
 </script>
