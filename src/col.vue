@@ -41,7 +41,6 @@
 
 <style lang="scss" scoped>
     .col {
-        width: 50%;
         height: 100px;
         /*background: orange;*/
         /*border: 1px solid orangered;*/
