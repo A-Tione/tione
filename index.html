@@ -58,6 +58,7 @@
 
     <div class="box">
         <t-input v-model="message"></t-input>
+        <t-input @change="inputChange">change事件</t-input>
         <t-input value="龙五" disabled></t-input>
         <t-input value="九妹" readonly></t-input>
         <t-input value="老王" :error="'姓名不能少于2个字符'"></t-input>
