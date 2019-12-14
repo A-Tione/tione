@@ -98,7 +98,7 @@
                 margin-left: ($in / 24) * 100%;
             }
         }
-        @media (min-width: 577px) and (max-width: 768px) {
+        @media (min-width: 577px) {
             $class-prefix: col-ipad-;
             $class-offset: offset-ipad-;
             @for $in from 1 through 24 {
@@ -112,7 +112,7 @@
                 }
             }
         }
-        @media (min-width: 769px) and (max-width: 992px) {
+        @media (min-width: 769px) {
             $class-prefix: col-narrow-pc-;
             $class-offset: offset-narrow-pc-;
             @for $in from 1 through 24 {
@@ -126,7 +126,7 @@
                 }
             }
         }
-        @media (min-width: 993px) and (max-width: 1200px) {
+        @media (min-width: 993px)  {
             $class-prefix: col-pc-;
             $class-offset: offset-pc-;
             @for $in from 1 through 24 {

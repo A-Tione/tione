@@ -35,46 +35,37 @@
         .box {
             margin: 10px 0;
         }
+        .demo {
+            background: orange;
+            border: 1px solid orangered;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    <div style="border: 1px solid black;">
-        <t-row gutter="20">
-            <t-col span="24"
-                   :phone="{span:4}"
-                   :ipad="{span:8}"
-                   :narrow="{span:12}"
-                   :pc="{span:16}"
-                   :wide="{span:20}">
-                2
-            </t-col>
-            <t-col span="24"
-                   :phone="{span:20}"
-                   :ipad="{span:16}"
-                   :narrow="{span:12}"
-                   :pc="{span:8}"
-                   :wide="{span:4}">
-                20
-            </t-col>
-        </t-row>
-        <t-row gutter="20" align="center">
-            <t-col>12</t-col>
-            <t-col>12</t-col>
-        </t-row>
-        <t-row gutter="20">
-            <t-col span="5">5</t-col>
-            <t-col span="19">19</t-col>
-        </t-row>
-        <t-row>
-            <t-col span="2">2</t-col>
-            <t-col span="22">22</t-col>
-        </t-row>
-        <t-row>
-            <t-col span="2">2</t-col>
-            <t-col span="19" offset="3">19</t-col>
-        </t-row>
-    </div>
+    <t-row>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+        <t-col span="24" :narrow="{span:8}">
+            <div class="demo"></div>
+        </t-col>
+
+    </t-row>
+
 
 
     <div class="box">
