@@ -45,24 +45,13 @@
         computed: {
             colClass() {
                 let {span, offset, ipad, narrow, pc, wide} = this
-                console.log(this)
-                console.log(
-                    [
-                        span && `col-${span}`,
-                        offset && `offset-${offset}`,
-                        ipad && `col-ipad-${ipad.span}`,
-                        narrow && `col-narrow-pc-${narrow.span}`,
-                        pc && `col-pc-${pc.span}`,
-                        wide && `col-wide-pc-${wide.span}`
-                    ]
-                )
+                let creteClasses = this.creteClasses
                 return [
-                    span && `col-${span}`,
-                    offset && `offset-${offset}`,
-                    ipad && `col-ipad-${ipad.span}`,
-                    narrow && `col-narrow-pc-${narrow.span}`,
-                    pc && `col-pc-${pc.span}`,
-                    wide && `col-wide-pc-${wide.span}`
+                    ...creteClasses({span, offset}),
+                    ...creteClasses(ipad, 'ipad-'),
+                    ...creteClasses(narrow, 'narrow-pc-'),
+                    ...creteClasses(pc, 'pc-'),
+                    ...creteClasses(wide, 'wide-pc-'),
                 ]
             },
             colStyle() {
@@ -76,6 +65,19 @@
         data() {
             return {
                 gutter: 0,
+            }
+        },
+        methods: {
+            creteClasses (obj, str = '') {
+                if (!obj) {return []}
+                let array = []
+                if (obj.span) {
+                    array.push(`col-${str}${obj.span}`)
+                }
+                if (obj.offset) {
+                    array.push(`offset-${str}${obj.offset}`)
+                }
+                return array
             }
         }
     }
