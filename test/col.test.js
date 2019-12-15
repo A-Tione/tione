@@ -1,55 +1,109 @@
 const expect = chai.expect;
 import Vue from 'vue'
-import Row from '../src/row'
 import Col from '../src/col'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
 
-describe('Row', () => {
+describe('Col', () => {
 
     it('存在.', () => {
-        expect(Row).to.exist
+        expect(Col).to.exist
     })
-    it('接收 gutter 属性.', (done) => {
-        Vue.component('g-row', Row)
-        Vue.component('g-col', Col)
+    it('接收 span 属性', () => {
         const div = document.createElement('div')
         document.body.appendChild(div)
-        div.innerHTML = `
-      <g-row gutter="20">
-        <g-col span="12"></g-col>
-        <g-col span="12"></g-col>
-      </g-row>
-    `
-        const vm = new Vue({
-            el: div
-        })
-        setTimeout(() => {
-            const row = vm.$el.querySelector('.row')
-            expect(getComputedStyle(row).marginLeft).to.eq('-10px')
-            expect(getComputedStyle(row).marginRight).to.eq('-10px')
-            const cols = vm.$el.querySelectorAll('.col')
-            expect(getComputedStyle(cols[0]).paddingRight).to.eq('10px')
-            expect(getComputedStyle(cols[1]).paddingLeft).to.eq('10px')
-            done()
-            vm.$el.remove()
-            vm.$destroy()
-        })
-    })
-    it('接收 align 属性', () => {
-        const div = document.createElement('div')
-        document.body.appendChild(div)
-        const Constructor = Vue.extend(Row)
+        const Constructor = Vue.extend(Col)
         const vm = new Constructor({
             propsData: {
-                align: 'right'
+                span: 1
             }
         }).$mount(div)
         const element = vm.$el
-        expect(getComputedStyle(element).justifyContent).to.equal('flex-end')
+        expect(element.classList.contains('col-1')).to.eq(true)
         div.remove()
         vm.$destroy()
     })
+    it('接收 offset 属性', () => {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const Constructor = Vue.extend(Col)
+        const vm = new Constructor({
+            propsData: {
+                offset: 1
+            }
+        }).$mount(div)
+        const element = vm.$el
+        expect(element.classList.contains('offset-1')).to.eq(true)
+        div.remove()
+        vm.$destroy()
+    })
+    it('接收 pc 属性', () => {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const Constructor = Vue.extend(Col)
+        const vm = new Constructor({
+            propsData: {
+                pc: {span: 1, offset: 2}
+            }
+        }).$mount(div)
+        const element = vm.$el
+        expect(element.classList.contains('col-pc-1')).to.eq(true)
+        expect(element.classList.contains('offset-pc-2')).to.eq(true)
+        div.remove()
+        vm.$destroy()
+    })
+    it('接收 ipad 属性', () => {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const Constructor = Vue.extend(Col)
+        const vm = new Constructor({
+            propsData: {
+                ipad: {span: 1, offset: 2}
+            }
+        }).$mount(div)
+        const element = vm.$el
+        expect(element.classList.contains('col-ipad-1')).to.eq(true)
+        expect(element.classList.contains('offset-ipad-2')).to.eq(true)
+        div.remove()
+        vm.$destroy()
+    })
+    it('接收 narrow-pv 属性', () => {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const Constructor = Vue.extend(Col)
+        const vm = new Constructor({
+            propsData: {
+                narrow: {
+                    span: 1,
+                    offset: 20
+                }
+            }
+        }).$mount(div)
+        const element = vm.$el
+        expect(element.classList.contains('col-narrow-pc-1')).to.eq(true)
+        expect(element.classList.contains('offset-narrow-pc-20')).to.eq(true)
+        div.remove()
+        vm.$destroy()
+    })
+    it('接收 wide 属性', () => {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const Constructor = Vue.extend(Col)
+        const vm = new Constructor({
+            propsData: {
+                wide: {
+                    span: 2,
+                    offset: 16
+                }
+            }
+        }).$mount(div)
+        const element = vm.$el
+        expect(element.classList.contains('col-wide-pc-2')).to.eq(true)
+        expect(element.classList.contains('offset-wide-pc-16')).to.eq(true)
+        div.remove()
+        vm.$destroy()
+    });
+
 
 })
