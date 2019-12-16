@@ -33,17 +33,28 @@
             border: 1px solid orangered;
             min-height: 100px;
         }
+        .sider {
+            background: #333;
+            width: 200px;
+        }
+        .header {
+            background: #999;
+            height: 100px;
+        }
+        .footer {
+            background: #ccc;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
     <t-layout style="height: 100vh;">
-        <t-sider class="demo">sider</t-sider>
-
+        <t-sider>sider</t-sider>
         <t-layout>
-            <t-header class="demo">header</t-header>
-            <t-content class="demo">content</t-content>
-            <t-footer class="demo">footer</t-footer>
+            <t-header>header</t-header>
+            <t-content>content</t-content>
+            <t-footer>footer</t-footer>
         </t-layout>
     </t-layout>
 </div>
