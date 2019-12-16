@@ -12,6 +12,7 @@ describe('Row', () => {
         expect(Row).to.exist
     })
     it('接收 gutter 属性.', (done) => {
+        //如果不加done 默认测试代码都是同步的，顺序执行完成后，直接关闭测试用例。 异步：加done，在异步执行完成结尾处调用done 表示完成
         Vue.component('t-row', Row)
         Vue.component('t-col', Col)
         const div = document.createElement('div')
