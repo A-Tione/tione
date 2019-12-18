@@ -17,7 +17,6 @@
         },
 
         mounted() {
-            console.log(this.$children)
             this.$children.forEach(vm => {
                 if (vm.$options.name === 'tSider') {
                     this.layoutClass.hasSider = true
