@@ -33,12 +33,21 @@ new Vue({
         loading1: false,
         loading2: false,
         loading3: true,
-        message: 'hello'
+    },
+
+    created() {
+       this.$toast('hello',{
+               text:'知道了',
+               callback(toast) {  // 可以接受组件回传来的某些重要的功能
+                   console.log(toast.log());
+                   console.log('用户知道了');
+               }
+           })
     },
 
     methods: {
-        clickToast(e) {
-            this.$toast(e)
+        clickToast() {
+
         }
     }
 });
