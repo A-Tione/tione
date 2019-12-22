@@ -36,13 +36,11 @@ new Vue({
     },
 
     created() {
-       this.$toast('hello',{
-               text:'知道了',
-               callback(toast) {  // 可以接受组件回传来的某些重要的功能
-                   console.log(toast.log());
-                   console.log('用户知道了');
-               }
-           })
+       this.$toast('代开',{
+           text:'关闭',
+           enableHtml: true,
+
+       })
     },
 
     methods: {
