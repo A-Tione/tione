@@ -69,6 +69,7 @@
             },
             close() {
                 this.$el.remove() //删掉当前组件DOM节点
+                this.$emit('close')
                 this.$destroy()
             },
             onClickClose() {
