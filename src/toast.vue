@@ -31,7 +31,7 @@
                 type: Object,
                 default() {
                     return {
-                        text:'关闭',
+                        text: '关闭',
                         callback: undefined
                     }
                 }
@@ -66,7 +66,7 @@
                 if (this.autoClose) {
                     setTimeout(() => {
                         this.close()
-                    },this.autoCloseDelay * 1000)
+                    }, this.autoCloseDelay * 1000)
                 }
             },
             close() {
@@ -87,7 +87,7 @@
 <style lang="scss" scoped>
     $font-size: 14px;
     $height: 40px;
-    $toast-bg: rgba(0,0,0,0.75);
+    $toast-bg: rgba(0, 0, 0, 0.75);
     $animation-duration: .5s;
     @keyframes fade-top {
         0% {
@@ -133,7 +133,6 @@
             top: 40%;
             .toast {
                 animation: fade-middle $animation-duration;
-
             }
         }
         &.bottom {
@@ -155,7 +154,7 @@
         color: #fff;
         padding: 0 16px;
         border-radius: 4px;
-        box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
         .messages {
             padding: 8px 0;
         }
