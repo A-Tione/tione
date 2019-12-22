@@ -13,7 +13,7 @@ export default {
                 message,
                 propsData: toastOptions,
                 onClose: () => {
-                    currentToast.close()
+                    currentToast = null
                 }})
         }
     }
@@ -25,7 +25,7 @@ function createToast({Vue, message,propsData, onClose}) {
     let toast = new Construtor({propsData})
     toast.$slots.default = [message]
     toast.$mount()
-    toast.$on('close')
+    toast.$on('close', onClose)
     document.body.appendChild(toast.$el)
     return toast
 }
