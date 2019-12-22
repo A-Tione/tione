@@ -1,13 +1,15 @@
 <template>
-    <div class="toast" :class="position">
-        <div class="messages" ref="wrapper">
-            <div v-if="enableHtml" v-html="$slots.default[0]"></div>
-            <slot v-if="!enableHtml"></slot>
+    <div class="box" :class="position">
+        <div class="toast">
+            <div class="messages" ref="wrapper">
+                <div v-if="enableHtml" v-html="$slots.default[0]"></div>
+                <slot v-if="!enableHtml"></slot>
+            </div>
+            <div class="line" ref="line"></div>
+            <span class="box-border" v-if="closeButton" @click="onClickClose">
+                {{closeButton.text}}
+            </span>
         </div>
-        <div class="line" ref="line"></div>
-        <span class="box-border" v-if="closeButton" @click="onClickClose">
-            {{closeButton.text}}
-        </span>
     </div>
 </template>
 
@@ -86,7 +88,26 @@
     $font-size: 14px;
     $height: 40px;
     $toast-bg: rgba(0,0,0,0.75);
-    @keyframes fade-in {
+    $animation-duration: .5s;
+    @keyframes fade-top {
+        0% {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0%)
+        }
+    }
+    @keyframes fade-middle {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes fade-bottom {
         0% {
             opacity: 0;
             transform: translateY(100%);
@@ -96,10 +117,35 @@
             transform: translateY(0%)
         }
     }
-    .toast {
-        animation: fade-in .5s;
+    .box {
         position: fixed;
         left: 50%;
+        transform: translateX(-50%);
+        &.top {
+            top: 0;
+            .toast {
+                animation: fade-top $animation-duration;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+        &.middle {
+            top: 40%;
+            .toast {
+                animation: fade-middle $animation-durations;
+
+            }
+        }
+        &.bottom {
+            bottom: 0;
+            .toast {
+                animation: fade-bottom $animation-duration;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+    .toast {
         display: flex;
         align-items: center;
         font-size: $font-size;
@@ -110,17 +156,6 @@
         padding: 0 16px;
         border-radius: 4px;
         box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
-        transform: translateX(-50%);
-        &.top {
-            top: 0;
-        }
-        &.middle {
-            top: 40%;
-            transform: translateY(-50%);
-        }
-        &.bottom {
-            bottom: 0;
-        }
         .messages {
             padding: 8px 0;
         }

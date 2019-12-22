@@ -39,12 +39,28 @@ new Vue({
     },
 
     methods: {
-        clickToast() {
-            this.$toast('充值',{
+        clickToast1(text) {
+            this.$toast(text,{
+                text:'关闭',
+                enableHtml: false,
+                position: 'top',
+                autoClose: false
+            })
+        },
+        clickToast2(text) {
+            this.$toast(text,{
                 text:'关闭',
                 enableHtml: false,
                 position: 'middle',
-                autoClose: true
+                autoClose: false
+            })
+        },
+        clickToast3(text) {
+            this.$toast(text,{
+                text:'关闭',
+                enableHtml: false,
+                position: 'bottom',
+                autoClose: false
             })
         }
     }
