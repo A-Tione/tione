@@ -17,15 +17,12 @@
     export default {
         name: "tToast",
         props: {
-            autoClose: { //是否自动关闭弹框
-                type: Boolean,
-                default() {
-                    return true;
+            autoClose: { // 是否自动关闭弹框
+                type: [Boolean, Number],
+                default: 2,
+                validator(value) {
+                    return value === false || typeof value === 'number'
                 }
-            },
-            autoCloseDelay: {
-                type: Number,
-                default: 2
             },
             closeButton: {
                 type: Object,
@@ -36,7 +33,7 @@
                     }
                 }
             },
-            enableHtml: {  //默认不开启传html
+            enableHtml: {  // 默认不开启传html
                 type: Boolean,
                 default: false
             },
@@ -66,7 +63,7 @@
                 if (this.autoClose) {
                     setTimeout(() => {
                         this.close()
-                    }, this.autoCloseDelay * 1000)
+                    }, this.autoClose * 1000)
                 }
             },
             close() {
