@@ -36,17 +36,16 @@ new Vue({
     },
 
     created() {
-       this.$toast('代开',{
-           text:'关闭',
-           enableHtml: false,
-           position: 'middle',
-           autoClose: false
-       })
     },
 
     methods: {
         clickToast() {
-
+            this.$toast('充值',{
+                text:'关闭',
+                enableHtml: false,
+                position: 'middle',
+                autoClose: true
+            })
         }
     }
 });
