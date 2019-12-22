@@ -1,5 +1,5 @@
 <template>
-    <div class="toast">
+    <div class="toast" :class="position">
         <div class="messages" ref="wrapper">
             <div v-if="enableHtml" v-html="$slots.default[0]"></div>
             <slot v-if="!enableHtml"></slot>
@@ -15,7 +15,7 @@
     export default {
         name: "tToast",
         props: {
-            autoClose: {
+            autoClose: { //是否自动关闭弹框
                 type: Boolean,
                 default() {
                     return true;
@@ -38,10 +38,13 @@
                 type: Boolean,
                 default: false
             },
-        },
-
-        created() {
-
+            position: {
+                type: String,
+                default: 'top',
+                validator(value) {
+                    return ['top', 'middle', 'bottom'].indexOf(value) >= 0
+                }
+            }
         },
 
         mounted() {
@@ -61,7 +64,7 @@
                 if (this.autoClose) {
                     setTimeout(() => {
                         this.close()
-                    },this.autoCloseDelay * 100000)
+                    },this.autoCloseDelay * 1000)
                 }
             },
             close() {
@@ -74,9 +77,6 @@
                     this.closeButton.callback(this) // this === toast实例
                 }
             },
-            log() {
-                console.log('测试');
-            }
         }
     }
 </script>
@@ -87,7 +87,6 @@
     $toast-bg: rgba(0,0,0,0.75);
     .toast {
         position: fixed;
-        top: 0;
         left: 50%;
         display: flex;
         align-items: center;
@@ -100,6 +99,16 @@
         border-radius: 4px;
         box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
         transform: translateX(-50%);
+        &.top {
+            top: 0;
+        }
+        &.middle {
+            top: 40%;
+            transform: translateY(-50%);
+        }
+        &.bottom {
+            bottom: 0;
+        }
         .messages {
             padding: 8px 0;
         }

@@ -38,8 +38,9 @@ new Vue({
     created() {
        this.$toast('代开',{
            text:'关闭',
-           enableHtml: true,
-
+           enableHtml: false,
+           position: 'middle',
+           autoClose: false
        })
     },
 
