@@ -132,7 +132,7 @@
         &.middle {
             top: 40%;
             .toast {
-                animation: fade-middle $animation-durations;
+                animation: fade-middle $animation-duration;
 
             }
         }
