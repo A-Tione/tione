@@ -41,10 +41,10 @@ new Vue({
     methods: {
         clickToast1(text) {
             this.$toast(text,{
-                text:'关闭',
+
                 enableHtml: false,
                 position: 'top',
-                autoClose: false
+                autoClose: 2
             })
         },
         clickToast2(text) {

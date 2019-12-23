@@ -26,7 +26,7 @@ describe('Toast', () => {
         })
     })
 
-    it('接受 closeButton 属性', function () {
+    it('接受 closeButton 属性', function (done) {
         const callback = sinon.fake()
         const Constructor = Vue.extend(Toast)
         const vm = new Constructor({
@@ -39,8 +39,11 @@ describe('Toast', () => {
         }).$mount()
         let closeButton = vm.$el.querySelector('.box-border')
         expect(closeButton.textContent.trim()).to.eq('关闭来')
-        closeButton.click()
-        expect(callback).to.have.been.called // 期待至少被点击一次
+        setTimeout(() => {
+            closeButton.click()
+            expect(callback).to.have.been.called // 期待至少被点击一次
+            done()
+        }, 200) // 用户点击不会那么快，需延迟200毫秒，不延迟会有警告
     });
 
     it('接受 enbleHtml', function () {
