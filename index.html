@@ -49,9 +49,35 @@
 </head>
 <body>
 <div id="app">
-    <button @click="clickToast1('上面')">上面</button>
-    <button @click="clickToast2('中间')">中间</button>
-    <button @click="clickToast3('下面下面')">下面下面</button>
+    <t-tabs :selected.sync="selectedTab" direction>
+        <t-tabs-head>
+            <template slot="actions">
+                <div>设置</div>
+            </template>
+            <t-tabs-item name="woman">
+                <t-icon name="settings"></t-icon>
+                美女
+            </t-tabs-item>
+            <t-tabs-item name="finance" disabled>
+                财经
+            </t-tabs-item>
+            <t-tabs-item name="sports">
+                体育
+            </t-tabs-item>
+        </t-tabs-head>
+        <t-tabs-body>
+            <t-tabs-pane name="woman">
+                美女相关资讯
+            </t-tabs-pane>
+            <t-tabs-pane name="finance">
+                财经相关资讯
+            </t-tabs-pane>
+            <t-tabs-pane name="sports">
+                体育相关资讯
+            </t-tabs-pane>
+        </t-tabs-body>
+
+    </t-tabs>
 </div>
 
 <script src="./src/app.js"></script>

@@ -12,6 +12,11 @@ import tContent from './content'
 import tFooter from './footer'
 import tToast from './toast'
 import tPlugin from './plugin'
+import tTabs from './tabs'
+import tTabsHead from './tabs-head'
+import tTabsBody from './tabs-body'
+import tTabsItem from './tabs-item'
+import tTabsPane from './tabs-pane'
 
 Vue.use(tPlugin)
 Vue.component('t-button', tButton)
@@ -26,43 +31,23 @@ Vue.component('t-header', tHeader)
 Vue.component('t-content', tContent)
 Vue.component('t-footer', tFooter)
 Vue.component('t-toast', tToast)
+Vue.component('t-tabs', tTabs)
+Vue.component('t-tabs-head', tTabsHead)
+Vue.component('t-tabs-body', tTabsBody)
+Vue.component('t-tabs-item', tTabsItem)
+Vue.component('t-tabs-pane', tTabsPane)
 
 new Vue({
     el: '#app',
     data: {
-        loading1: false,
-        loading2: false,
-        loading3: true,
+        selectedTab: 'sports', //体育
     },
 
     created() {
     },
 
     methods: {
-        clickToast1(text) {
-            this.$toast(text,{
 
-                enableHtml: false,
-                position: 'top',
-                autoClose: 2
-            })
-        },
-        clickToast2(text) {
-            this.$toast(text,{
-                text:'关闭',
-                enableHtml: false,
-                position: 'middle',
-                autoClose: false
-            })
-        },
-        clickToast3(text) {
-            this.$toast(text,{
-                text:'关闭',
-                enableHtml: false,
-                position: 'bottom',
-                autoClose: false
-            })
-        }
     }
 });
 
