@@ -6,7 +6,11 @@
 
 <script>
     export default {
-        name: "tTabsBody"
+        name: "tTabsBody",
+        inject: ['eventBus'], // 注入
+
+        created() {
+        }
     }
 </script>
 

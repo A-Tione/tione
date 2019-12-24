@@ -5,6 +5,8 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+
     export default {
         name: "tTabs",
         props: {
@@ -22,6 +24,16 @@
                     return ['horizontal', 'vertical'].indexOf(value) >= 0
                 }
 
+            }
+        },
+        data() {
+            return {
+                eventBus: new Vue()
+            }
+        },
+        provide() { // 依赖
+            return {
+                eventBus: this.eventBus
             }
         },
 

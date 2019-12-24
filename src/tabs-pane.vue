@@ -6,7 +6,18 @@
 
 <script>
     export default {
-        name: "tTabsPane"
+        name: "tTabsPane",
+        inject: ['eventBus'], // 注入
+
+        created() {
+            this.eventBus.$on('update:selected', (name) => {
+                console.log(name);
+            })
+        },
+
+        methods: {
+
+        },
     }
 </script>
 
