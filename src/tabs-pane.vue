@@ -9,9 +9,22 @@
         name: "tTabsPane",
         inject: ['eventBus'], // 注入
 
-        created() {
+        props: {
+            name: {
+                type: [String,Number],
+                required: true
+            }
+        },
+
+        data() {
+            return {
+                active: false,
+            }
+        },
+
+        mounted() {
             this.eventBus.$on('update:selected', (name) => {
-                console.log(name);
+                this.active = name === this.name
             })
         },
 

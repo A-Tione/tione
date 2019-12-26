@@ -9,6 +9,12 @@
         name: "tTabsItem",
         inject: ['eventBus'], // 注入
 
+        data() {
+            return {
+                active: false,
+            }
+        },
+
         props: {
             disabled: {
                 type: Boolean,
@@ -20,9 +26,9 @@
             }
         },
 
-        created() {
+        mounted() {
             this.eventBus.$on('update:selected', (name) => {
-                console.log(name);
+                this.active = name === this.name
             })
         },
 
