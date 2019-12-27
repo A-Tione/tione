@@ -1,6 +1,8 @@
 <template>
     <div class="tabs-pane">
-        <slot></slot>
+        <div v-if="active" :class="activeClass">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -22,6 +24,14 @@
             }
         },
 
+        computed: {
+            activeClass() {
+                return {
+                    active: this.active
+                }
+            }
+        },
+
         mounted() {
             this.eventBus.$on('update:selected', (name) => {
                 this.active = name === this.name
@@ -36,6 +46,8 @@
 
 <style lang="scss" scoped>
     .tabs-pane {
-
+        .active {
+            background: red;
+        }
     }
 </style>

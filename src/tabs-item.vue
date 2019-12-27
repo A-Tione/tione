@@ -1,6 +1,8 @@
 <template>
     <div class="tabs-item" @click="xxx">
-        <slot></slot>
+        <div class="item-box" :class="activeClass">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -26,8 +28,17 @@
             }
         },
 
+        computed: {
+            activeClass() {
+                return {
+                    active: this.active
+                }
+            }
+        },
+
         mounted() {
             this.eventBus.$on('update:selected', (name) => {
+                console.log(name,'收到name',this.name);
                 this.active = name === this.name
             })
         },
@@ -42,6 +53,16 @@
 
 <style lang="scss" scoped>
     .tabs-item {
+        padding: 0 1em;
+        cursor: pointer;
+        .item-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .active {
+            background: red;
+        }
 
     }
 </style>
