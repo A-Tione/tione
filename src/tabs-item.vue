@@ -38,7 +38,6 @@
 
         mounted() {
             this.eventBus.$on('update:selected', (name) => {
-                console.log(name,'收到name',this.name);
                 this.active = name === this.name
             })
         },
