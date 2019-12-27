@@ -1,6 +1,6 @@
 <template>
-    <div class="tabs-item" @click="xxx">
-        <div class="item-box" :class="activeClass">
+    <div class="tabs-item" :class="activeClass" @click="xxx">
+        <div class="item-box">
             <slot></slot>
         </div>
     </div>
@@ -51,6 +51,7 @@
 </script>
 
 <style lang="scss" scoped>
+    $blue: blue;
     .tabs-item {
         display: flex;
         justify-content: center;
@@ -59,13 +60,15 @@
         padding: 0 1em;
         cursor: pointer;
         border: 1px solid green;
+        &.active {
+            color: $blue;
+            font-weight: bold;
+            background: red;
+        }
         .item-box {
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .active {
-            background: red;
         }
 
     }
