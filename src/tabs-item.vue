@@ -52,8 +52,13 @@
 
 <style lang="scss" scoped>
     .tabs-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
         padding: 0 1em;
         cursor: pointer;
+        border: 1px solid green;
         .item-box {
             display: flex;
             justify-content: center;
