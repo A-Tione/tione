@@ -39,6 +39,7 @@
         justify-content: flex-start;
         align-items: center;
         margin: 4px 0;
+        border-bottom: 1px solid #ddd;
         .line {
             position: absolute;
             bottom: 0;
@@ -47,6 +48,7 @@
         }
         .right {
             margin-left: auto;
+            padding-right: 1em;
         }
 
     }
