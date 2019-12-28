@@ -1,7 +1,7 @@
 <template>
     <div class="tabs-head">
         <slot></slot>
-        <div class="line" ref="line"></div>
+        <div v-show="xxxx" class="line" ref="line"></div>
         <div class="right">
             <slot name="actions"></slot>
         </div>
@@ -13,10 +13,18 @@
         name: "tTabsHead",
         inject: ['eventBus'], // 注入
 
-        created() {
+        data() {
+            return {
+                xxxx: false
+            }
+        },
+
+        mounted() {
             this.eventBus.$on('update:selected', (item,vm) => {
-                // console.log(item);
-                // console.log(vm);
+                this.xxxx = true
+                let {height, width, top, left} = vm.$el.getBoundingClientRect()  // 获取元素宽高上左
+                this.$refs.line.style.width = `${width}px`
+                this.$refs.line.style.transform = `translateX(${left}px)`
             })
         }
     }
@@ -30,13 +38,12 @@
         height: $tab-height;
         justify-content: flex-start;
         align-items: center;
-        border: 1px solid orange;
-        margin: 4px ;
+        margin: 4px 0;
         .line {
             position: absolute;
             bottom: 0;
-            width: 100px;
             border-bottom: 1px solid black;
+            transition: all .3s;
         }
         .right {
             margin-left: auto;

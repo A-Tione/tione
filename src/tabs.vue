@@ -40,9 +40,9 @@
         mounted() {
             this.$children.forEach(vm => { // 初始化item，找到item在组件中的位置
                 if (vm.$options.name === 'tTabsHead') {
-                    vm.$children.forEach(item => {
-                        if (item.$options.name === 'tTabsItem' && item.name === this.selected) {
-                            this.eventBus.$emit('update:selected', this.selected, item)
+                    vm.$children.forEach(childVm => {
+                        if (childVm.$options.name === 'tTabsItem' && childVm.name === this.selected) {
+                            this.eventBus.$emit('update:selected', this.selected, childVm)
                         }
                     })
                 }
