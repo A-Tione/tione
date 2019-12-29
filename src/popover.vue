@@ -1,6 +1,6 @@
 <template>
-    <div class="popover" @click="xxx">
-        <div v-if="visible" class="content-wrapper">
+    <div class="popover" @click.stop="xxx">
+        <div v-if="visible" class="content-wrapper" @click.stop>
             <slot name="content"></slot>
         </div>
        <slot></slot>
@@ -27,6 +27,15 @@
         methods: {
             xxx() {
                 this.visible = !this.visible
+                if (this.visible) {
+                    setTimeout(() => {
+                        let x = () => {
+                            this.visible = false
+                            document.removeEventListener('click', x)
+                        }
+                        document.addEventListener('click', x)
+                    })
+                }
             },
         }
     }
