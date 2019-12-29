@@ -29,14 +29,19 @@
             font-size: var(--font-size);
         }
         #app {
-            margin: 10em;
-
+            padding: 100px;
         }
 
     </style>
 </head>
 <body>
 <div id="app">
+    <t-popover>
+        <template slot="content">
+            <div>内容</div>
+        </template>
+            <button>第一种</button>
+    </t-popover>
     <t-popover>
         <template slot="content">
             <div>内容</div>

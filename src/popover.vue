@@ -39,9 +39,9 @@
         position: relative;
         .content-wrapper {
             position: absolute;
-            bottom: 1000%;
+            bottom: 100%;
             left: 0;
-            background: red;
+            border: 1px solid red;
             box-shadow: 0 0 3px 0 #666666;
 
         }
