@@ -28,56 +28,21 @@
         body {
             font-size: var(--font-size);
         }
+        #app {
+            margin: 10em;
 
-        .demo {
-            border: 1px solid orangered;
-            min-height: 100px;
         }
-        .sider {
-            background: #333;
-            width: 200px;
-        }
-        .header {
-            background: #999;
-            height: 100px;
-        }
-        .footer {
-            background: #ccc;
-            height: 50px;
-        }
+
     </style>
 </head>
 <body>
 <div id="app">
-    <t-tabs :selected.sync="selectedTab" selected="sports">
-        <t-tabs-head>
-            <template slot="actions">
-                <div>设置</div>
-            </template>
-            <t-tabs-item name="woman" disabled>
-                <t-icon name="settings"></t-icon>
-                美女
-            </t-tabs-item>
-            <t-tabs-item name="finance">
-                财经
-            </t-tabs-item>
-            <t-tabs-item name="sports">
-                体育
-            </t-tabs-item>
-        </t-tabs-head>
-        <t-tabs-body>
-            <t-tabs-pane name="woman">
-                美女相关资讯
-            </t-tabs-pane>
-            <t-tabs-pane name="finance">
-                财经相关资讯
-            </t-tabs-pane>
-            <t-tabs-pane name="sports">
-                体育相关资讯
-            </t-tabs-pane>
-        </t-tabs-body>
-
-    </t-tabs>
+    <t-popover>
+        <template slot="content">
+            <div>内容</div>
+        </template>
+            <button>第一种</button>
+    </t-popover>
 </div>
 
 <script src="./src/app.js"></script>
