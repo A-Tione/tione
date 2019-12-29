@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs-item" :class="activeClass" @click="onClick">
+    <div class="tabs-item" :class="activeClass" :data-name="name" @click="onClick">
         <div class="item-box">
             <slot></slot>
         </div>
@@ -38,15 +38,18 @@
         },
 
         mounted() {
-            this.eventBus.$on('update:selected', (name) => {
-                this.active = name === this.name
-            })
+            if (this.eventBus) {
+                this.eventBus.$on('update:selected', (name) => {
+                    this.active = name === this.name
+                })
+            }
         },
 
         methods: {
             onClick() {
                 if (!this.disabled) {
-                    this.eventBus.$emit('update:selected', this.name, this)
+                    this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
+                    this.$emit('click', this)
                 }
             }
         }
