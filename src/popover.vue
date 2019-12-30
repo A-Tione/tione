@@ -3,7 +3,8 @@
         <div v-if="visible" ref="contentWrapper" class="content-wrapper">
             <slot name="content"></slot>
         </div>
-        <span ref="triggerWrapper">
+        <!-- span标签增加display: inline-block; 解决包裹元素高度一致的问题 -->
+        <span ref="triggerWrapper" style="display: inline-block;">
             <slot></slot>
         </span>
     </div>
@@ -33,8 +34,6 @@
                 this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
             },
             onClickDocument(e) { // 如果点击在popover 则让popover自己去处理，document不管
-                if (this.$refs.popover
-                    && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {return}
                 if (this.$refs.contentWrapper && this.$refs.contentWrapper.contains(e.target)) {return}
                 this.close()
             },
@@ -63,6 +62,8 @@
 </script>
 
 <style lang="scss" scoped>
+    $border-color: #ddd;
+    $border-radius: 4px;
     .popover {
         position: relative;
         display: inline-block;
@@ -70,9 +71,26 @@
     }
     .content-wrapper {
         position: absolute;
+        padding: .5em 1em;
+        margin-top: -10px;
+        background: white;
         transform: translateY(-100%);
-        border: 1px solid red;
-        box-shadow: 0 0 3px 0 #666666;
-
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        /*box-shadow: 0 0 1 px rgba(0, 0, 0, 0.5);*/
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5)); // 伪类增加阴影，兼容性差IE、Opera Mini不支持
+        max-width: 20em;
+        word-wrap: break-word;
+        &::before {
+            content: '';
+            display: block;
+            border: 10px solid transparent;
+            border-top-color: white;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 10px;
+            top: 100%;
+        }
     }
 </style>
