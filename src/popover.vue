@@ -1,6 +1,6 @@
 <template>
     <div ref="popover" class="popover" @click="onClick">
-        <div v-if=" visible" ref="contentWrapper" class="content-wrapper">
+        <div v-if="visible" ref="contentWrapper" class="content-wrapper">
             <slot name="content"></slot>
         </div>
         <span ref="triggerWrapper">
@@ -29,12 +29,13 @@
             positionContent() {
                 document.body.appendChild(this.$refs.contentWrapper)
                 let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
-                this.$refs.contentWrapper.style.left = left+ window.scrollX + 'px'
+                this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
                 this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
             },
             onClickDocument(e) { // 如果点击在popover 则让popover自己去处理，document不管
                 if (this.$refs.popover
-                    && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) { return }
+                    && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {return}
+                if (this.$refs.contentWrapper && this.$refs.contentWrapper.contains(e.target)) {return}
                 this.close()
             },
             open() {
