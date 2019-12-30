@@ -23,7 +23,6 @@
                 validator(value) {
                     return ['horizontal', 'vertical'].indexOf(value) >= 0
                 }
-
             }
         },
         data() {
@@ -38,18 +37,27 @@
         },
 
         mounted() {
-            if (this.$children.length === 0) {
-                console && console.warn && console.warn('tabs没有子组件，应该有tabs-head和tabs-tabs-body')
-            }
-            this.$children.forEach(vm => { // 初始化item，找到item在组件中的位置
-                if (vm.$options.name === 'tTabsHead') {
-                    vm.$children.forEach(childVm => {
-                        if (childVm.$options.name === 'tTabsItem' && childVm.name === this.selected) {
-                            this.eventBus.$emit('update:selected', this.selected, childVm)
-                        }
-                    })
+            this.checkChildren()
+            this.selectTab()
+        },
+
+        methods: {
+            checkChildren() {
+                if (this.$children.length === 0) {
+                    console && console.warn && console.warn('tabs没有子组件，应该有tabs-head和tabs-tabs-body')
                 }
-            })
+            },
+            selectTab() {
+                this.$children.forEach(vm => { // 初始化item，找到item在组件中的位置
+                    if (vm.$options.name === 'tTabsHead') {
+                        vm.$children.forEach(childVm => {
+                            if (childVm.$options.name === 'tTabsItem' && childVm.name === this.selected) {
+                                this.eventBus.$emit('update:selected', this.selected, childVm)
+                            }
+                        })
+                    }
+                })
+            }
         }
     }
 </script>
