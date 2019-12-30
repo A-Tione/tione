@@ -38,20 +38,27 @@
             positionContent() {
                 document.body.appendChild(this.$refs.contentWrapper)
                 const {contentWrapper,triggerWrapper} = this.$refs
-                let {width, height, top, left} = triggerWrapper.getBoundingClientRect()
-                if (this.position === 'top') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
-                } else if (this.position === 'bottom') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + height + window.scrollY + 'px'
-                } else if (this.position === 'left') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + window.scrollY + 'px'
-                } else if (this.position === 'right') {
-                    contentWrapper.style.left = left+ width + window.scrollX + 'px'
-                    contentWrapper.style.top = top + window.scrollY + 'px'
+                const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
+                let x = {
+                    top: {
+                        top: top + window.scrollY,
+                        left: left + window.scrollX,
+                    },
+                    bottom: {
+                        top: top + height + window.scrollY,
+                        left: left + window.scrollX,
+                    },
+                    left: {
+                        top: top + window.scrollY,
+                        left: left + window.scrollX,
+                    },
+                    right: {
+                        top: top + window.scrollY,
+                        left: left+ width + window.scrollX,
+                    },
                 }
+                contentWrapper.style.left = x[this.position].left + 'px'
+                contentWrapper.style.top = x[this.position].top + 'px'
             },
             onClickDocument(e) { // 如果点击在popover 则让popover自己去处理，document不管
                 if (this.$refs.contentWrapper && this.$refs.contentWrapper.contains(e.target)) {return}
