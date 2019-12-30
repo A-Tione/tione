@@ -32,7 +32,7 @@
                 this.$refs.contentWrapper.style.left = left+ window.scrollX + 'px'
                 this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
             },
-            onClickDocument(e) { // 如果点击在popover 则让onClick自己去处理，document不管
+            onClickDocument(e) { // 如果点击在popover 则让popover自己去处理，document不管
                 if (this.$refs.popover
                     && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) { return }
                 this.close()
