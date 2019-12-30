@@ -1,5 +1,5 @@
 <template>
-    <div ref="popover" class="popover" @click="onClick">
+    <div ref="popover" class="popover">
         <div v-if="visible" ref="contentWrapper" class="content-wrapper" :class="{[`position-${position}`]: true}">
             <slot name="content"></slot>
         </div>
@@ -19,8 +19,15 @@
             position: {
                 type: String,
                 default: 'top',
-                validaor(value) {
+                validator(value) {
                     return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+                }
+            },
+            trigger: {
+                type: String,
+                default: 'click',
+                validator(value) {
+                    return ['click', 'hover', 'focus'].indexOf(value) >= 0
                 }
             }
         },
@@ -31,7 +38,39 @@
             }
         },
 
+        computed: {
+            openEvent() {
+                if (this.trigger === 'click') {
+                    return 'click'
+                } else {
+                    return 'mouseenter'
+                }
+            },
+            closeEvent() {
+                if (this.trigger === 'click') {
+                    return 'click'
+                } else {
+                    return 'mouseleave'
+                }
+            },
+        },
+
         mounted() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.addEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.addEventListener('mouseenter', this.open)// 添加hover监听事件
+                this.$refs.popover.addEventListener('mouseleave', this.close)// 取消hover监听事件
+            }
+        },
+
+        destroyed() { // 页面销毁的时候去掉监听
+            if (this.trigger === 'click') {
+                this.$refs.popover.removeEventListener('click', this.open())
+            } else {
+                this.$refs.popover.removeEventListener('mouseenter', this.open())
+                this.$refs.popover.removeEventListener('mouseleave', this.close())
+            }
         },
 
         methods: {
