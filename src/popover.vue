@@ -38,38 +38,31 @@
             }
         },
 
-        computed: {
-            openEvent() {
-                if (this.trigger === 'click') {
-                    return 'click'
-                } else {
-                    return 'mouseenter'
-                }
-            },
-            closeEvent() {
-                if (this.trigger === 'click') {
-                    return 'click'
-                } else {
-                    return 'mouseleave'
-                }
-            },
-        },
+        computed: {},
 
         mounted() {
+            const popover = this.$refs.popover
             if (this.trigger === 'click') {
-                this.$refs.popover.addEventListener('click', this.onClick)
+                popover.addEventListener('click', this.onClick)
+            } else if (this.trigger === 'hover') {
+                popover.addEventListener('mouseover', this.open)// 添加hover监听事件
+                popover.addEventListener('mouseout', this.close)// 取消hover监听事件
             } else {
-                this.$refs.popover.addEventListener('mouseenter', this.open)// 添加hover监听事件
-                this.$refs.popover.addEventListener('mouseleave', this.close)// 取消hover监听事件
+                popover.addEventListener('mousedown', this.open)// 添加hover监听事件
+                popover.addEventListener('mouseup', this.close)// 取消hover监听事件
             }
         },
 
         destroyed() { // 页面销毁的时候去掉监听
+            const popover = this.$refs.popover
             if (this.trigger === 'click') {
-                this.$refs.popover.removeEventListener('click', this.open())
+                popover.removeEventListener('click', this.open())
+            } else if (this.trigger === 'hover') {
+                popover.removeEventListener('mouseover', this.open)// 添加hover监听事件
+                popover.removeEventListener('mouseout', this.close)// 取消hover监听事件
             } else {
-                this.$refs.popover.removeEventListener('mouseenter', this.open())
-                this.$refs.popover.removeEventListener('mouseleave', this.close())
+                popover.removeEventListener('mousedown', this.open())
+                popover.removeEventListener('mouseup', this.close())
             }
         },
 
@@ -158,6 +151,7 @@
             &::before {
                 left: 10px;
                 top: 100%;
+                border-bottom: none;
                 border-top-color: white;
             }
         }
@@ -166,6 +160,7 @@
             &::before {
                 left: 10px;
                 bottom: 100%;
+                border-top: none;
                 border-bottom-color: white;
             }
         }
@@ -175,6 +170,7 @@
             &::before {
                 left: 100%;
                 top: 7px;
+                border-right: none;
                 border-left-color: white;
             }
         }
@@ -183,6 +179,7 @@
             &::before {
                 right: 100%;
                 top: 7px;
+                border-left: none;
                 border-right-color: white;
             }
         }
