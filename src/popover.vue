@@ -1,7 +1,7 @@
 <template>
     <div ref="popover" class="popover">
         <div v-if="visible" ref="contentWrapper" class="content-wrapper" :class="{[`position-${position}`]: true}">
-            <slot name="content"></slot>
+            <slot name="content" :close="close"></slot>
         </div>
         <!-- span标签增加display: inline-block; 解决包裹元素高度一致的问题 -->
         <span ref="triggerWrapper" style="display: inline-block;">
@@ -29,7 +29,7 @@
                 validator(value) {
                     return ['click', 'hover', 'focus'].indexOf(value) >= 0
                 }
-            }
+            },
         },
 
         data() {
