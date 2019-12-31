@@ -45,8 +45,8 @@
             if (this.trigger === 'click') {
                 popover.addEventListener('click', this.onClick)
             } else if (this.trigger === 'hover') {
-                popover.addEventListener('mouseover', this.open)// 添加hover监听事件
-                popover.addEventListener('mouseout', this.close)// 取消hover监听事件
+                popover.addEventListener('mouseenter', this.open)// 添加hover监听事件
+                popover.addEventListener('mouseleave', this.close)// 取消hover监听事件
             } else {
                 popover.addEventListener('mousedown', this.open)// 添加hover监听事件
                 popover.addEventListener('mouseup', this.close)// 取消hover监听事件
@@ -58,8 +58,8 @@
             if (this.trigger === 'click') {
                 popover.removeEventListener('click', this.open())
             } else if (this.trigger === 'hover') {
-                popover.removeEventListener('mouseover', this.open)// 添加hover监听事件
-                popover.removeEventListener('mouseout', this.close)// 取消hover监听事件
+                popover.removeEventListener('mouseenter', this.open)// 添加hover监听事件
+                popover.removeEventListener('mouseleave', this.close)// 取消hover监听事件
             } else {
                 popover.removeEventListener('mousedown', this.open())
                 popover.removeEventListener('mouseup', this.close())
