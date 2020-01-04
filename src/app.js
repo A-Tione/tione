@@ -46,7 +46,7 @@ Vue.component('t-collapse-item', tCollapseItem)
 new Vue({
     el: '#app',
     data: {
-        selectedTab: 1,
+        selectedArray: ['1','2'],
     },
 
     created() {

@@ -37,12 +37,12 @@
 </head>
 <body>
 <div id="app">
-    <t-collapse :selected.sync="selectedTab" single>
+    <t-collapse :selected.sync="selectedArray" single>
         <t-collapse-item name="1" title="标题一">内容1</t-collapse-item>
         <t-collapse-item name="2" title="标题二">内容2</t-collapse-item>
         <t-collapse-item name="3" title="标题三">内容3</t-collapse-item>
     </t-collapse>
-    {{selectedTab}}
+    {{selectedArray}}
 </div>
 
 <script src="./src/app.js"></script>

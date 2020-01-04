@@ -26,26 +26,23 @@
 
         data() {
             return {
-                open: false
+                open: false,
+                single: false
             }
         },
 
         mounted() {
-            this.eventBus && this.eventBus.$on('update:selected', name => {
-                if (name != this.name) {
-                    this.close()
-                }else {
-                    this.show()
-                }
+            this.eventBus && this.eventBus.$on('update:selected', names => { // 监听，等爸爸的指令
+                this.open = names.indexOf(this.name) >= 0;
             })
         },
 
         methods: {
             toggle() {
                 if (this.open) {
-                    this.open = false
+                    this.eventBus && this.eventBus.$emit('update:removeSelected', this.name)
                 } else {
-                    this.eventBus &&  this.eventBus.$emit('update:selected', this.name)
+                    this.eventBus && this.eventBus.$emit('update:addSelected', this.name)
                 }
             },
             show() {
@@ -70,13 +67,13 @@
             margin: -1px;
         }
         &:first-child {
-            >.title {
+            > .title {
                 border-top-left-radius: $border-radius;
                 border-top-right-radius: $border-radius;
             }
         }
         &:last-child {
-            >.title:last-child {
+            > .title:last-child {
                 border-bottom-left-radius: $border-radius;
                 border-bottom-right-radius: $border-radius;
             }
