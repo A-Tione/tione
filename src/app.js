@@ -46,7 +46,7 @@ Vue.component('t-collapse-item', tCollapseItem)
 new Vue({
     el: '#app',
     data: {
-        selectedTab: 'sports', //体育
+        selectedTab: 1,
     },
 
     created() {
