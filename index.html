@@ -37,37 +37,11 @@
 </head>
 <body>
 <div id="app">
-    <t-popover>
-        <template slot="content">
-            <div>dfjf</div>
-        </template>
-            <t-button>钮</t-button>
-    </t-popover>
-    <t-popover position="bottom">
-        <template slot="content">
-            <div>dfjf</div>
-        </template>
-            <t-button>钮</t-button>
-    </t-popover>
-    <t-popover position="left">
-        <template slot="content" slot-scope="{close}">
-            <div>学习学习学习</div>
-            <t-button @click="close">关闭</t-button>
-        </template>
-        <t-button>钮</t-button>
-    </t-popover>
-    <t-popover position="right" trigger="hover">
-        <template slot="content">
-            <div>dfjf</div>
-        </template>
-        <t-button>钮</t-button>
-    </t-popover>
-    <t-popover position="right" trigger="focus">
-        <template slot="content">
-            <div>dfjf</div>
-        </template>
-        <t-button>钮</t-button>
-    </t-popover>
+    <t-collapse>
+        <t-collapse-item title="标题一">内容1</t-collapse-item>
+        <t-collapse-item title="标题二">内容2</t-collapse-item>
+        <t-collapse-item title="标题三">内容3</t-collapse-item>
+    </t-collapse>
 </div>
 
 <script src="./src/app.js"></script>
