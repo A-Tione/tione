@@ -1,6 +1,6 @@
 <template>
     <div class="collapse-item">
-        <div class="title" @click="open=!open">{{title}}</div>
+        <div class="title" @click="toggle">{{title}}</div>
         <div v-if="open" class="content">
             <slot></slot>
         </div>
@@ -11,6 +11,7 @@
     export default {
         name: "collapse-item",
         components: {},
+        inject: ['eventBus'],
 
         props: {
             title: {
@@ -26,10 +27,26 @@
         },
 
         mounted() {
-
+            this.eventBus && this.eventBus.$on('update:selected', vm => {
+                if (vm !== this) {
+                    this.close()
+                }
+            })
         },
 
-        methods: {}
+        methods: {
+            toggle() {
+                if (this.open) {
+                    this.open = false
+                } else {
+                    this.open = true
+                    this.eventBus && this.eventBus.$emit('update:selected', this)
+                }
+            },
+            close() {
+                this.open = false
+            }
+        }
     }
 </script>
 

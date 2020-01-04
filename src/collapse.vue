@@ -5,14 +5,30 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     export default {
         name: "collapse",
         components: {},
 
-        props: {},
+        props: {
+            single: {
+                type: Boolean,
+                default: false
+            }
+        },
 
         data() {
-            return {}
+            return {
+                eventBus: new Vue()
+            }
+        },
+
+        provide () {
+            if (this.single) {
+                return {
+                    eventBus: this.eventBus
+                }
+            }
         },
 
         mounted() {
