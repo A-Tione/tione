@@ -6,6 +6,7 @@
 
 <script>
     import Vue from 'vue'
+
     export default {
         name: "collapse",
         components: {},
@@ -14,25 +15,26 @@
             single: {
                 type: Boolean,
                 default: false
+            },
+            selected: {
+                type: [String,Number]
             }
         },
 
         data() {
             return {
-                eventBus: new Vue()
+                eventBus: new Vue(),
             }
         },
 
-        provide () {
-            if (this.single) {
-                return {
-                    eventBus: this.eventBus
-                }
+        provide() {
+            return {
+                eventBus: this.eventBus
             }
         },
 
         mounted() {
-
+            this.eventBus.$emit('update:selected', this.selected)
         },
 
         methods: {}
@@ -45,7 +47,6 @@
     .collapse {
         border: 1px solid $grey;
         border-radius: $border-radius;
-
     }
 
 </style>
