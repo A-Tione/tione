@@ -36,57 +36,75 @@
     }
 </script>
 
+
 <style lang="scss" scoped>
+    $border-color-hover: #666;
+    $border-color: #999;
+    $border-color-light: lighten($border-color, 30%);
+    $border-radius: 4px;
+    $box-shadow-color: rgba(0, 0, 0, 0.5);
+    $button-active-bg: #eee;
+    $button-bg: white;
+    $button-height: 32px;
+    $color: #333;
+    $light-color: #666;
+    $font-size: 14px;
+    $small-font-size: 12px;
+    $input-height: 32px;
+    $red: #F1453D;
+    $grey: #eee;
+    $blue: #4a90e2;
+/*@import "_var";*/
     .t-button {
+        font-size: $font-size;
+        height: $button-height;
+        padding: 0 1em;
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+        background: $button-bg;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        font-size: var(--font-size);
-        height: var(--button-height);
-        padding: 0 1em;
-        border-radius: var(--border-radius);
-        border: 1px solid var(--border-color);
-        background: var(--button-bg);
         vertical-align: middle;
         &:hover {
-            border-color: var(--border-color-hover);
+            border-color: $border-color-hover;
         }
         &:active {
-            background-color: var(--button-active-bg);
-        }
-        &:focus {
-            outline: none;
-        }
-        > .icon {
-            order: 1;
-            margin-right: .1em;
-            margin-left: 0;
-        }
-        > .content {
-            order: 2;
-            line-height: 100%;
-        }
-        &.icon-right {
-            > .content {
-                order: 1;
-                line-height: 100%;
+            background-color: $button-active-bg;
+            &:focus {
+                outline: none;
             }
             > .icon {
+                order: 1;
+                margin-right: .1em;
+                margin-left: 0;
+            }
+            > .content {
                 order: 2;
-                margin-left: .1em;
-                margin-right: 0;
+                line-height: 100%;
+            }
+            &.icon-right {
+                > .content {
+                    order: 1;
+                    line-height: 100%;
+                }
+                > .icon {
+                    order: 2;
+                    margin-left: .1em;
+                    margin-right: 0;
+                }
             }
         }
-    }
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg)
+            }
         }
-        100% {
-            transform: rotate(360deg)
+        .loading {
+            animation: spin 2s infinite linear;
         }
-    }
-    .loading {
-        animation: spin 2s infinite linear;
     }
 </style>

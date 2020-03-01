@@ -4,10 +4,10 @@
     <p>
       <strong>预览</strong>
     </p>
-    <g-button>默认按钮</g-button>
-    <g-button icon="settings">默认按钮</g-button>
-    <g-button :loading="true">默认按钮</g-button>
-    <g-button disabled>默认按钮</g-button>
+    <t-button>默认按钮</t-button>
+    <t-button icon="settings">默认按钮</t-button>
+    <t-button :loading="true">默认按钮</t-button>
+    <t-button disabled>默认按钮</t-button>
 
     <p>
       <strong>代码</strong>
@@ -16,19 +16,19 @@
   </div>
 </template>
 <script>
-  import Button from '../../../src/button/button'
+  import Button from '../../../src/button'
 
   export default {
     components: {
-      'g-button': Button
+      't-button': Button
     },
     data () {
       return {
         content: `
-          <g-button>默认按钮</g-button>
-          <g-button icon="settings">默认按钮</g-button>
-          <g-button :loading="true">默认按钮</g-button>
-          <g-button disabled>默认按钮</g-button>
+          <t-button>默认按钮</t-button>
+          <t-button icon="settings">默认按钮</t-button>
+          <t-button :loading="true">默认按钮</t-button>
+          <t-button disabled>默认按钮</t-button>
       `.replace(/^ {8}/gm, '').trim()
       }
     }
