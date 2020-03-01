@@ -1,4 +1,5 @@
 module.exports = {
+    base: '/tione/',
     title: 'Tione UI',
     description: '这是一套易用的UI轮子',
     markdown: {
