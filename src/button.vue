@@ -83,16 +83,27 @@
                 order: 2;
                 line-height: 100%;
             }
-            &.icon-right {
-                > .content {
-                    order: 1;
-                    line-height: 100%;
-                }
-                > .icon {
-                    order: 2;
-                    margin-left: .1em;
-                    margin-right: 0;
-                }
+        }
+        &.icon-left {
+            > .content {
+                order: 2;
+                line-height: 100%;
+            }
+            > .icon {
+                order: 1;
+                margin-right: .1em;
+                margin-left: 0;
+            }
+        }
+        &.icon-right {
+            > .content {
+                order: 1;
+                line-height: 100%;
+            }
+            > .icon {
+                order: 2;
+                margin-left: .1em;
+                margin-right: 0;
             }
         }
         @keyframes spin {
