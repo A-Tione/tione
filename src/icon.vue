@@ -1,6 +1,6 @@
 <template>
     <svg class="t-icon">
-        <use :xlink:href=`#i-${name}`></use>
+        <use :xlink:href=iconName></use>
     </svg>
 </template>
 
@@ -8,7 +8,18 @@
     import './svg'
 
     export default {
-        props: ['name']
+        name: 'TIcon',
+        props: {
+            name: {
+                type: String,
+                default: 'settings'
+            }
+        },
+        computed: {
+            iconName() {
+                return `#i-${this.name}`
+            }
+        },
     }
 </script>
 
