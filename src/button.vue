@@ -54,7 +54,6 @@
     $red: #F1453D;
     $grey: #eee;
     $blue: #4a90e2;
-/*@import "_var";*/
     .t-button {
         font-size: $font-size;
         height: $button-height;
