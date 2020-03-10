@@ -65,6 +65,10 @@
             padding: 0 8px;
             border: 1px solid $grey;
             margin: -1px;
+            cursor: pointer;
+            &:hover {
+                background: #E6E6E6;
+            }
         }
         &:first-child {
             > .title {
