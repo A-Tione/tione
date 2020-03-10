@@ -57,7 +57,7 @@
 </script>
 
 <style lang="scss" scoped>
-    $blue: blue;
+    $blue: orange;
     $disable-test-color: gray;
     .tabs-item {
         display: flex;

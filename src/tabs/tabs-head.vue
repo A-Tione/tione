@@ -20,11 +20,12 @@
         },
 
         mounted() {
+            const head = this.$el.getBoundingClientRect()
             this.eventBus.$on('update:selected', (item,vm) => {
                 this.xxxx = true
                 let {height, width, top, left} = vm.$el.getBoundingClientRect()  // 获取元素宽高上左
                 this.$refs.line.style.width = `${width}px`
-                this.$refs.line.style.transform = `translateX(${left}px)`
+                this.$refs.line.style.transform = `translateX(${left - head.left}px)`
             })
         }
     }
@@ -43,7 +44,7 @@
         .line {
             position: absolute;
             bottom: 0;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid orange;
             transition: all .3s;
         }
         .right {

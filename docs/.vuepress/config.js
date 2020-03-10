@@ -8,7 +8,7 @@ module.exports = {
     themeConfig: {
         nav: [
             {text: '主页', link: '/'},
-            {text: '文档', link: '/guide/'},
+            {text: '文档', link: 'https://github.com/A-Tione/tione'},
             {text: '交流', link: 'https://google.com'},
         ],
         sidebar: [
@@ -23,12 +23,13 @@ module.exports = {
                 title: '组件',
                 children: [
                     '/components/button',
-                    '/components/tabs',
-                    '/components/input',
+                    '/components/collapse',
                     '/components/grid',
+                    '/components/input',
                     '/components/layout',
-                    '/components/toast',
+                    '/components/popover',
                     '/components/tabs',
+                    '/components/toast',
                 ]
             }]
     }

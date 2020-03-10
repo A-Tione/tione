@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-  import Button from '../../../src/button'
+  import Button from '../../../src/button/button'
 
   export default {
     components: {
