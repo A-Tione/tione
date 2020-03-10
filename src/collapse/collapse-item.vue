@@ -79,7 +79,8 @@
             }
         }
         .content {
-            padding: 0 8px;
+            padding: 8px;
+            min-height: 60px;
         }
     }
 
