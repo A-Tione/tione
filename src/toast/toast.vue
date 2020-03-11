@@ -1,5 +1,5 @@
 <template>
-    <div class="box" :class="position">
+    <div class="tione-toast" :class="position">
         <div class="toast">
             <div class="messages" ref="wrapper">
                 <div v-if="enableHtml" v-html="$slots.default[0]"></div>
@@ -41,6 +41,7 @@
                 type: String,
                 default: 'top',
                 validator(value) {
+                    console.log(value,'11111')
                     return ['top', 'middle', 'bottom'].indexOf(value) >= 0
                 }
             }
@@ -114,7 +115,7 @@
             transform: translateY(0%)
         }
     }
-    .box {
+    .tione-toast {
         position: fixed;
         left: 50%;
         transform: translateX(-50%);
