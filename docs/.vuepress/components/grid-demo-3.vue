@@ -1,5 +1,5 @@
 <template>
-    <div style="paddint-top: 16px;">
+    <div style="padding-top: 16px;">
         <h2> 设置空隙</h2>
         <p>
             <strong>预览</strong>

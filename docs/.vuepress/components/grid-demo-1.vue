@@ -1,5 +1,5 @@
 <template>
-    <div style="paddint-top: 16px;">
+    <div style="padding-top: 16px;">
         <h2>24格网格</h2>
         <p>
             <strong>预览</strong>
