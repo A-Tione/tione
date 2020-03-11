@@ -30,6 +30,9 @@
                     return ['click', 'hover', 'focus'].indexOf(value) >= 0
                 }
             },
+            container: {
+                type: Element
+            }
         },
 
         data() {
@@ -53,7 +56,8 @@
             }
         },
 
-        destroyed() { // 页面销毁的时候去掉监听
+        beforeDestroy() { // 页面销毁的时候去掉监听
+            this.putBackContent()
             const popover = this.$refs.popover
             if (this.trigger === 'click') {
                 popover.removeEventListener('click', this.open())
@@ -68,29 +72,31 @@
 
         methods: {
             positionContent() {
-                document.body.appendChild(this.$refs.contentWrapper)
-                const {contentWrapper,triggerWrapper} = this.$refs
-                const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
-                let positions = {
-                    top: {
-                        top: top + window.scrollY,
-                        left: left + window.scrollX,
-                    },
-                    bottom: {
-                        top: top + height + window.scrollY,
-                        left: left + window.scrollX,
-                    },
-                    left: {
-                        top: top + window.scrollY,
-                        left: left + window.scrollX,
-                    },
-                    right: {
-                        top: top + window.scrollY,
-                        left: left+ width + window.scrollX,
-                    },
+                if (this.$refs.contentWrapper) {
+                    document.body.appendChild(this.$refs.contentWrapper)
+                    const {contentWrapper,triggerWrapper} = this.$refs
+                    const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
+                    let positions = {
+                        top: {
+                            top: top + window.scrollY,
+                            left: left + window.scrollX,
+                        },
+                        bottom: {
+                            top: top + height + window.scrollY,
+                            left: left + window.scrollX,
+                        },
+                        left: {
+                            top: top + window.scrollY,
+                            left: left + window.scrollX,
+                        },
+                        right: {
+                            top: top + window.scrollY,
+                            left: left+ width + window.scrollX,
+                        },
+                    }
+                    contentWrapper.style.left = positions[this.position].left + 'px'
+                    contentWrapper.style.top = positions[this.position].top + 'px'
                 }
-                contentWrapper.style.left = positions[this.position].left + 'px'
-                contentWrapper.style.top = positions[this.position].top + 'px'
             },
             onClickDocument(e) { // 如果点击在popover 则让popover自己去处理，document不管
                 if (this.$refs.contentWrapper && this.$refs.contentWrapper.contains(e.target)) {return}
@@ -116,6 +122,11 @@
                     }
                 }
             },
+            putBackContent () {
+                const {contentWrapper, popover} = this.$refs
+                if (!contentWrapper) {return}
+                popover.appendChild(contentWrapper)
+            }
         }
     }
 </script>
