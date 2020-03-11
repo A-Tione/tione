@@ -1,5 +1,5 @@
 <template>
-    <div style="paddint-top: 16px;">
+    <div style="padding-top: 16px;">
         <h2>简单用法</h2>
         <p>
             <strong>预览</strong>
