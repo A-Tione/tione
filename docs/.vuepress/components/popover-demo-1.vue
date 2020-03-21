@@ -32,7 +32,11 @@
         <p>
             <strong>代码</strong>
         </p>
-        <pre><code>{{content}}</code></pre>
+        <div class="code-content" v-highlight>
+            <div class="code-content-height">
+                <pre><code class="html">{{content}}</code></pre>
+            </div>
+        </div>
     </div>
 </template>
 <script>
