@@ -5,7 +5,7 @@
         </div>
         <div class="popover" v-if="popoverVisible">
             <!--递归组件-->
-            <cascader-items :recursionItem="source"></cascader-items>
+            <cascader-items :recursionItem="source" :height="height"></cascader-items>
         </div>
     </div>
 </template>
@@ -19,6 +19,9 @@
         props: {
             source: {
                 type: Array
+            },
+            height: {
+                type: String
             }
         },
         data() {
@@ -32,20 +35,26 @@
 </script>
 
 <style lang="scss" scoped>
+    @import 'styles/var';
     .cascader-content {
+        position: relative;
         .trigger {
-            border: 1px solid red;
             height: 32px;
             width: 100px;
+            border: 1px solid black;
         }
 
         .popover {
-            border: 1px solid red;
-            height: 200px;
+            position: absolute;
+            top: 100%;
+            left: 0;
             display: flex;
+            background: white;
+            @extend .box-shadow;
 
             > div {
                 margin-right: 10px;
+                white-space: nowrap;
             }
 
         }
