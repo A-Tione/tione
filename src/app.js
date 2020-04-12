@@ -57,7 +57,13 @@ new Vue({
                         children: [
                             {name: 'shang'},
                             {name: 'xia'},
-                            {name: 'jianggan'}
+                            {name: 'jianggan',
+                                children: [
+                                    {name: 'shang'},
+                                    {name: 'xia'},
+                                    {name: 'jianggan'}
+                                ]
+                            }
                         ]
                     },
                     {
