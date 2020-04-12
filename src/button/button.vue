@@ -38,22 +38,7 @@
 
 
 <style lang="scss" scoped>
-    $border-color-hover: #666;
-    $border-color: #999;
-    $border-color-light: lighten($border-color, 30%);
-    $border-radius: 4px;
-    $box-shadow-color: rgba(0, 0, 0, 0.5);
-    $button-active-bg: #eee;
-    $button-bg: white;
-    $button-height: 32px;
-    $color: #333;
-    $light-color: #666;
-    $font-size: 14px;
-    $small-font-size: 12px;
-    $input-height: 32px;
-    $red: #F1453D;
-    $grey: #eee;
-    $blue: #4a90e2;
+    @import '../../styles/var';
     .t-button {
         font-size: $font-size;
         height: $button-height;
