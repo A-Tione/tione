@@ -1,13 +1,11 @@
 <template>
     <div class="demo-content">
-        <p>{{selected && selected[0] && selected[0].name || '空'}}</p>
-        <p>{{selected && selected[1] && selected[1].name || '空'}}</p>
-        <p>{{selected && selected[2] && selected[2].name || '空'}}</p>
+        <p>11111</p>
         <t-cascader
             :selected="selected"
             :source="source"
             :height="'100px'"
-            @updateSelected="selected = $event">联级选择框</t-cascader>
+            @updateSelected="selected = $event">{{result || ''}}</t-cascader>
         <p>22222</p>
     </div>
 </template>
@@ -42,6 +40,11 @@
             tCascader
         },
         props: {},
+        computed: {
+            result() {
+                return this.selected.map(item => item.name).join('/')
+            }
+        },
         data() {
             return {
                 selected: [],

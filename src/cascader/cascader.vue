@@ -51,14 +51,20 @@
     @import 'styles/var';
     .cascader-content {
         position: relative;
+        height: $input-height;
         .trigger {
-            height: 32px;
-            width: 100px;
-            border: 1px solid black;
+            height: $input-height;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 1em;
+            min-width: 10em;
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
         }
 
         .popover {
             position: absolute;
+            margin-top: 2px;
             top: 100%;
             left: 0;
             display: flex;
