@@ -1,7 +1,7 @@
 <template>
     <div class="cascader-content">
         <div class="trigger" @click="popoverVisible = !popoverVisible">
-            <slot></slot>
+            {{result || ''}}
         </div>
         <div class="popover" v-if="popoverVisible">
             <!--递归组件-->
@@ -9,7 +9,7 @@
                 :selected="selected"
                 :recursionItem="source"
                 :height="height"
-                @updateSelected="updateSelected">
+                @update:selected="updateSelected">
             </cascader-items>
         </div>
     </div>
@@ -33,7 +33,11 @@
                 default: ()=> {return []}
             }
         },
-        computed: {},
+        computed: {
+            result() {
+                return this.selected.map(item => item.name).join('/')
+            }
+        },
         data() {
             return {
                 popoverVisible: false,
@@ -41,7 +45,7 @@
         },
         methods: {
             updateSelected(newItem) {
-                this.$emit('updateSelected', newItem)
+                this.$emit('update:selected', newItem)
             }
         }
     }

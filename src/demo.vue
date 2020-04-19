@@ -2,10 +2,9 @@
     <div class="demo-content">
         <p>11111</p>
         <t-cascader
-            :selected="selected"
+            :selected.sync="selected"
             :source="source"
-            :height="'100px'"
-            @updateSelected="selected = $event">{{result || ''}}</t-cascader>
+            :height="'100px'"></t-cascader>
         <p>22222</p>
     </div>
 </template>
@@ -40,11 +39,7 @@
             tCascader
         },
         props: {},
-        computed: {
-            result() {
-                return this.selected.map(item => item.name).join('/')
-            }
-        },
+        computed: {},
         data() {
             return {
                 selected: [],

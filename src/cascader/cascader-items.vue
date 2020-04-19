@@ -13,7 +13,7 @@
                 :level="level+1"
                 :height="height"
                 :selected="selected"
-                @updateSelected="onUpdate">
+                @update:selected="onUpdate">
             </cascader-items>
         </div>
     </div>
@@ -53,10 +53,10 @@ f
                 let copy = JSON.parse(JSON.stringify(this.selected))
                 copy[this.level] = item
                 copy.splice(this.level + 1)
-                this.$emit('updateSelected', copy)
+                this.$emit('update:selected', copy)
             },
             onUpdate(item) {
-                this.$emit('updateSelected', item)
+                this.$emit('update:selected', item)
             }
         }
     }
