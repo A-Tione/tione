@@ -73,8 +73,8 @@
             left: 0;
             display: flex;
             background: white;
+            overflow: auto;
             @extend .box-shadow;
-
             > div {
                 margin-right: 10px;
                 white-space: nowrap;

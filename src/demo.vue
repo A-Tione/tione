@@ -31,6 +31,7 @@
     import tCollapse from './collapse/collapse'
     import tCollapseItem from './collapse/collapse-item'
     import tCascader from './cascader/cascader'
+    import db from './collapse/db'
 
     export default {
         name: 'demo',
@@ -40,62 +41,23 @@
         },
         props: {},
         computed: {},
+
+        mounted() {
+            this.source = this.ajax()
+            console.log(this.source)
+        },
+
         data() {
             return {
                 selected: [],
-                source: [
-                    {
-                        name: '浙江',
-                        children: [
-                            {
-                                name: '杭州',
-                                children: [
-                                    {name: 'shang'},
-                                    {name: 'xia'},
-                                    {name: 'jianggan',
-                                        children: [
-                                            {name: 'shang'},
-                                            {name: 'xia'},
-                                            {name: 'jianggan'}
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                name: '嘉兴',
-                                children: [
-                                    {name: 'shang'},
-                                    {name: 'xia'},
-                                    {name: 'jianggan'}
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        name: '湖南',
-                        children: [
-                            {
-                                name: '长沙',
-                                children: [
-                                    {name: 'shang'},
-                                    {name: 'xia'},
-                                    {name: 'jianggan'}
-                                ]
-                            },
-                            {
-                                name: '湘潭',
-                                children: [
-                                    {name: 'shang'},
-                                    {name: 'xia'},
-                                    {name: 'jianggan'}
-                                ]
-                            }
-                        ]
-                    },
-                ]
+                source: []
             }
         },
-        methods: {}
+        methods: {
+            ajax(parent_id = 0) {
+                return db.filter(item => item.parent_id == parent_id)
+            }
+        }
     }
 </script>
 
