@@ -94,7 +94,30 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --button-height: 32px;
+        --font-size: 14px;
+        --button-bg: white;
+        --button-active-bg: #eee;
+        --border-radius: 4px;
+        --color: #333;
+        --border-color: #999;
+        --border-color-hover: #666;
+    }
+
+    body {
+        font-size: var(--font-size);
+    }
+    #app {
+        padding: 100px;
+    }
     .demo-content {
 
     }
