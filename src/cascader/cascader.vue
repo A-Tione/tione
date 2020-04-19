@@ -5,7 +5,12 @@
         </div>
         <div class="popover" v-if="popoverVisible">
             <!--递归组件-->
-            <cascader-items :recursionItem="source" :height="height"></cascader-items>
+            <cascader-items
+                :selected="selected"
+                :recursionItem="source"
+                :height="height"
+                @updateSelected="updateSelected">
+            </cascader-items>
         </div>
     </div>
 </template>
@@ -22,14 +27,22 @@
             },
             height: {
                 type: String
+            },
+            selected: {
+                type: Array,
+                default: ()=> {return []}
             }
         },
+        computed: {},
         data() {
             return {
                 popoverVisible: false,
             }
         },
-        computed: {
+        methods: {
+            updateSelected(newItem) {
+                this.$emit('updateSelected', newItem)
+            }
         }
     }
 </script>

@@ -1,13 +1,20 @@
 <template>
     <div class="cascader-item-content" :style="{height: height}">
         <div class="left">
-            <div class="label" v-for="(item, index) in recursionItem" :key="index" @click="leftSelected = item">
+            <div class="label" v-for="(item, index) in recursionItem" :key="index" @click="onClickLabel(item)">
                 {{item.name}}
                 <span v-if="item.children"> > </span>
             </div>
         </div>
         <div class="right" v-if="rightItems">
-            <cascader-items :recursionItem="rightItems" :height="height"></cascader-items>
+            <cascader-items
+                ref="right"
+                :recursionItem="rightItems"
+                :level="level+1"
+                :height="height"
+                :selected="selected"
+                @updateSelected="onUpdate">
+            </cascader-items>
         </div>
     </div>
 </template>
@@ -21,23 +28,36 @@ f
             },
             height: {
                 type: String
-            }
-        },
-        data() {
-            return {
-                leftSelected: null
+            },
+            selected: {
+                type: Array,
+                default: () => {return []}
+            },
+            level: {
+                type: Number,
+                default: 0
             }
         },
         computed: {
             rightItems() {
-                if (this.leftSelected && this.leftSelected.children) {
-                    return this.leftSelected.children
+                let currentSelected = this.selected[this.level]
+                if (currentSelected && currentSelected.children) {
+                    return currentSelected.children
                 } else  {
                     return null
                 }
             }
         },
-        methods: {}
+        methods: {
+            onClickLabel(item) {
+                let copy = JSON.parse(JSON.stringify(this.selected))
+                copy[this.level] = item
+                this.$emit('updateSelected', copy)
+            },
+            onUpdate(item) {
+                this.$emit('updateSelected', item)
+            }
+        }
     }
 </script>
 

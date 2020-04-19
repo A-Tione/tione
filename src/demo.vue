@@ -1,7 +1,11 @@
 <template>
     <div class="demo-content">
-        <p>1111</p>
-        <t-cascader :source="source" :height="'100px'">联级选择框</t-cascader>
+        <p>11111</p>
+        <t-cascader
+            :selected="selected"
+            :source="source"
+            :height="'100px'"
+            @updateSelected="selected = $event">联级选择框</t-cascader>
         <p>22222</p>
     </div>
 </template>
@@ -38,6 +42,7 @@
         props: {},
         data() {
             return {
+                selected: [],
                 source: [
                     {
                         name: '浙江',
