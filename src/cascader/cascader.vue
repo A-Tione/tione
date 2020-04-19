@@ -31,6 +31,9 @@
             selected: {
                 type: Array,
                 default: ()=> {return []}
+            },
+            loadData: {
+                type: Function,
             }
         },
         computed: {
@@ -46,6 +49,11 @@
         methods: {
             updateSelected(newItem) {
                 this.$emit('update:selected', newItem)
+                let lastItem = newItem[newItem.length - 1]// 最后一项就是用户选中的
+                this.loadData(lastItem, result => {
+                    let last = this.source.filter(item => item.id === lastItem.id)[0]
+                    this.$set(last, "children", result)
+                })// 将监听的值回调出去
             }
         }
     }
@@ -74,6 +82,7 @@
             display: flex;
             background: white;
             overflow: auto;
+            min-height: 200px;
             @extend .box-shadow;
             > div {
                 margin-right: 10px;

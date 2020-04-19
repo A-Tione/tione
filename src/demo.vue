@@ -3,6 +3,7 @@
         <p>11111</p>
         <t-cascader
             :selected.sync="selected"
+            :loadData="loadData"
             :source="source"
             :height="'100px'"></t-cascader>
         <p>22222</p>
@@ -43,8 +44,9 @@
         computed: {},
 
         mounted() {
-            this.source = this.ajax()
-            console.log(this.source)
+            this.ajax(0).then(response => {
+                this.source = response
+            })
         },
 
         data() {
@@ -54,8 +56,26 @@
             }
         },
         methods: {
+            loadData(node, callback) {
+                let {name, id, parent_id} = node
+                this.ajax(id).then(result => {
+                    callback(result)
+                })
+            },
             ajax(parent_id = 0) {
-                return db.filter(item => item.parent_id == parent_id)
+                return new Promise((resolve, reject) => {
+                    setTimeout(()=>{
+                        let result = db.filter(item => item.parent_id == parent_id)
+                        resolve(result)
+                    }, 1000)
+                })
+            },
+            getCity(item) {
+                this.ajax(item[0].id).then(response => {
+                    let last = this.source.filter(item => item.id === this.selected[0].id)[0]
+                    last.children = response
+                    this.$set(last, last.children, response)
+                })
             }
         }
     }
@@ -82,9 +102,11 @@
     body {
         font-size: var(--font-size);
     }
+
     #app {
         padding: 100px;
     }
+
     .demo-content {
 
     }
