@@ -1,7 +1,7 @@
 <template>
     <div class="cascader-item-content" :style="{height: height}">
         <div class="left">
-            <div class="label" v-for="(item, index) in recursionItem" :key="index" @click="onClickLabel(item)">
+            <div class="label" v-for="(item, index) in items" :key="index" @click="onClickLabel(item)">
                 {{item.name}}
                 <span v-if="item.children"> > </span>
             </div>
@@ -9,7 +9,7 @@
         <div class="right" v-if="rightItems">
             <cascader-items
                 ref="right"
-                :recursionItem="rightItems"
+                :items="rightItems"
                 :level="level+1"
                 :height="height"
                 :selected="selected"
@@ -23,7 +23,7 @@ f
     export default {
         name: 'cascaderItems',
         props: {
-            recursionItem: {
+            items: {
                 type: Array
             },
             height: {

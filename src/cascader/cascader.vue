@@ -7,7 +7,7 @@
             <!--递归组件-->
             <cascader-items
                 :selected="selected"
-                :recursionItem="source"
+                :items="source"
                 :height="height"
                 @update:selected="updateSelected">
             </cascader-items>
