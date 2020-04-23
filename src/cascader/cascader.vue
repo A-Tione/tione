@@ -9,6 +9,7 @@
                 :selected="selected"
                 :items="source"
                 :height="height"
+                :loadData="loadData"
                 @update:selected="updateSelected">
             </cascader-items>
         </div>
@@ -84,7 +85,9 @@
                     last.children = result
                     this.$emit('update:source', copy)
                 }
-                this.loadData(lastItem, updateSource)// 将监听的值回调出去
+                if (!lastItem.isLeaf) {
+                    this.loadData && this.loadData(lastItem, updateSource)// 将监听的值回调出去
+                }
             }
         }
     }

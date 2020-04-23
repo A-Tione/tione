@@ -3,7 +3,8 @@
         <div class="left">
             <div class="label" v-for="(item, index) in items" :key="index" @click="onClickLabel(item)">
                 {{item.name}}
-                <span v-if="item.children"> > </span>
+<!--                <span v-if="rightArrowVisible(item)"> > </span>-->
+                <span v-if="!item.isLeaf"> > </span>
             </div>
         </div>
         <div class="right" v-if="rightItems">
@@ -36,6 +37,9 @@ f
             level: {
                 type: Number,
                 default: 0
+            },
+            loadData: {
+                type: Function
             }
         },
         computed: {
@@ -46,9 +50,13 @@ f
                         return select.children
                     }
                 }
-            }
+            },
         },
         methods: {
+            rightArrowVisible(item) {
+                console.log(this.loadData,'1111')
+                return this.loadData ? !item.isLeaf : item.children
+            },
             onClickLabel(item) {
                 let copy = JSON.parse(JSON.stringify(this.selected))
                 copy[this.level] = item
@@ -77,7 +85,10 @@ f
             border-left: 1px solid $border-color-light;
         }
         .label {
-            padding: .3em 1em;
+            padding: .3em .5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     }
 
