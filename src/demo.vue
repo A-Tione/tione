@@ -1,7 +1,6 @@
 <template>
     <div class="demo-content">
         <p>11111</p>
-        <p>{{source}}</p>
         <t-cascader
             :selected.sync="selected"
             :loadData="loadData"
