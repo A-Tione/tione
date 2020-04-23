@@ -1,10 +1,11 @@
 <template>
     <div class="demo-content">
         <p>11111</p>
+        <p>{{source}}</p>
         <t-cascader
             :selected.sync="selected"
             :loadData="loadData"
-            :source="source"
+            :source.sync="source"
             :height="'100px'"></t-cascader>
         <p>22222</p>
     </div>

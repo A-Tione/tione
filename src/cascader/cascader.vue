@@ -30,10 +30,12 @@
             },
             selected: {
                 type: Array,
-                default: ()=> {return []}
+                default: () => {
+                    return []
+                }
             },
             loadData: {
-                type: Function,
+                type: Function
             }
         },
         computed: {
@@ -43,17 +45,46 @@
         },
         data() {
             return {
-                popoverVisible: false,
+                popoverVisible: false
             }
         },
         methods: {
             updateSelected(newItem) {
                 this.$emit('update:selected', newItem)
                 let lastItem = newItem[newItem.length - 1]// 最后一项就是用户选中的
-                this.loadData(lastItem, result => {
-                    let last = this.source.filter(item => item.id === lastItem.id)[0]
-                    this.$set(last, "children", result)
-                })// 将监听的值回调出去
+                let simplest = (children, id) => {
+                    return children.filter(item => item.id === id)[0]
+                }
+                let complex = (children, id) => {
+                    let noChildren = []
+                    let hasChildren = []
+                    children.forEach(item => {
+                        if (item.children) {
+                            hasChildren.push(item)
+                        } else {
+                            noChildren.push(item)
+                        }
+                    })
+                    let found = simplest(noChildren, id)
+                    if (found) {
+                        return found
+                    } else {
+                        for (let i = 0; i < hasChildren.length; i++) {
+                            found = complex(hasChildren[i].children, id)
+                            if (found) {
+                                return found
+                            }
+                        }
+                        return undefined
+                    }
+                }
+                let updateSource = (result) => {
+                    let copy = JSON.parse(JSON.stringify(this.source))
+                    let last = complex(copy, lastItem.id)
+                    last.children = result
+                    this.$emit('update:source', copy)
+                }
+                this.loadData(lastItem, updateSource)// 将监听的值回调出去
             }
         }
     }
@@ -61,9 +92,11 @@
 
 <style lang="scss" scoped>
     @import 'styles/var';
+
     .cascader-content {
         position: relative;
         height: $input-height;
+
         .trigger {
             height: $input-height;
             display: inline-flex;
@@ -84,6 +117,7 @@
             overflow: auto;
             min-height: 200px;
             @extend .box-shadow;
+
             > div {
                 margin-right: 10px;
                 white-space: nowrap;
