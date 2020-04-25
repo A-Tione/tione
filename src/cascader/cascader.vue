@@ -1,6 +1,6 @@
 <template>
-    <div class="cascader-content">
-        <div class="trigger" @click="popoverVisible = !popoverVisible">
+    <div class="cascader-content" ref="cascader">
+        <div class="trigger" @click="toggle">
             {{result || ''}}
         </div>
         <div class="popover" v-if="popoverVisible">
@@ -50,6 +50,28 @@
             }
         },
         methods: {
+            onClickDocument(e) {
+                let {target} = e
+                if (this.$refs.cascader === target || this.$refs.cascader.contains(target)) {return}
+                this.close()
+            },
+            open() {
+                this.popoverVisible = true
+                this.$nextTick(() => {
+                    document.addEventListener('click', this.onClickDocument)
+                })
+            },
+            close() {
+                this.popoverVisible = false
+                document.removeEventListener('click', this.onClickDocument)
+            },
+            toggle() {
+                if (this.popoverVisible) {
+                    this.close()
+                } else {
+                    this.open()
+                }
+            },
             updateSelected(newItem) {
                 this.$emit('update:selected', newItem)
                 let lastItem = newItem[newItem.length - 1]// 最后一项就是用户选中的
@@ -98,6 +120,7 @@
 
     .cascader-content {
         position: relative;
+        display: inline-flex;
         height: $input-height;
 
         .trigger {
