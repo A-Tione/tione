@@ -14,6 +14,7 @@
                 :level="level+1"
                 :height="height"
                 :selected="selected"
+                :loadData="loadData"
                 @update:selected="onUpdate">
             </cascader-items>
         </div>
