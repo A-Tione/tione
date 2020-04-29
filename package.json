@@ -21,6 +21,8 @@
     "css-loader": "^1.0.1",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
