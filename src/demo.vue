@@ -5,7 +5,7 @@
             :selected.sync="selected"
             :loadData="loadData"
             :source.sync="source"
-            :height="'100px'"></t-cascader>
+            :popoverHeight="'200px'"></t-cascader>
         <p>22222</p>
     </div>
 </template>

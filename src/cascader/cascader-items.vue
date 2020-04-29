@@ -1,29 +1,32 @@
 <template>
-    <div class="cascader-item-content" :style="{height: height}">
+    <div class="cascaderItem" :style="{height: height}">
         <div class="left">
-            <div class="label" v-for="(item, index) in items" :key="index" @click="onClickLabel(item)">
-                {{item.name}}
-<!--                <span v-if="rightArrowVisible(item)"> > </span>-->
-                <span v-if="!item.isLeaf"> > </span>
+            <div class="label" v-for="item in items" @click="onClickLabel(item)">
+                <span class="name">{{item.name}}</span>
+                <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <icon class="loading" name="loading"></icon>
+          </template>
+          <template v-else>
+            <icon class="next" v-if="rightArrowVisible(item)" name="right"></icon>
+          </template>
+        </span>
             </div>
         </div>
         <div class="right" v-if="rightItems">
-            <cascader-items
-                ref="right"
-                :items="rightItems"
-                :level="level+1"
-                :height="height"
-                :selected="selected"
-                :loadData="loadData"
-                @update:selected="onUpdate">
-            </cascader-items>
+            <cascader-items ref="right" :items="rightItems" :height="height"
+                                 :loading-item="loadingItem"
+                                 :load-data="loadData"
+                                 :level="level+1" :selected="selected" @update:selected="onUpdateSelected"></cascader-items>
         </div>
     </div>
 </template>
-f
+
 <script>
+    import Icon from '../icon'
     export default {
-        name: 'cascaderItems',
+        name: "cascaderItems",
+        components: {Icon},
         props: {
             items: {
                 type: Array
@@ -31,66 +34,86 @@ f
             height: {
                 type: String
             },
+            loadingItem: {
+                type: Object,
+                default: () => ({})
+            },
             selected: {
                 type: Array,
-                default: () => {return []}
+                default: () => []
+            },
+            loadData: {
+                type: Function
             },
             level: {
                 type: Number,
                 default: 0
-            },
-            loadData: {
-                type: Function
             }
         },
         computed: {
-            rightItems() {
-                if (this.selected && this.selected[this.level]) {
-                    let select = this.items.filter(item => item.name === this.selected[this.level].name)[0]
-                    if (select && select.children && select.children.length) {
-                        return select.children
+            rightItems () {
+                if (this.selected[this.level]) {
+                    let selected = this.items.filter((item) => item.name === this.selected[this.level].name)
+                    if (selected && selected[0].children && selected[0].children.length > 0) {
+                        return selected[0].children
                     }
                 }
             },
         },
+        mounted () {
+        },
         methods: {
-            rightArrowVisible(item) {
-                console.log(this.loadData,'1111')
+            rightArrowVisible (item) {
                 return this.loadData ? !item.isLeaf : item.children
             },
-            onClickLabel(item) {
+            onClickLabel (item) {
                 let copy = JSON.parse(JSON.stringify(this.selected))
                 copy[this.level] = item
-                copy.splice(this.level + 1)
+                copy.splice(this.level + 1) // 一句话
                 this.$emit('update:selected', copy)
             },
-            onUpdate(item) {
-                this.$emit('update:selected', item)
+            onUpdateSelected (newSelected) {
+                this.$emit('update:selected', newSelected)
             }
         }
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "../../styles/var";
-    .cascader-item-content {
+<style scoped lang="scss">
+    @import "styles/var";
+    .cascaderItem {
         display: flex;
-        justify-content: flex-start;
         align-items: flex-start;
+        justify-content: flex-start;
+        height: 100px;
         .left {
             height: 100%;
             padding: .3em 0;
+            overflow: auto;
         }
         .right {
             height: 100%;
             border-left: 1px solid $border-color-light;
         }
         .label {
-            padding: .3em .5em;
+            padding: .5em 1em;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            white-space: nowrap;
+            &:hover {
+                background: $grey;
+            }
+            > .name {
+                margin-right: 1em;
+                user-select: none;
+            }
+            .icons {
+                margin-left: auto;
+                .loading {
+                    animation: spin 2s infinite linear;
+                }
+            }
         }
     }
-
 </style>
