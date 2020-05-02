@@ -17,7 +17,7 @@ describe('popover', () => {
         expect(Popover).to.exist
     })
 
-    it('可以设置position的top', () => {
+    xit('可以设置position的top', () => {
         const warpper = mount(Popover, {
             slots: {
                 default: {template: '<button>点我</button>'},
@@ -94,7 +94,7 @@ describe('popover', () => {
     //         done()
     //     })
     // })
-    it('可以设置 trigger', () => {
+    xit('可以设置 trigger', () => {
         const warpper = mount(Popover, {
             slots: {
                 default: {template: '<button>点我</button>'},
