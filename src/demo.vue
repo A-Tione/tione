@@ -1,12 +1,16 @@
 <template>
-    <div class="demo-content">
-        <p>11111</p>
-        <t-cascader
-            :selected.sync="selected"
-            :loadData="loadData"
-            :source.sync="source"
-            :popoverHeight="'200px'"></t-cascader>
-        <p>22222</p>
+    <div>
+        <t-slides class="wrapper" width="300px" height="200px" :selected.sync="selected">
+            <t-slides-item name="1">
+                <div class="box">1</div>
+            </t-slides-item>
+            <t-slides-item name="2">
+                <div class="box">2</div>
+            </t-slides-item>
+            <t-slides-item name="3">
+                <div class="box">3</div>
+            </t-slides-item>
+        </t-slides>
     </div>
 </template>
 
@@ -33,54 +37,23 @@
     import tCollapseItem from './collapse/collapse-item'
     import tCascader from './cascader/cascader'
     import db from './collapse/db'
+    import tSlides from './sildes/sildes'
+    import tSlidesItem from './sildes/sildes-item'
 
     export default {
         name: 'demo',
         components: {
-            tButton,
-            tCascader
+            tSlides,
+            tSlidesItem
         },
         props: {},
         computed: {},
 
-        mounted() {
-            this.ajax(0).then(response => {
-                this.source = response
-            })
-        },
-
         data() {
             return {
-                selected: [],
-                source: []
+                selected: undefined,
             }
         },
-        methods: {
-            loadData(node, callback) {
-                let {name, id, parent_id} = node
-                this.ajax(id).then(result => {
-                    callback(result)
-                })
-            },
-            ajax(parent_id = 0) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(()=>{
-                        let result = db.filter(item => item.parent_id == parent_id)
-                        result.forEach(node => {
-                            node.isLeaf = db.filter(item => item.parent_id === node.id).length <= 0;
-                        })
-                        resolve(result)
-                    }, 1000)
-                })
-            },
-            getCity(item) {
-                this.ajax(item[0].id).then(response => {
-                    let last = this.source.filter(item => item.id === this.selected[0].id)[0]
-                    last.children = response
-                    this.$set(last, last.children, response)
-                })
-            }
-        }
     }
 </script>
 
@@ -102,16 +75,17 @@
         --border-color-hover: #666;
     }
 
-    body {
-        font-size: var(--font-size);
+    .wrapper {
+        margin: 40px;
     }
-
-    #app {
-        padding: 100px;
-    }
-
-    .demo-content {
-
+    .box {
+        width: 100%;
+        height: 350px;
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
     }
 
 </style>
