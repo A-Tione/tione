@@ -1,6 +1,8 @@
 <template>
     <div>
-        <t-slides class="wrapper" width="300px" height="200px" :selected.sync="selected">
+        <t-slides class="wrapper" width="300px" height="200px"
+                  :autoPlay="autoPlay"
+                  :selected.sync="selected">
             <t-slides-item name="1">
                 <div class="box">1</div>
             </t-slides-item>
@@ -51,7 +53,8 @@
 
         data() {
             return {
-                selected: undefined,
+                selected: 2,
+                autoPlay: false
             }
         },
     }

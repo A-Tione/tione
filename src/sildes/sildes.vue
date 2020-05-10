@@ -33,7 +33,7 @@
         components: {TIcon},
         props: {
             selected: {
-                type: String
+                type: String,Number
             },
             autoPlay: {
                 type: Boolean,
@@ -47,7 +47,7 @@
 
         computed: {
             selectedIndex() {
-                let index = this.names.indexOf(this.selected)
+                let index = this.names.indexOf(this.selected+'')
                 return index === -1 ? 0 : index
             },
             names() {
@@ -139,7 +139,7 @@
                 this.$emit('update:selected', this.names[newIndex])
             },
             getSelected() {
-                return this.selected || this.items[0]
+                return this.selected+'' || this.items[0]
             },
             updateChildren() {
                 let selected = this.getSelected()
