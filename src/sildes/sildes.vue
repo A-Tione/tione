@@ -3,7 +3,7 @@
          @mouseleave="onMouseLeave"
          @touchend="onTouchEnd"
          @touchstart="onTouchStart"
-         class="t-sildes">
+         class="t-slides">
         <div class="t-slides-window" ref="window">
             <div class="t-slides-wrapper">
                 <slot></slot>
@@ -13,7 +13,7 @@
             <span @click="onClickPrev" data-action="prev">
                 <t-icon name="left"></t-icon>
             </span>
-            <span v-for="n in childrenLength" :class="{avtive: selectedIndex === n-1}"
+            <span v-for="n in childrenLength" :class="{active: selectedIndex === n-1}"
                 :key="n" :data-index="n-1"
                 @click="select(n-1)">
                 {{n}}
@@ -164,7 +164,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .t-sildes {
+    .t-slides {
         &-window {
             overflow: hidden;
         }
@@ -189,7 +189,7 @@
                 &:hover {
                    cursor: pointer;
                 }
-                &:active {
+                &.active {
                     background: black;
                     color: white;
                     &:hover {

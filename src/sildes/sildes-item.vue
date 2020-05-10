@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        name: 'sildes-item',
+        name: 't-sildes-item',
         props: {
             name: {
                 type: String,
