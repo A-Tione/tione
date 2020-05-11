@@ -1,6 +1,6 @@
 <template>
     <div>
-        <t-slides class="wrapper" width="300px" height="200px"
+        <t-slides class="wrapper"
                   :autoPlay="autoPlay"
                   :selected.sync="selected">
             <t-slides-item name="1">
@@ -38,7 +38,7 @@
     import tCollapse from './collapse/collapse'
     import tCollapseItem from './collapse/collapse-item'
     import tCascader from './cascader/cascader'
-    import db from './collapse/db'
+    import db from '../tests/fixtures/db'
     import tSlides from './sildes/sildes'
     import tSlidesItem from './sildes/sildes-item'
 

@@ -93,25 +93,25 @@
                 if (e.touches.length > 1) {return}
                 this.startTouch = e.touches[0]
             },
-            onTouchEnd(e) {
-                let endTouch = e.changedTouches[0]
-                let {clientX: x1, clientY: y1} = this.startTouch
-                let {clientX: x2, clientY: y2} = endTouch
+onTouchEnd(e) {
+    let endTouch = e.changedTouches[0]
+    let {clientX: x1, clientY: y1} = this.startTouch
+    let {clientX: x2, clientY: y2} = endTouch
 
-                let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
-                let deltaY = Math.abs(y2 - y1)
-                let rate = distance / deltaY
-                if (rate > 2) {
-                    if (x2 > x1) {
-                        this.select(this.selectedIndex - 1)
-                    } else {
-                        this.select(this.selectedIndex + 1)
-                    }
-                }
-                this.$nextTick(()=> {
-                    this.playAutomatically()
-                })
-            },
+    let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+    let deltaY = Math.abs(y2 - y1)
+    let rate = distance / deltaY
+    if (rate > 2) {
+        if (x2 > x1) {
+            this.select(this.selectedIndex - 1)
+        } else {
+            this.select(this.selectedIndex + 1)
+        }
+    }
+    this.$nextTick(()=> {
+        this.playAutomatically()
+    })
+},
             onClickPrev() {
                 this.select(this.selectedIndex - 1)
             },
