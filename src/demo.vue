@@ -1,60 +1,31 @@
 <template>
     <div>
-        <t-slides class="wrapper"
-                  :autoPlay="autoPlay"
-                  :selected.sync="selected">
-            <t-slides-item name="1">
-                <div class="box">1</div>
-            </t-slides-item>
-            <t-slides-item name="2">
-                <div class="box">2</div>
-            </t-slides-item>
-            <t-slides-item name="3">
-                <div class="box">3</div>
-            </t-slides-item>
-        </t-slides>
+        <nav class="box" :selected.sync="selected">
+            <nav-item name="home">首页</nav-item>
+            <nav-item name="about">关于</nav-item>
+            <nav-item name="hire">招聘</nav-item>
+        </nav>
     </div>
 </template>
 
 <script>
-    import tButton from './button/button'
-    import tIcon from './icon'
-    import tButtonGroup from './button/button-group'
-    import tInput from './input/input'
-    import tRow from './grid/row'
-    import tCol from './grid/col'
-    import tLayout from './layout/layout'
-    import tSider from './layout/sider'
-    import tHeader from './layout/header'
-    import tContent from './layout/content'
-    import tFooter from './layout/footer'
-    import tToast from './toast/toast'
-    import tTabs from './tabs/tabs'
-    import tTabsHead from './tabs/tabs-head'
-    import tTabsBody from './tabs/tabs-body'
-    import tTabsItem from './tabs/tabs-item'
-    import tTabsPane from './tabs/tabs-pane'
-    import tPopover from './popover/popover'
-    import tCollapse from './collapse/collapse'
-    import tCollapseItem from './collapse/collapse-item'
-    import tCascader from './cascader/cascader'
-    import db from '../tests/fixtures/db'
-    import tSlides from './sildes/sildes'
-    import tSlidesItem from './sildes/sildes-item'
+    import Nav from './nav/nav'
+    import NavItem from './nav/nav-item'
+    import SubNav from './nav/sub-nav'
 
     export default {
         name: 'demo',
         components: {
-            tSlides,
-            tSlidesItem
+            Nav,
+            NavItem,
+            SubNav
+
         },
-        props: {},
         computed: {},
 
         data() {
             return {
-                selected: 2,
-                autoPlay: false
+                selected: ['home'],
             }
         },
     }
@@ -82,13 +53,8 @@
         margin: 40px;
     }
     .box {
-        width: 100%;
-        height: 350px;
-        background: #ddd;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
+        border: 1px solid red;
     }
 
 </style>
