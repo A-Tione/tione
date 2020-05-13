@@ -5,8 +5,9 @@
 </template>
 
 <script>
+
     export default {
-        name: 'nav',
+        name: 't-nav',
         props: {
             selected: {
                 type: Array,
@@ -17,9 +18,14 @@
                 default: false
             }
         },
-        computed: {
-            items() {
-                return this.$children.filter(vm => vm.$options.name === 't-nav-item')
+        data() {
+            return {
+                items: [],
+            }
+        },
+        provide() {
+            return {
+                root: this
             }
         },
         mounted() {
@@ -30,6 +36,9 @@
             this.listenToChildren()
         },
         methods: {
+            addItem(vm) {
+                this.items.push(vm)
+            },
             updateChildren() {
                 this.items.forEach(vm => {
                     vm.selected = this.selected.indexOf(vm.name) >= 0;

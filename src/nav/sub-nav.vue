@@ -1,12 +1,17 @@
 <template>
-    <div class="sbu-nav-content">
-        
+    <div class="sub-nav-content">
+        <span>
+            <slot name="title"></slot>
+        </span>
+        <div class="sub-nav-content-popover">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'sbu-nav',
+        name: 'sub-nav',
         props: {},
         data() {
             return {}
@@ -16,8 +21,16 @@
 </script>
 
 <style lang="scss" scoped>
-    .sbu-nav-content {
-
+    .sub-nav-content {
+        position: relative;
+        padding: 10px 30px;
+        &-popover {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            border: 1px solid black;
+            white-space: nowrap;
+        }
     }
 
 </style>

@@ -1,22 +1,27 @@
 <template>
     <div>
-        <nav class="box" :selected.sync="selected">
+        <t-nav class="box" :selected.sync="selected">
             <nav-item name="home">首页</nav-item>
-            <nav-item name="about">关于</nav-item>
+            <sub-nav>
+                <template slot="title">关于</template>
+                <nav-item name="culture">企业文化</nav-item>
+                <nav-item name="developers">开发团队</nav-item>
+                <nav-item name="contacts">联系电话</nav-item>
+            </sub-nav>
             <nav-item name="hire">招聘</nav-item>
-        </nav>
+        </t-nav>
     </div>
 </template>
 
 <script>
-    import Nav from './nav/nav'
+    import TNav from './nav/t-nav'
     import NavItem from './nav/nav-item'
     import SubNav from './nav/sub-nav'
 
     export default {
         name: 'demo',
         components: {
-            Nav,
+            TNav,
             NavItem,
             SubNav
 
@@ -25,7 +30,7 @@
 
         data() {
             return {
-                selected: ['home'],
+                selected: ['developers'],
             }
         },
     }
