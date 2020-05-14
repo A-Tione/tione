@@ -1,9 +1,9 @@
 <template>
     <div class="sub-nav-content">
-        <span>
+        <span @click="onClick">
             <slot name="title"></slot>
         </span>
-        <div class="sub-nav-content-popover">
+        <div class="sub-nav-content-popover" v-show="open">
             <slot></slot>
         </div>
     </div>
@@ -14,16 +14,26 @@
         name: 'sub-nav',
         props: {},
         data() {
-            return {}
+            return {
+                open: false
+            }
         },
-        methods: {}
+        methods: {
+            onClick() {
+                this.open = !this.open
+            }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     .sub-nav-content {
         position: relative;
-        padding: 10px 30px;
+        >span {
+            padding: 10px 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
         &-popover {
             position: absolute;
             top: 100%;

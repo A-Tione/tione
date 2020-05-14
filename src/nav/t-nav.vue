@@ -33,7 +33,7 @@
             this.listenToChildren()
         },
         updated() {
-            this.listenToChildren()
+            this.updateChildren()
         },
         methods: {
             addItem(vm) {
