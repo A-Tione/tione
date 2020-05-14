@@ -42,5 +42,10 @@
             white-space: nowrap;
         }
     }
+    .sub-nav-content .sub-nav-content .sub-nav-content-popover {
+        top: 0;
+        left: 100%;
+        margin-left: 4px;
+    }
 
 </style>

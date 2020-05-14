@@ -7,6 +7,12 @@
                 <nav-item name="culture">企业文化</nav-item>
                 <nav-item name="developers">开发团队</nav-item>
                 <nav-item name="contacts">联系电话</nav-item>
+                <sub-nav>
+                    <template slot="title">联系方式</template>
+                    <nav-item name="cm">移动</nav-item>
+                    <nav-item name="cu">联通</nav-item>
+                    <nav-item name="cn">电信</nav-item>
+                </sub-nav>
             </sub-nav>
             <nav-item name="hire">招聘</nav-item>
         </t-nav>
