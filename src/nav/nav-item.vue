@@ -24,6 +24,8 @@
         },
         methods: {
             onClick() {
+                this.root.namePath = []
+                this.$parent.updateNamePath && this.$parent.updateNamePath()
                 this.$emit('add:selected', this.name)
             }
         }
@@ -41,8 +43,9 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                border-bottom: 2px solid $blue;
                 width: 100%;
+                background: $grey;
+                border-bottom: 2px solid $blue;
             }
         }
     }

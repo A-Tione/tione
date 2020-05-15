@@ -21,6 +21,7 @@
         data() {
             return {
                 items: [],
+                namePath: []
             }
         },
         provide() {

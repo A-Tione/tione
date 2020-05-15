@@ -2,12 +2,12 @@
     <div>
         <t-nav class="box" :selected.sync="selected">
             <nav-item name="home">首页</nav-item>
-            <sub-nav>
+            <sub-nav name="about">
                 <template slot="title">关于</template>
                 <nav-item name="culture">企业文化</nav-item>
                 <nav-item name="developers">开发团队</nav-item>
                 <nav-item name="contacts">联系电话</nav-item>
-                <sub-nav>
+                <sub-nav name="phone">
                     <template slot="title">联系方式</template>
                     <nav-item name="cm">移动</nav-item>
                     <nav-item name="cu">联通</nav-item>
