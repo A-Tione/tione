@@ -27,9 +27,10 @@
 </script>
 
 <style lang="scss" scoped>
+    @import '../../styles/var';
     .sub-nav-content {
         position: relative;
-        >span {
+        > span {
             padding: 10px 30px;
             display: inline-block;
             vertical-align: top;
@@ -40,6 +41,13 @@
             left: 0;
             border: 1px solid black;
             white-space: nowrap;
+            background: white;
+            margin-top: 4px;
+            box-shadow: 0 0 3px fade_out(black, 0.8);
+            border-radius: $border-radius;
+            font-size: $font-size;
+            color: $light-color;
+            min-width: 8em;
         }
     }
     .sub-nav-content .sub-nav-content .sub-nav-content-popover {
@@ -47,6 +55,5 @@
         left: 100%;
         margin-left: 4px;
     }
-
 
 </style>

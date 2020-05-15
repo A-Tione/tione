@@ -31,10 +31,27 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "../../styles/var";
     .nav-item-content {
+        position: relative;
         padding: 10px 30px;
         &.selected {
-            background: red;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-bottom: 2px solid $blue;
+                width: 100%;
+            }
+        }
+    }
+    .sub-nav-content .nav-item-content {
+        &.selected {
+            color: $color;
+            &::after {
+                display: none;
+            }
         }
     }
 

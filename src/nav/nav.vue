@@ -64,6 +64,12 @@
 </script>
 
 <style lang="scss" scoped>
-
+    @import "../../styles/var";
+    .nav-content {
+        display: flex;
+        border-bottom: 1px solid $grey;
+        color: $color;
+        cursor: default;
+    }
 
 </style>

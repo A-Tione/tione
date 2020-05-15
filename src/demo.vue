@@ -16,11 +16,12 @@
             </sub-nav>
             <nav-item name="hire">招聘</nav-item>
         </t-nav>
+        <p>这是内容页面</p>
     </div>
 </template>
 
 <script>
-    import TNav from './nav/t-nav'
+    import TNav from './nav/nav'
     import NavItem from './nav/nav-item'
     import SubNav from './nav/sub-nav'
 
