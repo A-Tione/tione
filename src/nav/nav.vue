@@ -10,8 +10,8 @@
         name: 't-nav',
         props: {
             selected: {
-                type: Array,
-                default: ()=> []
+                type: String,
+                default: ''
             },
             multiple: {
                 type: Boolean,
@@ -25,7 +25,7 @@
         data() {
             return {
                 items: [],
-                namePath: []
+                namePath: [] //存下拉数组
             }
         },
         provide() {
@@ -47,21 +47,13 @@
             },
             updateChildren() {
                 this.items.forEach(vm => {
-                    vm.selected = this.selected.indexOf(vm.name) >= 0;
+                    vm.selected = vm.name === this.selected;
                 })
             },
             listenToChildren() {
                 this.items.forEach(vm => {
-                    vm.$on('add:selected', name => {
-                        if (this.multiple) {
-                            if (this.selected.indexOf(name)<0) {
-                                let copy = JSON.parse(JSON.stringify(this.selected))
-                                copy.push(name)
-                                this.$emit('update:selected', copy)
-                            }
-                        } else {
-                            this.$emit('update:selected', [name])
-                        }
+                    vm.$on('update:selected', name => {
+                        this.$emit('update:selected', name)
                     })
                 })
             }

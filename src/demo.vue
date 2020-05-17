@@ -37,7 +37,7 @@
 
         data() {
             return {
-                selected: ['developers'],
+                selected: 'home',
             }
         },
     }
