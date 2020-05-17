@@ -78,6 +78,7 @@
         cursor: default;
         &.vertical {
             flex-direction: column;
+            border: 1px solid $grey;
         }
     }
 

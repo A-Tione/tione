@@ -38,7 +38,7 @@
         computed: {
             active() {
                 return this.root.namePath.indexOf(this.name) > -1
-            }
+            },
         },
 
         methods: {
@@ -50,7 +50,6 @@
                 el.addEventListener('transitionend', ()=>{
                     done()
                 })
-                done()
             },
             afterEnter(el) {
                 el.style.height = 'auto'
@@ -63,7 +62,6 @@
                 el.addEventListener('transitionend', ()=>{
                     done()
                 })
-                done()
             },
             afterLeave(el) {
                 el.style.height = 'auto'
@@ -124,7 +122,8 @@
                 border-radius: 0;
                 border: none;
                 box-shadow: none;
-                transition: height 1s;
+                transition: height .3s;
+                overflow: hidden;
             }
         }
     }

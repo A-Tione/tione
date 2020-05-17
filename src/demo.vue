@@ -1,6 +1,6 @@
 <template>
     <div>
-        <t-nav class="box" :selected.sync="selected">
+        <t-nav class="box" :selected.sync="selected" vertical style="width: 200px;">
             <nav-item name="home">首页</nav-item>
             <sub-nav name="about">
                 <template slot="title">关于</template>
@@ -66,7 +66,6 @@
     }
     .box {
         display: flex;
-        border: 1px solid red;
     }
 
 </style>
