@@ -37,21 +37,24 @@
     .nav-item-content {
         position: relative;
         padding: 10px 20px;
-        &.selected {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: $grey;
-                border-bottom: 2px solid $blue;
+        &:not(.vertical) {
+            &.selected {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    background: $grey;
+                    border-bottom: 2px solid $blue;
+                }
             }
         }
     }
-    .sub-nav-content .nav-item-content {
+    .sub-nav-content .nav-item-content:not(.vertical) {
         &.selected {
             color: $color;
+            background: $grey;
             &::after {
                 display: none;
             }

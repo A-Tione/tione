@@ -1,16 +1,23 @@
 <template>
-    <div class="sub-nav-content" :class="{active}" v-click-outside="close">
+    <div class="sub-nav-content" :class="{active, vertical}" v-click-outside="close">
         <span class="sub-nav-content-label" @click="onClick">
             <slot name="title"></slot>
-            <span class="sub-nav-content-icon" :class="{open}">
+            <span class="sub-nav-content-icon" :class="{open, vertical}">
                 <t-icon name="right"></t-icon>
             </span>
         </span>
-        <transition @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
-            <div class="sub-nav-content-popover" v-show="open" :class="{vertical}">
+        <template v-if="vertical">
+            <transition @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
+                <div class="sub-nav-content-popover" v-show="open" :class="{vertical}">
+                    <slot></slot>
+                </div>
+            </transition>
+        </template>
+        <template v-else>
+            <div class="sub-nav-content-popover" v-show="open">
                 <slot></slot>
             </div>
-        </transition>
+        </template>
     </div>
 </template>
 
@@ -82,19 +89,18 @@
 
 <style lang="scss" scoped>
     @import '../../styles/var';
-    .x-enter-active, .x-leave-active {}
-    .x-enter, .x-leave-to {}
-    .x-enter-to, .x-leave {}
     .sub-nav-content {
         position: relative;
-        &.active {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                border-bottom: 2px solid $blue;
-                width: 100%;
+        &:not(.vertical) {
+            &.active {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-bottom: 2px solid $blue;
+                    width: 100%;
+                }
             }
         }
         &-label {
@@ -148,6 +154,12 @@
             display: inline-flex;
             margin-left: 1em;
             svg {fill: $light-color;}
+            &.vertical {
+                transform: rotate(90deg);
+                &.open {
+                    transform: rotate(270deg);
+                }
+            }
             &.open {
                 transform: rotate(180deg);
             }
