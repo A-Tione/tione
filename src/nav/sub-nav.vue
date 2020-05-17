@@ -1,21 +1,28 @@
 <template>
     <div class="sub-nav-content" :class="{active}" v-click-outside="close">
-        <span @click="onClick">
+        <span class="sub-nav-content-label" @click="onClick">
             <slot name="title"></slot>
+            <span class="sub-nav-content-icon" :class="{open}">
+                <t-icon name="right"></t-icon>
+            </span>
         </span>
-        <div class="sub-nav-content-popover" v-show="open">
-            <slot></slot>
-        </div>
+        <transition @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
+            <div class="sub-nav-content-popover" v-show="open" :class="{vertical}">
+                <slot></slot>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import clickOutside from './click-outside'
+    import tIcon from '../icon'
 
     export default {
         name: 'sub-nav',
+        components: {tIcon},
         directives: {clickOutside},
-        inject: ['root'],
+        inject: ['root', 'vertical'],
         props: {
             name: {
                 type: String,
@@ -35,6 +42,32 @@
         },
 
         methods: {
+            enter(el, done) {
+                let {height} = el.getBoundingClientRect()
+                el.style.height = 0
+                el.getBoundingClientRect()
+                el.style.height = `${height}px`
+                el.addEventListener('transitionend', ()=>{
+                    done()
+                })
+                done()
+            },
+            afterEnter(el) {
+                el.style.height = 'auto'
+            },
+            leave(el, done) {
+                let {height} = el.getBoundingClientRect()
+                el.style.height = `${height}px`
+                el.getBoundingClientRect()
+                el.style.height = 0
+                el.addEventListener('transitionend', ()=>{
+                    done()
+                })
+                done()
+            },
+            afterLeave(el) {
+                el.style.height = 'auto'
+            },
             onClick() {
                 this.open = !this.open
             },
@@ -51,6 +84,9 @@
 
 <style lang="scss" scoped>
     @import '../../styles/var';
+    .x-enter-active, .x-leave-active {}
+    .x-enter, .x-leave-to {}
+    .x-enter-to, .x-leave {}
     .sub-nav-content {
         position: relative;
         &.active {
@@ -63,10 +99,12 @@
                 width: 100%;
             }
         }
-        > span {
-            padding: 10px 30px;
-            display: inline-block;
-            vertical-align: top;
+        &-label {
+            display: block;
+            padding: 10px 20px;
+        }
+        &-icon {
+            display: none;
         }
         &-popover {
             position: absolute;
@@ -81,12 +119,40 @@
             font-size: $font-size;
             color: $light-color;
             min-width: 8em;
+            &.vertical {
+                position: static;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                transition: height 1s;
+            }
         }
     }
-    .sub-nav-content .sub-nav-content .sub-nav-content-popover {
-        top: 0;
-        left: 100%;
-        margin-left: 4px;
+    .sub-nav-content .sub-nav-content {
+        &.active {
+            &::after {
+                display: none;
+            }
+        }
+        .sub-nav-content-popover {
+            top: 0;
+            left: 100%;
+            margin-left: 8px;
+        }
+        .sub-nav-content-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sub-nav-content-icon {
+            transition: transform .3s;
+            display: inline-flex;
+            margin-left: 1em;
+            svg {fill: $light-color;}
+            &.open {
+                transform: rotate(180deg);
+            }
+        }
     }
 
 </style>
