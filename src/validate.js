@@ -13,10 +13,14 @@ export default function validate (data, rules) {
         // 遍历validators，并逐一调用对应的函数
         let validators = Object.keys(rule).filter(key => key !== 'key' && key !== 'required')
         validators.forEach(item => {
-            let error = validate[item] && validate[item](value, rule[item])
-            if (error) {
-                ensureObject(errors, rule.key)
-                errors[rule.key][item] = error
+            if (validate[item]) {
+                let error = validate[item] && validate[item](value, rule[item])
+                if (error) {
+                    ensureObject(errors, rule.key)
+                    errors[rule.key][item] = error
+                }
+            } else {
+                throw `不存在的校验器：${item}`
             }
         })
     })
