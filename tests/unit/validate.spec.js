@@ -91,5 +91,22 @@ describe('validate', ()=> {
         expect(errors.email.minLength).to.exist
         expect(errors.email.pattern).to.exist
     })
+    it('自定义测试规则 hasNumber', ()=> {
+        let data = {
+            email: 'asdfsdf'
+        }
+        validate.hasNumber = (value) => {
+            if (!/\d/.test(value)) {
+                return '必须含有数字'
+            }
+        }
+        let rules = [{key: 'email', required: true, hasNumber: true}]
+        let errors
+        let fn = () => {
+            errors = validate(data, rules)
+        }
+        expect(fn).to.not.throw()
+        expect(errors.email.hasNumber).to.eq('必须含有数字')
+    })
 
 })
