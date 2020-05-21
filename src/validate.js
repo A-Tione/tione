@@ -1,5 +1,5 @@
 class Validator {
-    static add (name, fn) {
+    static add (name, fn) { //静态方法
         Validator.prototype[name] = fn
     }
     constructor() {}
