@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'table',
+        name: 'pages',
         props: {
             colums: {
                 type: Array,
