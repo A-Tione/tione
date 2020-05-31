@@ -1,43 +1,24 @@
 <template>
     <div>
-        <t-nav class="box" :selected.sync="selected" vertical style="width: 200px;">
-            <nav-item name="home">首页</nav-item>
-            <sub-nav name="about">
-                <template slot="title">关于</template>
-                <nav-item name="culture">企业文化</nav-item>
-                <nav-item name="developers">开发团队</nav-item>
-                <nav-item name="contacts">联系电话</nav-item>
-                <sub-nav name="phone">
-                    <template slot="title">联系方式</template>
-                    <nav-item name="cm">移动</nav-item>
-                    <nav-item name="cu">联通</nav-item>
-                    <nav-item name="cn">电信</nav-item>
-                </sub-nav>
-            </sub-nav>
-            <nav-item name="hire">招聘</nav-item>
-        </t-nav>
-        <p>这是内容页面</p>
+        <T-pager :total="20" :current="3"></T-pager>
     </div>
 </template>
 
 <script>
-    import TNav from './nav/nav'
-    import NavItem from './nav/nav-item'
-    import SubNav from './nav/sub-nav'
+    import TPager from './pager/pager'
 
     export default {
         name: 'demo',
         components: {
-            TNav,
-            NavItem,
-            SubNav
+            TPager
 
         },
+
         computed: {},
 
         data() {
             return {
-                selected: 'home',
+
             }
         },
     }
