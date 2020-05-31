@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <T-pager :total="20" :current="3"></T-pager>
     </div>
 </template>
@@ -25,6 +25,9 @@
 </script>
 
 <style lang="scss">
+    .box {
+        padding: 100px;
+    }
     * {
         margin: 0;
         padding: 0;

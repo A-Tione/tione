@@ -1,6 +1,8 @@
 <template>
     <div class="pager-content">
-        <span v-for="page in pages">
+        <span v-for="page in pages"
+              :class="{active: page === current, separator: page === '...'}"
+              class="pager-content-item">
             {{page}}
         </span>
     </div>
@@ -50,8 +52,31 @@
 </script>
 
 <style lang="scss" scoped>
-    .pager-content {
+    @import 'styles/var';
 
+    .pager-content {
+        &-item {
+            border: 1px solid $grey;
+            border-radius: $border-radius;
+            padding: 0 4px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            min-width: 20px;
+            height: 20px;
+            margin: 0 4px;
+            cursor: pointer;
+            &.separator {
+                border: none;
+            }
+            &.active, &:hover {
+                border-radius: $blue;
+            }
+            &.active {
+                cursor: default;
+            }
+        }
     }
 
 </style>
