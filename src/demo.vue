@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <T-pager :total="20" :current="3"></T-pager>
+        <T-pager :total="20" :current="20"></T-pager>
     </div>
 </template>
 
