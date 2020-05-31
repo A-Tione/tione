@@ -1,6 +1,8 @@
 <template>
-    <div class="pager-content">
-        <span class="pager-content-nav prev" :class="{disabled: current === 1}">
+    <div class="pager-content" :class="{hide: !hideOnePage && pages <= 1}">
+        <span class="pager-content-nav prev"
+              @click="onClickPage(current-1)"
+              :class="{disabled: current === 1}">
             <t-icon name="left"></t-icon>
         </span>
         <template v-for="page in pages">
@@ -11,10 +13,12 @@
                 <span class="pager-content-item separator">...</span>
             </template>
             <template v-else>
-                <span class="pager-content-item other">{{page}}</span>
+                <span class="pager-content-item other" @click="onClickPage(page)">{{page}}</span>
             </template>
         </template>
-        <span class="pager-content-nav next" :class="{disabled: current === total}">
+        <span class="pager-content-nav next"
+              @click="onClickPage(current+1)"
+              :class="{disabled: current === total}">
             <t-icon name="right"></t-icon>
         </span>
     </div>
@@ -44,22 +48,28 @@
                 default: true
             }
         },
-        data() {
-            let pages = [1, this.total, this.current, this.current-1, this.current-2, this.current+1, this.current+2]
-            let u = pages.filter(n => n >= 1 && n <= this.total)
-            let u1 = this.unique(u.sort((a, b) => a - b))
-            let u2 = u1.reduce((a, b, index, array) => { // 过滤，添加...
-                a.push(b)
-                if (array[index + 1] !== undefined && array[index+1] - array[index] > 1) {
-                    a.push('...')
-                }
-                return a
-            }, [])
-            return {
-                pages: u2
+
+        computed: {
+            pages() {
+                let pages = [1, this.total, this.current, this.current-1, this.current-2, this.current+1, this.current+2]
+                let u = pages.filter(n => n >= 1 && n <= this.total)
+                let u1 = this.unique(u.sort((a, b) => a - b))
+                return u1.reduce((a, b, index, array) => { // 过滤，添加...
+                    a.push(b)
+                    if (array[index + 1] !== undefined && array[index+1] - array[index] > 1) {
+                        a.push('...')
+                    }
+                    return a
+                }, [])
             }
         },
+
         methods: {
+            onClickPage(n) {
+                if (n >=1 && n <= this.total) {
+                    this.$emit('update:current', n)
+                }
+            },
             unique(array) { //数组去重
                 const object = {}
                 array.map(item => {
@@ -81,7 +91,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
+        user-select: none;
+        &.hide {
+            display: none;
+        }
         &-item {
             border: 1px solid $grey;
             border-radius: $border-radius;
@@ -94,14 +107,18 @@
             height: $height;
             margin: 0 4px;
             cursor: pointer;
+            &.other {
+                cursor: pointer;
+            }
+            &.current {
+                border: 1px solid $blue;
+                cursor: default;
+            }
+            &:hover {
+                border: 1px solid $blue;
+            }
             &.separator {
                 border: none;
-            }
-            &.active, &:hover {
-                border-radius: $blue;
-            }
-            &.active {
-                cursor: default;
             }
         }
         &-nav {

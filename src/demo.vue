@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <T-pager :total="20" :current="20"></T-pager>
+        <T-pager :total="10" :current="1" :current.sync="currentPage" :hide-one-page="false"></T-pager>
     </div>
 </template>
 
@@ -18,7 +18,7 @@
 
         data() {
             return {
-
+                currentPage: 1
             }
         },
     }
