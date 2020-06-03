@@ -5,7 +5,7 @@
             <tr>
                 <th><input ref="allChecked" type="checkbox" @change="onChangeAllItems"/></th>
                 <th v-if="numberVisible">#</th>
-                <th v-for="column in column">
+                <th v-for="column in column" :key="column.field">
                     {{column.text}}
                 </th>
             </tr>
@@ -18,7 +18,7 @@
                 </td>
                 <td v-if="numberVisible">{{index+1}}</td>
                 <template v-for="column in columns">
-                    <td>{{item[column.field]}}</td>
+                    <td :key="column.field">{{item[column.field]}}</td>
                 </template>
             </tr>
             </tbody>
@@ -85,7 +85,7 @@
                 if (selected) {
                     copy.push(item)
                 } else {
-                    copy.splice(copy.indexOf(item), 1)
+                    copy = copy.filter(i => i.id !== item.id)
                 }
                 this.$emit('update:selectedItems', copy)
             },
