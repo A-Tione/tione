@@ -113,6 +113,28 @@
                     border: 1px solid $grey;
                 }
             }
+            &.compact {
+                td, th {
+                    padding: 4px;
+                }
+            }
+            td, th {
+                border-bottom: 1px solid $grey;
+                text-align: left;
+                padding: 8px;
+            }
+            &.striped {
+                tbody {
+                    > tr {
+                        &:nth-child(odd) {
+                            background: white;
+                        }
+                        &:nth-child(even) {
+                            background: lighten($grey, 10%);
+                        }
+                    }
+                }
+            }
         }
     }
 
