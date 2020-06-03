@@ -11,7 +11,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) in dataSource">
+            <tr v-for="(item,index) in dataSource" :key="item.id">
                 <td>
                     <input type="checkbox" @change="onChangeItem(item, index, $event)"
                     :checked="inSelectedItems(item)">
