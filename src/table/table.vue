@@ -3,7 +3,8 @@
         <table class="pages-content-table" :class="{bordered, compact, striped: striped}">
             <thead>
             <tr>
-                <th><input ref="allChecked" type="checkbox" @change="onChangeAllItems"/></th>
+                <th><input ref="allChecked" type="checkbox" @change="onChangeAllItems"
+                           :checked="areAllItemsSelected"/></th>
                 <th v-if="numberVisible">#</th>
                 <th v-for="column in column" :key="column.field">
                     {{column.text}}
@@ -72,6 +73,22 @@
                 if (this.selectedItems.length === this.dataSource.length) {
                     this.$refs.allChecked.indeterminate = false
                 } else this.$refs.allChecked.indeterminate = this.selectedItems.length !== 0;
+            }
+        },
+
+        computed: {
+            areAllItemsSelected() { //判断所有元素是否被选中
+                const a = this.dataSource.map(item => item.id).sort()
+                const b = this.selectedItems.map(item => item.id).sort()
+                let equal = true
+                if (a.length !== b.length) { return equal }
+                for (let i = 0; i < a.length; i++) {
+                    if (a[i] !== b[i]) {
+                        equal = false
+                        break
+                    }
+                }
+                return equal
             }
         },
 
