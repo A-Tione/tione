@@ -1,6 +1,6 @@
 <template>
-    <div class="pages-content">
-        <table class="pages-content-table" :class="{bordered, compact, striped: striped}">
+    <div class="t-table-content">
+        <table class="t-table-content-table" :class="{bordered, compact, striped: striped}">
             <thead>
             <tr>
                 <th><input ref="allChecked" type="checkbox" @change="onChangeAllItems"
@@ -24,12 +24,19 @@
             </tr>
             </tbody>
         </table>
+        <div v-if="loading" class="t-table-content-loading">
+            <t-icon name="loading"></t-icon>
+        </div>
     </div>
 </template>
 
 <script>
+    import TIcon from 'src/icon'
     export default {
         name: 'table',
+        components: {
+            TIcon
+        },
         props: {
             striped: {
                 type: Boolean,
@@ -46,6 +53,10 @@
             columns: {
                 type: Array,
                 required: true
+            },
+            loading: {
+                type: Boolean,
+                default: false,
             },
             dataSource: {
                 type: Array,
@@ -118,7 +129,8 @@
     @import 'styles/var';
     $grey: darken($grey, 10%);
 
-    .pages-content {
+    .t-table-content {
+        position: relative;
         &-table {
             width: 100%;
             border-collapse: collapse;
@@ -151,6 +163,22 @@
                         }
                     }
                 }
+            }
+        }
+        &-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+            svg {
+                width: 50px;
+                height: 50px;
+                @include spin
             }
         }
     }
