@@ -7,8 +7,12 @@
                      :order-by.sync="orderBy"
                      :loading="loading"
                      height="400"
-                     @update:orderBy="x"
-            ></t-table>
+                     @update:orderBy="x">
+                <template slot-scope="xxx">
+                    <button @click="look(xxx.item)">查看</button>
+                    <button @click="edit(xxx.item)">编辑</button>
+                </template>
+            </t-table>
         </div>
         <div style="margin: 20px;">
             <t-pager :total="10" :current="1" :current.sync="currentPage" :hide-one-page="false"></t-pager>
@@ -63,6 +67,12 @@
                 setTimeout(()=> {
                     this.loading = false
                 },1000)
+            },
+            look(item) {
+                console.log('查看', item)
+            },
+            edit(item) {
+                console.log('编辑', item)
             }
         },
     }
