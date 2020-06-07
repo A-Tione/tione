@@ -1,29 +1,57 @@
 <template>
-    <div class="t-table-content">
-        <table class="t-table-content-table" :class="{bordered, compact, striped: striped}">
-            <thead>
-            <tr>
-                <th><input ref="allChecked" type="checkbox" @change="onChangeAllItems"
-                           :checked="areAllItemsSelected"/></th>
-                <th v-if="numberVisible">#</th>
-                <th v-for="column in column" :key="column.field">
-                    {{column.text}}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item,index) in dataSource" :key="item.id">
-                <td>
-                    <input type="checkbox" @change="onChangeItem(item, index, $event)"
-                    :checked="inSelectedItems(item)">
-                </td>
-                <td v-if="numberVisible">{{index+1}}</td>
-                <template v-for="column in columns">
-                    <td :key="column.field">{{item[column.field]}}</td>
+    <div class="t-table-wrapper" ref="wrapper">
+        <div :style="{height, overflow:'auto'}" ref="tableWrapper">
+            <table class="t-table" ref="table" :class="{bordered, compact, striped: striped}">
+                <thead>
+                <tr>
+                    <th v-if="expendField" :style="{width: '50px'}" class="t-table-center"></th>
+                    <th v-if="checkable" :style="{width: '50px'}" class="t-table-center">
+                        <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
+                               :checked="areAllItemsSelected"/>
+                    </th>
+                    <th :style="{width: '50px'}" v-if="numberVisible">#</th>
+                    <th :style="{width: column.width + 'px'}" v-for="column in column" :key="column.field">
+                        <div class="t-table-header">
+                            {{column.text}}
+                            <span v-if="column.field in orderBy" class="t-table-sorter"
+                                  @click="changeOrderBy(column.field)">
+                                <t-icon name="asc" :class="{active: orderBy[column.field] === 'asc'}"></t-icon>
+                                <t-icon name="desc" :class="{active: orderBy[column.field] === 'desc'}"></t-icon>
+                            </span>
+                        </div>
+                    </th>
+                    <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(item, index) in dataSource">
+                    <tr :key="item.id">
+                        <td v-if="expendField" :style="{width: '50px'}" class="t-table-center">
+                            <t-icon class="t-table-expendIcon" name="right" @click="expendItem(item.id)"></t-icon>
+                        </td>
+                        <td v-if="checkable" :style="{width: '50px'}" class="t-table-center">
+                            <input type="checkbox" @change="onChangeItem(item, index, $event)"
+                                   :checked="inSelectedItems(item)">
+                        </td>
+                        <td v-if="numberVisible">{{index+1}}</td>
+                        <template v-for="column in columns">
+                            <td :style="{width: column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
+                        </template>
+                        <td v-if="$scopedSlots.default">
+                            <div ref="actions" style="display: inline-block">
+                                <slot :item="item"></slot>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
+                        <td :colspan="columns.length + expendedCellColSpan">
+                            {{item[expendField] || '无'}}
+                        </td>
+                    </tr>
                 </template>
-            </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <div v-if="loading" class="t-table-content-loading">
             <t-icon name="loading"></t-icon>
         </div>
@@ -32,19 +60,30 @@
 
 <script>
     import TIcon from 'src/icon'
+
     export default {
         name: 'table',
         components: {
             TIcon
         },
         props: {
+            height: {
+              type: Number
+            },
+            expendField: {
+                type: String
+            },
+            orderBy: {
+                type: Object,
+                default: ()=> {}
+            },
             striped: {
                 type: Boolean,
                 default: true
             },
             selectedItems: {
                 type: Array,
-                default: ()=> []
+                default: () => []
             },
             compact: {
                 type: Boolean,
@@ -56,7 +95,7 @@
             },
             loading: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             dataSource: {
                 type: Array,
@@ -72,18 +111,24 @@
             bordered: {
                 type: Boolean,
                 default: false
+            },
+            checkable: {
+                type: Boolean,
+                default: false
             }
         },
 
         data() {
-            return {}
+            return {
+                expendedIds: []
+            }
         },
 
         watch: {
             selectedItems() {
                 if (this.selectedItems.length === this.dataSource.length) {
                     this.$refs.allChecked.indeterminate = false
-                } else this.$refs.allChecked.indeterminate = this.selectedItems.length !== 0;
+                } else this.$refs.allChecked.indeterminate = this.selectedItems.length !== 0
             }
         },
 
@@ -92,7 +137,9 @@
                 const a = this.dataSource.map(item => item.id).sort()
                 const b = this.selectedItems.map(item => item.id).sort()
                 let equal = true
-                if (a.length !== b.length) { return equal }
+                if (a.length !== b.length) {
+                    return equal
+                }
                 for (let i = 0; i < a.length; i++) {
                     if (a[i] !== b[i]) {
                         equal = false
@@ -100,10 +147,70 @@
                     }
                 }
                 return equal
+            },
+            expendedCellColSpan() {
+                let result = 0
+                if (this.checkable) {result += 1}
+                if (this.expendField) {result += 1}
+                return result
             }
         },
 
+        mounted() {
+            let table2 = this.$refs.table.cloneNode(false)
+            this.table2 = table2
+            table2.classList.add('t-table-copy')
+            let tHead = this.$refs.table.children[0]
+            let {height} = tHead.getBoundingClientRect()
+            this.$refs.tableWrapper.style.marginTop = height + 'px'
+            this.$refs.tableWrapper.style.height = this.height- height + 'px'
+            table2.appendChild(tHead)
+            this.$refs.wrapper.appendChild(table2)
+
+            if (this.$scopedSlots.default) {
+                let div = this.$refs.actions[0]
+                let {width} = div.getBoundingClientRect()
+                let parent = div.parentNode
+                let styles = getComputedStyle(parent)
+                let paddingLeft = styles.getPropertyValue('padding-left')
+                let paddingRight = styles.getPropertyValue('padding-right')
+                let borderLeft = styles.getPropertyValue('border-left-width')
+                let borderRight = styles.getPropertyValue('border-right-width')
+                let width2 = width + parseInt(paddingRight) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
+                this.$refs.actionsHeader.style.width = width2
+                this.$refs.actions.map(div => {
+                    div.parentNode.style.width = width2
+                })
+            }
+        },
+
+        beforeDestroy() {
+            this.table2.remove()
+        },
+
         methods: {
+            inExpendedIds(id) {
+                return this.expendedIds.indexOf(id) > -1
+            },
+            expendItem(id) {
+                if (this.inExpendedIds(id)) {
+                    this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
+                } else {
+                    this.expendItem.push(id)
+                }
+            },
+            changeOrderBy (key) {
+                const copy = JSON.parse(JSON.stringify(this.orderBy))
+                let oldValue = copy[key]
+                if (oldValue === 'asc') {
+                    copy[key] = 'desc'
+                } else if (oldValue === 'desc') {
+                    copy[key] = true
+                } else {
+                    copy[key] = 'asc'
+                }
+                this.$emit('update:orderBy', copy)
+            },
             inSelectedItems(item) {
                 return this.selectedItems.filter(value => value.id === item.id).length > 0
             },
@@ -117,9 +224,9 @@
                 }
                 this.$emit('update:selectedItems', copy)
             },
-            onChangeAllItems (e) {
+            onChangeAllItems(e) {
                 let selected = e.target.checked
-                 this.$emit('update:selectedItems', selected? this.dataSource : [])
+                this.$emit('update:selectedItems', selected ? this.dataSource : [])
             }
         }
     }
@@ -128,44 +235,71 @@
 <style lang="scss" scoped>
     @import 'styles/var';
     $grey: darken($grey, 10%);
-
-    .t-table-content {
-        position: relative;
-        &-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-spacing: 0;
-            border-bottom: 1px solid $grey;
-            &.bordered {
-                border: 1px solid $grey;
-                td, th {
-                    border: 1px solid $grey;
-                }
-            }
-            &.compact {
-                td, th {
-                    padding: 4px;
-                }
-            }
+    .t-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        border-bottom: 1px solid $grey;
+        &.bordered {
+            border: 1px solid $grey;
             td, th {
-                border-bottom: 1px solid $grey;
-                text-align: left;
-                padding: 8px;
+                border: 1px solid $grey;
             }
-            &.striped {
-                tbody {
-                    > tr {
-                        &:nth-child(odd) {
-                            background: white;
-                        }
-                        &:nth-child(even) {
-                            background: lighten($grey, 10%);
-                        }
+        }
+        &.compact {
+            td, th {
+                padding: 4px;
+            }
+        }
+        td, th {
+            border-bottom: 1px solid $grey;
+            text-align: left;
+            padding: 8px;
+        }
+        &.striped {
+            tbody {
+                > tr {
+                    &:nth-child(odd) {
+                        background: white;
+                    }
+                    &:nth-child(even) {
+                        background: lighten($grey, 10%);
                     }
                 }
             }
         }
+        &-sorter {
+            display: inline-flex;
+            flex-direction: column;
+            margin: 0 4px;
+            cursor: pointer;
+            svg {
+                width: 10px;
+                height: 10px;
+                fill: $grey;
+                &.active {
+                    fill: red;
+                }
+                &:first-child {
+                    position: relative;
+                    bottom: -1px;
+                }
+                &:nth-child(2) {
+                    position: relative;
+                    top: -1px;
+                }
+            }
+        }
+        &-header {
+            display: flex;
+            align-items: center;
+        }
+        &-wrapper {
+            position: relative;
+            overflow: auto;
+        }
         &-loading {
+            background: rgba(255, 255, 255, 0.8);
             position: absolute;
             top: 0;
             left: 0;
@@ -174,12 +308,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.5);
             svg {
                 width: 50px;
                 height: 50px;
-                @include spin
+                @include spin;
             }
+        }
+        &-copy {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+        }
+        &-expendIcon {
+            width: 10px;
+            height: 10px;
+        }
+        & &-center {
+            text-align: center;
         }
     }
 
