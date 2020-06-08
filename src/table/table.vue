@@ -4,7 +4,7 @@
             <table class="t-table" ref="table" :class="{bordered, compact, striped: striped}">
                 <thead>
                 <tr>
-                    <th v-if="extendField" :style="{width: '50px'}" class="t-table-center"></th>
+                    <th v-if="extendField" :style="{width: '50px'}" class="t-table-center">展开</th>
                     <th v-if="checkable" :style="{width: '50px'}" class="t-table-center">
                         <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                                :checked="areAllItemsSelected"/>
@@ -20,7 +20,7 @@
                             </span>
                         </div>
                     </th>
-                    <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
+                    <th ref="actionsHeader" v-if="$scopedSlots.default">操作</th>
                 </tr>
                 </thead>
                 <tbody>

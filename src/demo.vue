@@ -6,6 +6,7 @@
                      bordered-items.sync="selected"
                      :order-by.sync="orderBy"
                      :loading="loading"
+                     :selectedItems.sync="selected"
                      extendField="description"
                      checkable
                      :height="400"
