@@ -136,7 +136,7 @@
             areAllItemsSelected() { //判断所有元素是否被选中
                 const a = this.dataSource.map(item => item.id).sort()
                 const b = this.selectedItems.map(item => item.id).sort()
-                let equal = true
+                let equal = false
                 if (a.length !== b.length) {
                     return equal
                 }
