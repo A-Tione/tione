@@ -4,12 +4,12 @@
             <table class="t-table" ref="table" :class="{bordered, compact, striped: striped}">
                 <thead>
                 <tr>
-                    <th v-if="extendField" :style="{width: '50px'}" class="t-table-center">展开</th>
                     <th v-if="checkable" :style="{width: '50px'}" class="t-table-center">
                         <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                                :checked="areAllItemsSelected"/>
                     </th>
-                    <th :style="{width: '50px'}" v-if="numberVisible">#</th>
+                    <th :style="{width: '50px'}" v-if="numberVisible">序号</th>
+                    <th v-if="extendField" :style="{width: '50px'}" class="t-table-center">展开</th>
                     <th :style="{width: column.width + 'px'}" v-for="column in columns" :key="column.field">
                         <div class="t-table-header">
                             {{column.text}}
@@ -26,14 +26,14 @@
                 <tbody>
                 <template v-for="(item, index) in dataSource">
                     <tr :key="item.id">
-                        <td v-if="extendField" :style="{width: '50px'}" class="t-table-center" @click="expendItem(item.id)">
-                            <t-icon class="t-table-expendIcon" name="right"></t-icon>
-                        </td>
                         <td v-if="checkable" :style="{width: '50px'}" class="t-table-center">
                             <input type="checkbox" @change="onChangeItem(item, index, $event)"
                                    :checked="inSelectedItems(item)">
                         </td>
-                        <td v-if="numberVisible">{{index+1}}</td>
+                        <td :style="{width: '50px'}" v-if="numberVisible">{{index+1}}</td>
+                        <td v-if="extendField" :style="{width: '50px'}" class="t-table-center" @click="expendItem(item.id)">
+                            <t-icon class="t-table-expendIcon" name="right"></t-icon>
+                        </td>
                         <template v-for="column in columns">
                             <td :style="{width: column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
                         </template>
@@ -93,16 +93,16 @@
                 type: Array,
                 required: true
             },
-            loading: {
-                type: Boolean,
-                default: false
-            },
             dataSource: {
                 type: Array,
                 required: true,
                 validator(array) {
                     return !(array.filter(item => item.id === undefined).length > 0)
                 }
+            },
+            loading: {
+                type: Boolean,
+                default: false
             },
             numberVisible: {
                 type: Boolean,
@@ -151,6 +151,7 @@
             expendedCellColSpan() {
                 let result = 0
                 if (this.checkable) {result += 1}
+                if (this.numberVisible) {result += 1}
                 if (this.extendField) {result += 1}
                 if (this.$scopedSlots.default) {result += 1}
                 return result
@@ -290,7 +291,7 @@
             fill: $grey;
 
             &.active {
-              fill: red;
+              fill: darken($grey, 50%);
             }
 
             &:first-child {
