@@ -6,7 +6,7 @@
                      bordered-items.sync="selected"
                      :order-by.sync="orderBy"
                      :loading="loading"
-                     height="400"
+                     :height="400"
                      @update:orderBy="x">
                 <template slot-scope="xxx">
                     <button @click="look(xxx.item)">查看</button>
@@ -81,6 +81,8 @@
 <style lang="scss">
     .box {
         padding: 100px;
+        display: flex;
+        flex-direction: column;
     }
     * {
         margin: 0;

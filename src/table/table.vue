@@ -10,7 +10,7 @@
                                :checked="areAllItemsSelected"/>
                     </th>
                     <th :style="{width: '50px'}" v-if="numberVisible">#</th>
-                    <th :style="{width: column.width + 'px'}" v-for="column in column" :key="column.field">
+                    <th :style="{width: column.width + 'px'}" v-for="column in columns" :key="column.field">
                         <div class="t-table-header">
                             {{column.text}}
                             <span v-if="column.field in orderBy" class="t-table-sorter"
@@ -59,12 +59,12 @@
 </template>
 
 <script>
-    import TIcon from 'src/icon'
+    import tIcon from '../icon'
 
     export default {
-        name: 'table',
+        name: 't-table',
         components: {
-            TIcon
+            tIcon
         },
         props: {
             height: {
@@ -159,11 +159,11 @@
         mounted() {
             let table2 = this.$refs.table.cloneNode(false)
             this.table2 = table2
-            table2.classList.add('t-table-copy')
             let tHead = this.$refs.table.children[0]
             let {height} = tHead.getBoundingClientRect()
-            this.$refs.tableWrapper.style.marginTop = height + 'px'
-            this.$refs.tableWrapper.style.height = this.height- height + 'px'
+            // this.$refs.wrapper.style.marginTop = height + 'px'
+            this.$refs.tableWrapper.style.height = this.height-height + 'px'
+            console.log(tHead);
             table2.appendChild(tHead)
             this.$refs.wrapper.appendChild(table2)
 
@@ -235,99 +235,121 @@
 <style lang="scss" scoped>
     @import 'styles/var';
     $grey: darken($grey, 10%);
-    .t-table {
+    .t-table-wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+      .t-table {
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         border-bottom: 1px solid $grey;
+
         &.bordered {
+          border: 1px solid $grey;
+
+          td, th {
             border: 1px solid $grey;
-            td, th {
-                border: 1px solid $grey;
-            }
+          }
         }
+
         &.compact {
-            td, th {
-                padding: 4px;
-            }
+          td, th {
+            padding: 4px;
+          }
         }
+
         td, th {
-            border-bottom: 1px solid $grey;
-            text-align: left;
-            padding: 8px;
+          border-bottom: 1px solid $grey;
+          text-align: left;
+          padding: 8px;
         }
+
         &.striped {
-            tbody {
-                > tr {
-                    &:nth-child(odd) {
-                        background: white;
-                    }
-                    &:nth-child(even) {
-                        background: lighten($grey, 10%);
-                    }
-                }
+          tbody {
+            > tr {
+              &:nth-child(odd) {
+                background: white;
+              }
+
+              &:nth-child(even) {
+                background: lighten($grey, 10%);
+              }
             }
+          }
         }
+
         &-sorter {
-            display: inline-flex;
-            flex-direction: column;
-            margin: 0 4px;
-            cursor: pointer;
-            svg {
-                width: 10px;
-                height: 10px;
-                fill: $grey;
-                &.active {
-                    fill: red;
-                }
-                &:first-child {
-                    position: relative;
-                    bottom: -1px;
-                }
-                &:nth-child(2) {
-                    position: relative;
-                    top: -1px;
-                }
-            }
-        }
-        &-header {
-            display: flex;
-            align-items: center;
-        }
-        &-wrapper {
-            position: relative;
-            overflow: auto;
-        }
-        &-loading {
-            background: rgba(255, 255, 255, 0.8);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            svg {
-                width: 50px;
-                height: 50px;
-                @include spin;
-            }
-        }
-        &-copy {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-        }
-        &-expendIcon {
+          display: inline-flex;
+          flex-direction: column;
+          margin: 0 4px;
+          cursor: pointer;
+
+          svg {
             width: 10px;
             height: 10px;
+            fill: $grey;
+
+            &.active {
+              fill: red;
+            }
+
+            &:first-child {
+              position: relative;
+              bottom: -1px;
+            }
+
+            &:nth-child(2) {
+              position: relative;
+              top: -1px;
+            }
+          }
         }
+
+        &-header {
+          display: flex;
+          align-items: center;
+        }
+
+        &-wrapper {
+          position: relative;
+          overflow: auto;
+        }
+
+        &-loading {
+          background: rgba(255, 255, 255, 0.8);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          svg {
+            width: 50px;
+            height: 50px;
+            @include spin;
+          }
+        }
+
+        &-copy {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: white;
+        }
+
+        &-expendIcon {
+          width: 10px;
+          height: 10px;
+        }
+
         & &-center {
-            text-align: center;
+          text-align: center;
         }
+      }
     }
 
 </style>
