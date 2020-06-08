@@ -10,7 +10,7 @@
                      extendField="description"
                      checkable
                      :height="400"
-                     @update:orderBy="x">
+                     @update:orderBy="sort">
                 <template slot-scope="row">
                     <button @click="look(row.item)">查看</button>
                     <button @click="edit(row.item)">编辑</button>
@@ -65,7 +65,7 @@
             }
         },
         methods: {
-            x() {
+            sort() {
                 this.loading = true
                 setTimeout(()=> {
                     this.loading = false
