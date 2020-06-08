@@ -8,9 +8,9 @@
                      :loading="loading"
                      :height="400"
                      @update:orderBy="x">
-                <template slot-scope="xxx">
-                    <button @click="look(xxx.item)">查看</button>
-                    <button @click="edit(xxx.item)">编辑</button>
+                <template slot-scope="row">
+                    <button @click="look(row.item)">查看</button>
+                    <button @click="edit(row.item)">编辑</button>
                 </template>
             </t-table>
         </div>

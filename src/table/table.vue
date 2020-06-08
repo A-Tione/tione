@@ -52,7 +52,7 @@
                 </tbody>
             </table>
         </div>
-        <div v-if="loading" class="t-table-content-loading">
+        <div v-if="loading" class="t-table-loading">
             <t-icon name="loading"></t-icon>
         </div>
     </div>
@@ -236,6 +236,7 @@
     @import 'styles/var';
     $grey: darken($grey, 10%);
     .t-table-wrapper {
+        position: relative;
       display: flex;
       flex-direction: column-reverse;
       .t-table {
