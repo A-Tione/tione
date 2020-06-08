@@ -4,7 +4,7 @@
             <table class="t-table" ref="table" :class="{bordered, compact, striped: striped}">
                 <thead>
                 <tr>
-                    <th v-if="expendField" :style="{width: '50px'}" class="t-table-center"></th>
+                    <th v-if="extendField" :style="{width: '50px'}" class="t-table-center"></th>
                     <th v-if="checkable" :style="{width: '50px'}" class="t-table-center">
                         <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                                :checked="areAllItemsSelected"/>
@@ -26,8 +26,8 @@
                 <tbody>
                 <template v-for="(item, index) in dataSource">
                     <tr :key="item.id">
-                        <td v-if="expendField" :style="{width: '50px'}" class="t-table-center">
-                            <t-icon class="t-table-expendIcon" name="right" @click="expendItem(item.id)"></t-icon>
+                        <td v-if="extendField" :style="{width: '50px'}" class="t-table-center" @click="expendItem(item.id)">
+                            <t-icon class="t-table-expendIcon" name="right"></t-icon>
                         </td>
                         <td v-if="checkable" :style="{width: '50px'}" class="t-table-center">
                             <input type="checkbox" @change="onChangeItem(item, index, $event)"
@@ -45,7 +45,7 @@
                     </tr>
                     <tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
                         <td :colspan="columns.length + expendedCellColSpan">
-                            {{item[expendField] || '无'}}
+                            {{item[extendField] || '无'}}
                         </td>
                     </tr>
                 </template>
@@ -70,7 +70,7 @@
             height: {
               type: Number
             },
-            expendField: {
+            extendField: {
                 type: String
             },
             orderBy: {
@@ -151,7 +151,8 @@
             expendedCellColSpan() {
                 let result = 0
                 if (this.checkable) {result += 1}
-                if (this.expendField) {result += 1}
+                if (this.extendField) {result += 1}
+                if (this.$scopedSlots.default) {result += 1}
                 return result
             }
         },
@@ -161,9 +162,7 @@
             this.table2 = table2
             let tHead = this.$refs.table.children[0]
             let {height} = tHead.getBoundingClientRect()
-            // this.$refs.wrapper.style.marginTop = height + 'px'
             this.$refs.tableWrapper.style.height = this.height-height + 'px'
-            console.log(tHead);
             table2.appendChild(tHead)
             this.$refs.wrapper.appendChild(table2)
 
@@ -196,7 +195,7 @@
                 if (this.inExpendedIds(id)) {
                     this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
                 } else {
-                    this.expendItem.push(id)
+                    this.expendedIds.push(id)
                 }
             },
             changeOrderBy (key) {

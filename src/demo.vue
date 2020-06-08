@@ -6,6 +6,8 @@
                      bordered-items.sync="selected"
                      :order-by.sync="orderBy"
                      :loading="loading"
+                     extendField="description"
+                     checkable
                      :height="400"
                      @update:orderBy="x">
                 <template slot-scope="row">
