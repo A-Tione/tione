@@ -2,14 +2,18 @@
     <div class="box">
         <t-upload
             accept="image/*"
+            method="POST"
             action="http://frank.com/upload"
-            name="avatar"
+            name="file"
             :fileList="fileList"
             fileList.sync="fileList"
         >
-            <button>上传</button>
-            <div>只能上传300KB以内的png，jpeg文件</div>
-            <button>保存</button>
+            <template>
+                <button>上传</button>
+            </template>
+            <template slot="tips">
+                <div>只能上传300KB以内的png，jpeg文件</div>
+            </template>
         </t-upload>
     </div>
 </template>
@@ -39,8 +43,6 @@
 <style lang="scss">
     .box {
         padding: 100px;
-        display: flex;
-        flex-direction: column;
     }
     * {
         margin: 0;
@@ -61,9 +63,6 @@
 
     .wrapper {
         margin: 40px;
-    }
-    .box {
-        display: flex;
     }
 
 </style>
