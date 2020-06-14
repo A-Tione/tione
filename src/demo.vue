@@ -5,7 +5,7 @@
             method="POST"
             action="http://frank.com/upload"
             name="file"
-            :fileList="fileList"
+            :fileList.sync="fileList"
             fileList.sync="fileList"
         >
             <template>

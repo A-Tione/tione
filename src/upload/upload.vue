@@ -25,30 +25,53 @@
             }
         },
         data() {
-            return {}
+            return {
+                url: '',
+                parseResponse: ''
+            }
         },
         methods: {
             onClickUpload() {
+                let input = this.createInput()
+                input.addEventListener('change', ()=> {
+                    let file = input.files[0]
+                    this.updateFile(file)
+                    input.remove()
+                })
+                input.click()
+            },
+            createInput() {
                 let input = document.createElement('input')
                 input.type= 'file'
                 this.$refs.box.appendChild(input)
-                input.addEventListener('change', ()=> {
-                    let file = input.files[0]
-                    input.remove()
-                    console.log(file)
-                    let formData = new FormData()
-                    formData.append(this.name, file)
-                    let xhr = new XMLHttpRequest()
-                    xhr.open(this.method, this.action)
-                    xhr.onload = function () {
-                        console.log(xhr.response)
-                        // img.src = `https://node-servers-tione.herokuapp.com/image/${xhr.response}`
-
+                return input
+            },
+            updateFile(file) {
+                let formData = new FormData()
+                formData.append(this.name, file)
+                let {name, size, type} = file
+                this.doUploadFile(formData, (response)=> {
+                    let url = this.parseResponse(response) //反序列化
+                    this.url = url
+                    while (this.fileList.filter(f => f.name === name).length > 0) {
+                        let duIndexOf = name.lastIndexOf('.')
+                        let nameBefore = name.substring(0, duIndexOf)
+                        let nameAfter = name.substring(duIndexOf)
+                        name = nameBefore + '(1)' + nameAfter
                     }
-                    xhr.send(formData)
-
+                    this.$emit('update:fileList', [...this.fileList, {name, size, type, url}])
                 })
-                input.click()
+            },
+            doUploadFile(formData, callback) {
+                let xhr = new XMLHttpRequest()
+                xhr.open(this.method, this.action)
+                xhr.onload = function () {
+                    console.log(xhr.response)
+                    callback(xhr.response)
+                    // img.src = `https://node-servers-tione.herokuapp.com/image/${xhr.response}`
+
+                }
+                xhr.send(formData)
             }
         }
     }
