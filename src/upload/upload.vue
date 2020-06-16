@@ -1,18 +1,18 @@
 <template>
-    <div class="t-upload">
+    <div class="t-uploader">
         <div @click="onClickUpload">
             <slot></slot>
         </div>
-        <ol class="t-upload-fileList">
+        <ol class="t-uploader-fileList">
             <li v-for="file in fileList" :key="file.name">
                 <template v-if="file.status === 'uploading'">
-                    <t-icon name="loading" class="t-upload-spin"></t-icon>
+                    <t-icon name="loading" class="t-uploader-spin"></t-icon>
                 </template>
                 <template v-else-if="file.type.indexOf('image') === 0">
                     <img class="t-uploader-image" :src="file.url" width="32" height="32" alt="">
                 </template>
                 <template v-else>
-                    <div class="uploader-defaultImage"></div>
+                    <div class="t-uploader-defaultImage"></div>
                 </template>
                 <span class="t-uploader-name" :class="{[file.status]: file.status}">{{file.name}}</span>
                 <button class="t-uploader-remove" @click="onRemoveFile(file)">X</button>
@@ -24,6 +24,7 @@
 
 <script>
     import tIcon from '../icon'
+    import $http from './http'
 
     export default {
         name: 'upload',
@@ -36,6 +37,10 @@
             action: {
                 type: String,
                 required: true
+            },
+            accept: {
+                type: String,
+                default: 'image/*'
             },
             method: {
                 type: String,
@@ -100,6 +105,8 @@
                     let {type, size} = rwaFile
                     return {name: newNames[i], type, size, status: 'uploading'}
                 })
+                console.log(this.fileList,'fileList');
+                console.log(x,'x');
                 this.$emit('update:fileList', [...this.fileList, ...x])
                 return true
             },
@@ -148,14 +155,14 @@
             createInput() {
                 this.$refs.box.innerHTML = ''
                 let input = document.createElement('input')
-                input.accept = 'image/png'
+                input.accept = this.accept
                 input.type= 'file'
                 input.multiple = true
                 this.$refs.box.appendChild(input)
                 return input
             },
             doUploadFile(formData, success, fail) {
-                http[this.method.toLowerCase()](this.action, {success, fail, data: formData})
+                $http[this.method.toLowerCase()](this.action, {success, fail, data: formData})
             }
         }
     }
@@ -196,8 +203,10 @@
             height: 32px;
         }
         &-spin {
+            box-sizing: border-box;
             width: 32px;
             height: 32px;
+            padding: 8px;
             @include spin;
         }
     }
