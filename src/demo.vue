@@ -3,7 +3,7 @@
         <t-upload
             accept="image/*"
             method="POST"
-            action="http://frank.com/upload"
+            action="http://127.0.0.1:3000/upload"
             name="file"
             :fileList.sync="fileList"
             fileList.sync="fileList"
