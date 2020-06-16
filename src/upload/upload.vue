@@ -8,7 +8,7 @@
                 <template v-if="file.status === 'uploading'">
                     <t-icon name="loading" class="t-uploader-spin"></t-icon>
                 </template>
-                <template v-else-if="file.type.indexOf('image') === 0">
+                <template v-else-if="file.type.indexOf('image') > -1">
                     <img class="t-uploader-image" :src="file.url" width="32" height="32" alt="">
                 </template>
                 <template v-else>
@@ -105,15 +105,14 @@
                     let {type, size} = rwaFile
                     return {name: newNames[i], type, size, status: 'uploading'}
                 })
-                console.log(this.fileList,'fileList');
-                console.log(x,'x');
                 this.$emit('update:fileList', [...this.fileList, ...x])
                 return true
             },
             afterUploadFiles(newName, url) {
-                let file = this.fileList.filter(f=> f.name === newName[0])
+                let file = this.fileList.filter(f=> f.name === newName)[0]
                 let index = this.fileList.indexOf(file)
                 let fileCopy = JSON.parse(JSON.stringify(file))
+                fileCopy.url = url
                 fileCopy.status = 'success'
                 let fileListCopy = [...this.fileList]
                 fileListCopy.splice(index, 1, fileCopy)

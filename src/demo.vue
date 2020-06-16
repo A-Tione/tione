@@ -40,8 +40,8 @@
                 return `http://127.0.0.1:3000/preview/${object.id}`
             },
             xxx(fileList) {
-                console.log('监听到了 update:fileList 事件')
-                console.log(fileList, 'fileList')
+                // console.log('监听到了 update:fileList 事件')
+                // console.log(fileList, 'fileList')
             }
         },
     }
