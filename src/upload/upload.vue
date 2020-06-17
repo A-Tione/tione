@@ -117,7 +117,7 @@
                 let fileListCopy = [...this.fileList]
                 fileListCopy.splice(index, 1, fileCopy)
                 this.$emit('update:fileList', fileListCopy)
-                this.$emit('uploaded')
+                this.$emit('uploaded') //全部上传完成的回调
             },
             generateName(name) {
                 while (this.fileList.filter(f => f.name === name).length > 0) {
