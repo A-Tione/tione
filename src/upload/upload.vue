@@ -27,7 +27,7 @@
     import $http from './http'
 
     export default {
-        name: 'upload',
+        name: 't-upload',
         components: {tIcon},
         props: {
             name: {
