@@ -22,7 +22,6 @@
                 width: undefined,
                 height: undefined,
                 top: undefined,
-                timerId: null
             }
         },
 
