@@ -1,48 +1,103 @@
 <template>
     <div class="box">
-        <t-upload
-            accept="image/*"
-            method="POST"
-            action="http://127.0.0.1:3000/upload"
-            name="file"
-            :fileList.sync="fileList"
-            :parseResponse="parseResponse"
-            @update:fileList="xxx"
-        >
-            <template>
-                <t-button icon="upload">上传</t-button>
-            </template>
-        </t-upload>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <t-sticky :distance="30">
+            <div class="sticky-box">这是一段很长的代码这是一段很长的代码这是一段很长的代码</div>
+        </t-sticky>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
+        <div>内容一</div>
     </div>
 </template>
 
 <script>
-    import TUpload from './upload/upload'
-    import TButton from './button/button'
+    import TSticky from './sticky/sticky'
 
     export default {
         name: 'demo',
         components: {
-            TUpload,
-            TButton,
+            TSticky,
         },
 
-        computed: {},
 
         data() {
             return {
-                fileList: []
             }
         },
         methods: {
-            parseResponse(response) {
-                let object = JSON.parse(response)
-                return `http://127.0.0.1:3000/preview/${object.id}`
-            },
-            xxx(fileList) {
-                // console.log('监听到了 update:fileList 事件')
-                // console.log(fileList, 'fileList')
-            }
+
         },
     }
 </script>
@@ -50,6 +105,11 @@
 <style lang="scss">
     .box {
         padding: 100px;
+        .sticky-box {
+            padding: 4px;
+            border: 2px solid green;
+            background: #42b983;
+        }
     }
     * {
         margin: 0;
