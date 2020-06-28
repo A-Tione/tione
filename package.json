@@ -1,7 +1,8 @@
 {
   "name": "tione",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "一个基于vue的ui组件库",
+  "main": "dist/Tione.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name Tione src/index.js",
