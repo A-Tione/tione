@@ -1,36 +1,45 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.0/libexec/bin/yarn.js add --dev sypress
 
 PATH: 
-  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Roaming\npm;C:\Users\Administrator\AppData\Local\Yarn\bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/a-tione/Documents/tione/node_modules/.bin
 
 Yarn version: 
-  1.22.4
+  1.22.0
 
 Node version: 
   12.16.1
 
 Platform: 
-  win32 x64
+  darwin x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\Administrator\Desktop\tione\node_modules\node-sass\vendor\win32-x64-72\binding.node'
+  Error: https://registry.npmjs.org/sypress: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:66975:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:140727:22)
+      at Request.emit (events.js:311:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:141699:10)
+      at Request.emit (events.js:311:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:141621:12)
+      at Object.onceWrapper (events.js:417:28)
+      at IncomingMessage.emit (events.js:323:22)
+      at endReadableNT (_stream_readable.js:1204:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
     "name": "tione",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "description": "一个基于vue的ui组件库",
-    "private": true,
+    "main": "dist/Tione.umd.min.js",
     "scripts": {
       "serve": "vue-cli-service serve",
-      "build": "vue-cli-service build",
+      "build": "vue-cli-service build --target lib --name Tione src/index.js",
       "test": "karma start --single-run",
       "test:unit": "karma start",
       "test:unit:old": "vue-cli-service test:unit"
     },
     "dependencies": {
-      "core-js": "^3.6.4",
       "vue": "^2.6.11"
     },
     "devDependencies": {
