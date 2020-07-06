@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name Tione src/index.js",
-    "test": "karma start --single-run",
+    "test": "cross-env BABEL_ENV=test karma start --single-run",
     "test:unit": "karma start",
     "test:unit:old": "vue-cli-service test:unit"
   },
@@ -19,10 +19,12 @@
     "@vue/cli-service": "~4.3.0",
     "@vue/test-utils": "1.0.0-beta.31",
     "chai": "^4.2.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^1.0.1",
     "cypress": "^4.9.0",
     "karma": "^5.0.7",
     "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.2",
     "karma-mocha": "^2.0.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.32",
