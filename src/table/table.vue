@@ -75,7 +75,7 @@
             tIcon,
             Vnodes: {
                 functional: true,
-                render: (h, ctx) => ctx.props.vnode
+                render: (h, context) => context.props.vnode
             }
         },
         props: {
