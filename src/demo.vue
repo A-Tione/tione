@@ -1,104 +1,18 @@
 <template>
-    <div class="box">
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <t-sticky :distance="30">
-            <div class="sticky-box">这是一段很长的代码这是一段很长的代码这是一段很长的代码</div>
-        </t-sticky>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
-        <div>内容一</div>
+    <div>
+        <t-date-picker></t-date-picker>
     </div>
 </template>
 
 <script>
-    import TSticky from './sticky/sticky'
+    import TDatePicker from './date-picker/date-picker'
 
     export default {
         name: 'demo',
         components: {
-            TSticky,
+            TDatePicker,
         },
 
-
-        data() {
-            return {
-            }
-        },
-        methods: {
-
-        },
     }
 </script>
 
