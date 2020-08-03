@@ -10,9 +10,9 @@ document.addEventListener('click', ev => {
     })
 })
 
-
 export default {
-    bind: function (el, binding, vnode) {
+    bind: function (el, binding, vnode) { //自定义指令——bind 钩子函数，只调用一次  binding: 一个对象，binding.value: 指令的绑定值
         callback.push({el, callback: binding.value})
     }
 }
+
