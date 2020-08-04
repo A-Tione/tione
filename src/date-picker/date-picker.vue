@@ -82,7 +82,6 @@
                 for (let i= 1; i <= m; i++) {
                     array3.push(new Date(year, month + 1, i))
                 }
-                console.log([...array2, ...array, ...array3]);
                 return [...array2, ...array, ...array3]
             }
         },
