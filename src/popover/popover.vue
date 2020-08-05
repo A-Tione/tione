@@ -73,8 +73,8 @@
         methods: {
             positionContent() {
                 if (this.$refs.contentWrapper) {
-                    document.body.appendChild(this.$refs.contentWrapper)
-                    const {contentWrapper,triggerWrapper} = this.$refs
+                    const {contentWrapper,triggerWrapper} = this.$refs;
+                    (this.container || document.body).appendChild(contentWrapper)
                     const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
                     let positions = {
                         top: {
