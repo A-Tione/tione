@@ -62,7 +62,7 @@
             },
             value: {
                 type: Date,
-                default: new Date()
+                default:()=> new Date()
             }
         },
 
@@ -71,7 +71,6 @@
                 className: 't-date-picker-content',
                 weekdays: ['日','一','二','三','四','五','六'],
                 mode: 'days',
-                value: new Date(),
                 helper: helper,
                 wrapperElement: null,
             }
