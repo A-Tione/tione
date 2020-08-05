@@ -26,7 +26,7 @@
         name: "tInput",
         props: {
             value: {
-                type: String,
+                type: [String,Date],
                 default() {
                     return '';
                 }

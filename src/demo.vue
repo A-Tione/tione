@@ -1,6 +1,6 @@
 <template>
     <div>
-        <t-date-picker></t-date-picker>
+        <t-date-picker :value="d" @input="d = $event"></t-date-picker>
     </div>
 </template>
 
@@ -11,6 +11,12 @@
         name: 'demo',
         components: {
             TDatePicker,
+        },
+
+        data() {
+            return {
+                d: new Date()
+            }
         },
 
     }

@@ -1,7 +1,7 @@
 <template>
-    <div :class="className">
-        <t-popover position="bottom">
-            <t-input type="text"/>
+    <div :class="className" ref="wrapper">
+        <t-popover position="bottom" :container="wrapperElement">
+            <t-input type="text" :value="value"/>
             <template slot="content">
                 <div :class="`${className}-pop`">
                     <div :class="`${className}-nav`">
@@ -20,8 +20,12 @@
                                 <span v-for="i in [1,2,3,4,5,6,0]">{{weekdays[i]}}</span>
                             </div>
                             <div :class="`${className}-row`" v-for="i in 6" :key="i">
-                                <span :class="`${className}-col`" v-for="j in 7" :key="j">
-                                    {{visibleDays[(i-1)*7+j-1].getDate()}}
+                                <span
+                                    :class="`${className}-col`"
+                                    v-for="j in 7"
+                                    :key="j"
+                                    @click="onClickCell(getVisibleDay(i,j))">
+                                    {{getVisibleDay(i,j).getDate()}}
                                 </span>
                             </div>
                         </div>
@@ -51,6 +55,17 @@
             TPopover
         },
 
+        props: {
+            firstDayOfWeek: {
+                type: Number,
+                default: 1
+            },
+            value: {
+                type: Date,
+                default: new Date()
+            }
+        },
+
         data() {
             return {
                 className: 't-date-picker-content',
@@ -58,6 +73,7 @@
                 mode: 'days',
                 value: new Date(),
                 helper: helper,
+                wrapperElement: null,
             }
         },
 
@@ -65,25 +81,22 @@
             visibleDays() {
                 let date = this.value
                 let first = helper.firstDayOfMonth(date)
-                let last = helper.lastDayOfMonth(date)
+                let n = first.getDay()
+                let x = first - (n === 0 ? 6 : n -1) * 86400 * 1000
                 let array = []
-                let [year, month, day] = helper.getYearMonthDate(date)
-                for (let i = first.getDate(); i <= last.getDate(); i++) {
-                    array.push(new Date(year, month, i))
+                for (let i = 0; i < 42; i++) {
+                    array.push(new Date(x + i * 86400 * 1000))
                 }
-                let n = first.getDay() === 0 ? 6 : first.getDay() - 1
-                let array2 = []
-                for (let i = 0; i < n; i++) {
-                    array2.push(new Date(year, month, -i))
-                }
-                array2 = array2.reverse()
-                let m = 42 - array.length - array2.length
-                let array3 = []
-                for (let i= 1; i <= m; i++) {
-                    array3.push(new Date(year, month + 1, i))
-                }
-                return [...array2, ...array, ...array3]
-            }
+                return array
+            },
+            formattedValue() {
+                const [year, month, day] = helper.getYearMonthDate(this.value)
+                return `${year}-${month+1}-${day}`
+            },
+        },
+
+        mounted() {
+            this.wrapperElement = this.$refs.wrapper
         },
 
         methods: {
@@ -92,6 +105,12 @@
             },
             onClickYear() {
                 this.mode = 'years'
+            },
+            onClickCell(date) {
+                this.$emit('input', date)
+            },
+            getVisibleDay(row, col) {
+                return this.visibleDays[(row - 1) * 7 + col - 1]
             }
         }
     }
