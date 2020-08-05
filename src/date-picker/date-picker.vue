@@ -1,7 +1,7 @@
 <template>
     <div :class="className" ref="wrapper">
         <t-popover position="bottom" :container="wrapperElement">
-            <t-input type="text" :value="value"/>
+            <t-input type="text" :value="formattedValue"/>
             <template slot="content">
                 <div :class="`${className}-pop`">
                     <div :class="`${className}-nav`">
