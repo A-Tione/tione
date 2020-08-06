@@ -21,7 +21,7 @@
                             </div>
                             <div :class="`${className}-row`" v-for="i in 6" :key="i">
                                 <span
-                                    :class="`${className}-col`"
+                                    :class="[`${className}-col`, {currentMonth: isCurrentMonth(getVisibleDay(i,j))}]"
                                     v-for="j in 7"
                                     :key="j"
                                     @click="onClickCell(getVisibleDay(i,j))">
@@ -110,13 +110,24 @@
             },
             getVisibleDay(row, col) {
                 return this.visibleDays[(row - 1) * 7 + col - 1]
+            },
+            isCurrentMonth(date) {
+                let [year1, month1] = helper.getYearMonthDate(date)
+                let [year2, month2] = helper.getYearMonthDate(this.value)
+                return year1 === year2 && month1 === month2
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .date-picker-content {
+    .t-date-picker-content {
+        &-col {
+            color: rgba(0,0,0,0.35);
+            &.currentMonth {
+                color: rgba(0,0,0,0.85);
+            }
+        }
 
     }
 
