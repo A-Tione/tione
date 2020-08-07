@@ -1,6 +1,6 @@
 <template>
     <div :class="className" ref="wrapper">
-        <t-popover position="bottom" :container="wrapperElement">
+        <t-popover position="bottom" :container="wrapperElement" @open="onOpen">
             <t-input type="text" :value="formattedValue"/>
             <template slot="content">
                 <div :class="`${className}-pop`">
@@ -143,6 +143,9 @@
                 const [year, month] = helper.getYearMonthDate(newDate)
                 this.display = {year, month}
             },
+            onOpen() {
+                this.mode = 'day'
+            }
         }
     }
 </script>
