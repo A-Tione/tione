@@ -1,37 +1,66 @@
 <template>
     <div :class="className" ref="wrapper">
         <t-popover position="bottom" :container="wrapperElement" @open="onOpen">
-            <t-input type="text" :value="formattedValue"/>
+            <t-input type="text" :value="formattedValue" @input="onInput" @change="onChange" ref="input"/>
             <template slot="content">
-                <div :class="`${className}-pop`">
+                <div :class="`${className}-pop`" @selectstart.prevent>
                     <div :class="`${className}-nav`">
-                        <span @click="onClickPrevYear"><t-icon name="settings"></t-icon></span>
-                        <span @click="onClickPrevMonth"><t-icon name="settings"></t-icon></span>
+                        <span @click="onClickPrevYear" :class="[`${className}-preYear`,`${className}-navItem`]">
+                            <t-icon name="settings"></t-icon>
+                        </span>
+                        <span @click="onClickPrevMonth" :class="[`${className}-preMonth`,`${className}-navItem`]">
+                            <t-icon name="settings"></t-icon>
+                        </span>
                         <span @click="onClickYear">{{display.year}}年</span>
                         <span @click="onClickMonth">{{display.month}}月</span>
-                        <span @click="onClickNextMonth"><t-icon name="settings"></t-icon></span>
-                        <span @click="onClickNextYear"><t-icon name="settings"></t-icon></span>
+                        <span @click="onClickNextMonth" :class="[`${className}-nextMonth`,`${className}-navItem`]">
+                            <t-icon name="settings"></t-icon>
+                        </span>
+                        <span @click="onClickNextYear" :class="[`${className}-nextYear`,`${className}-navItem`]">
+                            <t-icon name="settings"></t-icon>
+                        </span>
                     </div>
                     <div :class="`${className}-panels`">
-                        <div v-if="mode==='years'" :class="`${className}-content`">年</div>
-                        <div v-else-if="mode==='months'" :class="`${className}-content`">月</div>
-                        <div v-else :class="`${className}-content`">
-                            <div :class="`${className}-weekdays`">
-                                <span v-for="i in [1,2,3,4,5,6,0]">{{weekdays[i]}}</span>
-                            </div>
-                            <div :class="`${className}-row`" v-for="i in 6" :key="i">
+                        <div :class="`${className}-content`">
+                            <template v-if="mode===`month`">
+                                <div :class="`${className}-selectMonth`">
+                                    <div :class="`${className}-selects`">
+                                        <select @change="onSelectYear" :value="display.year">
+                                            <option v-for="year in years" :value="year" :key="year">{{year}}</option>
+                                        </select>年
+                                        <select @change="onSelectMonth" :value="display.month">
+                                            <option v-for="month in [0,1,2,3,4,5,6,7,8,9,10,11]"
+                                                    :value="month" :key="month">{{month + 1}}</option>
+                                        </select>
+                                    </div>
+                                    <div :class="`${className}-returnToDayMode`">
+                                        <button @click="mode='day'">返回</button>
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div :class="`${className}-weekdays`">
+                                    <span v-for="i in [1,2,3,4,5,6,0]">{{weekdays[i]}}</span>
+                                </div>
+                                <div :class="`${className}-row`" v-for="i in 6" :key="i">
                                 <span
-                                    :class="[`${className}-col`, {currentMonth: isCurrentMonth(getVisibleDay(i,j))}]"
+                                    :class="[`${className}-col`
+                                    , {currentMonth: isCurrentMonth(getVisibleDay(i,j))}
+                                    ,{selected: isSelected(getVisibleDay(i,j))}
+                                    ,{today: isToday(getVisibleDay(i,j))}
+                                    ]"
                                     v-for="j in 7"
                                     :key="j"
                                     @click="onClickCell(getVisibleDay(i,j))">
                                     {{getVisibleDay(i,j).getDate()}}
                                 </span>
-                            </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
                     <div :class="`${className}-actions`">
-
+                        <t-button @click="onClickToday">今天</t-button>
+                        <t-button @click="onClickClear">清除</t-button>
                     </div>
                 </div>
             </template>
@@ -41,6 +70,7 @@
 
 <script>
     import TInput from '../input/input'
+    import TButton from '../button/button'
     import TIcon from '../icon'
     import TPopover from '../popover/popover'
     import ClickOutside from '../click-outside'
@@ -51,6 +81,7 @@
         directives: {ClickOutside},
         components: {
             TInput,
+            TButton,
             TIcon,
             TPopover
         },
@@ -63,11 +94,15 @@
             value: {
                 type: Date,
                 default:()=> new Date()
+            },
+            scope: {
+                type: Array,
+                default: ()=> [new Date(1950, 0, 1), helper.addYear(new Date(), 100)]
             }
         },
 
         data() {
-            let [year, month] = helper.getYearMonthDate(this.value)
+            let [year, month] = helper.getYearMonthDate(this.value || new Date())
             return {
                 className: 't-date-picker-content',
                 weekdays: ['日','一','二','三','四','五','六'],
@@ -101,15 +136,30 @@
         },
 
         methods: {
-            onClickMonth() {
-                this.mode = 'months'
+            onInput(value) {
+                let regex = /^\d{4}-\d{2}-\d{2}$/g;
+                if (value.match(regex)) {
+                    let [year, month, day] = value.split('-')
+                    month = month - 1
+                    year = year - 0
+                    this.display = {year, month}
+                    this.$emit('input', new Date(year, month, day))
+                }
             },
-            onClickYear() {
-                this.mode = 'years'
+            onChange() {
+                this.$refs.input.setRawValue(this.formattedValue)
+            },
+            onClickMonth() {
+                if (this.mode !== 'month') {
+                    this.mode = 'months'
+                } else {
+                    this.mode = 'day'
+                }
             },
             onClickCell(date) {
                 if (this.isCurrentMonth(date)) {
                     this.$emit('input', date)
+                    this.$refs.popover.close()
                 }
             },
             getVisibleDay(row, col) {
@@ -118,6 +168,19 @@
             isCurrentMonth(date) {
                 let [year1, month1] = helper.getYearMonthDate(date)
                 return year1 === this.display.year && month1 === this.display.month
+            },
+            isSelected(date) {
+                if (!this.value) {
+                    return false
+                }
+                let [y, m, d] = helper.getYearMonthDate(date)
+                let [y2, m2, d2] = helper.getYearMonthDate(this.value)
+                return y===y2 && m===m2 && d===d2
+            },
+            isToday(date) {
+                let [y, m, d] = helper.getYearMonthDate(date)
+                let [y2, m2, d2] = helper.getYearMonthDate(new Date())
+                return y===y2 && m===m2 && d===d2
             },
             onClickPrevYear() {
                 const oldDate = new Date(this.display.year, this.display.month)
@@ -142,6 +205,36 @@
                 const newDate = helper.addMonth(oldDate, 1)
                 const [year, month] = helper.getYearMonthDate(newDate)
                 this.display = {year, month}
+            },
+            onSelectYear(e) {
+                const year = e.target.value - 0
+                const d = new Date(year, this.display.month)
+                if (d >= this.scope[0] && d <= this.scope[1]) {
+                    this.display.year = year
+                } else {
+                    alert('no')
+                    e.target.value = this.display.year
+                }
+            },
+            onSelectMonth(e) {
+                const month = e.target.value - 0
+                const d = new Date(display.year, month)
+                if (d >= this.scope[0] && d <= this.scope[1]) {
+                    this.display.month = month
+                } else {
+                    alert('no')
+                    e.target.value = this.display.month
+                }
+            },
+            onClickToday() {
+                const now = new Date()
+                const [year, month, day] = helper.getYearMonthDate(now)
+                this.display = {year, month}
+                this.$emit('input', new Date(year, month, day))
+            },
+            onClickClear() {
+                this.$emit('input', undefined)
+                this.$refs.popover.close()
             },
             onOpen() {
                 this.mode = 'day'
