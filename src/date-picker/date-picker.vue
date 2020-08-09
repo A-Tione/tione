@@ -11,8 +11,10 @@
                         <span @click="onClickPrevMonth" :class="[`${className}-preMonth`,`${className}-navItem`]">
                             <t-icon name="settings"></t-icon>
                         </span>
-                        <span @click="onClickYear">{{display.year}}年</span>
-                        <span @click="onClickMonth">{{display.month}}月</span>
+                        <span :class="`${className}-yearAndMonth`" @click="onClickMonth">
+                            <span>{{display.year}}年</span>
+                            <span>{{display.month + 1}}月</span>
+                        </span>
                         <span @click="onClickNextMonth" :class="[`${className}-nextMonth`,`${className}-navItem`]">
                             <t-icon name="settings"></t-icon>
                         </span>
