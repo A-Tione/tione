@@ -126,9 +126,16 @@
                 return array
             },
             formattedValue() {
-                const [year, month, day] = helper.getYearMonthDate(new Date(this.display.year, this.display.month, 1))
-                return `${year}-${month+1}-${day}`
+                if (!this.value) {return ''}
+                const [year, month, day] = helper.getYearMonthDate(this.value)
+                return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`
             },
+            years() {
+                return helper.range(
+                    this.scope[0].getFullYear(),
+                    this.scope[1].getFullYear() + 1
+                )
+            }
         },
 
         mounted() {
