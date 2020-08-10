@@ -1,6 +1,7 @@
 <template>
     <div class="wrapper" :class="{error}">
         <input type="text"
+               ref="input"
                :value="value"
                :disabled="disabled"
                :readonly="readonly"
@@ -46,7 +47,13 @@
             error: {
                 type: String
             }
-        }
+        },
+
+        methods: {
+            setRawValue(value) {
+                this.$refs.input.value = value
+            }
+        },
     }
 </script>
 
