@@ -46,7 +46,7 @@
                                 </div>
                                 <div :class="`${className}-row`" v-for="i in 6" :key="i">
                                 <span
-                                    :class="[`${className}-col`
+                                    :class="[`${className}-cell`
                                     , {currentMonth: isCurrentMonth(getVisibleDay(i,j))}
                                     ,{selected: isSelected(getVisibleDay(i,j))}
                                     ,{today: isToday(getVisibleDay(i,j))}
@@ -253,14 +253,67 @@
 </script>
 
 <style lang="scss" scoped>
+    @import 'styles/var';
     .t-date-picker-content {
-        &-col {
-            color: rgba(0,0,0,0.2);
+        &-nav {
+        }
+        &-popWrapper {
+            padding: 0;
+        }
+        &-navItem,
+        &-cell,
+        &-weekday {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &-cell {
+            color: #ddd;
+            cursor: not-allowed;
+            border-radius: $border-radius;
             &.currentMonth {
-                color: rgba(0,0,0,0.85);
+                color: black;
+                &:hover {
+                    background: $blue;
+                    cursor: pointer;
+                    color: white;
+                }
+            }
+            &.today {
+                background: $grey;
+            }
+            &.selected {
+                border: 1px solid $blue;
             }
         }
-
+        &-nav {
+            display: flex;
+        }
+        &-yearAndMonth {
+            margin: auto;
+        }
+        &-selectMonth {
+            width: 224px;
+            height: 224px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        &-selects {
+        }
+        &-returnToDayMode {
+            margin-top: 8px;
+        }
+        /deep/ .gulu-popover-content-wrapper {
+            padding: 0;
+        }
+        &-actions {
+            padding: 8px;
+            text-align: right;
+        }
     }
 
 </style>
