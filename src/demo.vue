@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <t-date-picker :value="d" @input="d = $event"></t-date-picker>
     </div>
 </template>
@@ -18,13 +18,12 @@
                 d: new Date()
             }
         },
-
     }
 </script>
 
 <style lang="scss">
     .box {
-        padding: 100px;
+        margin: 100px;
         .sticky-box {
             padding: 4px;
             border: 2px solid green;
@@ -46,10 +45,6 @@
         --color: #333;
         --border-color: #999;
         --border-color-hover: #666;
-    }
-
-    .wrapper {
-        margin: 40px;
     }
 
 </style>

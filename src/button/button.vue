@@ -101,5 +101,8 @@
         .loading {
             animation: spin 2s infinite linear;
         }
+        & + & {
+            margin-left: 4px;
+        }
     }
 </style>

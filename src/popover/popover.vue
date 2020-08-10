@@ -1,6 +1,6 @@
 <template>
-    <div ref="popover" class="popover">
-        <div v-if="visible" ref="contentWrapper" class="content-wrapper" :class="{[`position-${position}`]: true}">
+    <div ref="popover" class="t-popover">
+        <div v-if="visible" ref="contentWrapper" class="t-content-wrapper" :class="{[`position-${position}`]: true}">
             <slot name="content" :close="close"></slot>
         </div>
         <!-- span标签增加display: inline-block; 解决包裹元素高度一致的问题 -->
@@ -136,12 +136,12 @@
 <style lang="scss" scoped>
     $border-color: #ddd;
     $border-radius: 4px;
-    .popover {
+    .t-popover {
         position: relative;
         display: inline-block;
         vertical-align: top;
     }
-    .content-wrapper {
+    .t-content-wrapper {
         position: absolute;
         padding: .5em 1em;
         background: white;
