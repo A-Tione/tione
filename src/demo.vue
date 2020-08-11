@@ -1,21 +1,18 @@
 <template>
     <div class="box">
-        <t-date-picker :value="d" @input="d = $event"></t-date-picker>
+        <t-date-picker :scope="scope" :value="d" @input="d = $event"></t-date-picker>
     </div>
 </template>
 
 <script>
     import TDatePicker from './date-picker/date-picker'
-
     export default {
         name: 'demo',
-        components: {
-            TDatePicker,
-        },
-
+        components: {TDatePicker},
         data() {
             return {
-                d: new Date()
+                d: new Date(),
+                scope: [new Date(1980, 0, 1), new Date(2080, 0, 1)]
             }
         },
     }

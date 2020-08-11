@@ -87,10 +87,6 @@
         },
 
         props: {
-            firstDayOfWeek: {
-                type: Number,
-                default: 1
-            },
             value: {
                 type: Date,
             },
