@@ -7,10 +7,10 @@
         <div ref="child" class="t-scroll-content-box" :style="{transform: `translateY(${this.contentY}px)`}">
             <slot></slot>
         </div>
-    </div>
-    <div class="t-scroll-content-track" v-show="scrollBarVisible">
-        <div class="t-scroll-content-bar" ref="bar" @mousedown="onMouseDownScrollBar" @selectstart="onSelectStartScrollBar">
-            <div class="t-scroll-content-inner"></div>
+        <div class="t-scroll content-track" v-show="scrollBarVisible">
+            <div class="t-scroll-content-bar" ref="bar" @mousedown="onMouseDownScrollBar" @selectstart="onSelectStartScrollBar">
+                <div class="t-scroll-content-inner"></div>
+            </div>
         </div>
     </div>
 </template>
