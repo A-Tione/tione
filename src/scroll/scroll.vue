@@ -64,7 +64,7 @@
             },
             listenToRemoteResources() {
                 let tags = this.$refs.parent.querySelectorAll('img, video, audio')
-                Array.from(tags).map(tag => {
+                Array.from(tags).map((tag) => {
                     if (tag.hasAttribute(`data-t-listened`)) {return}
                     tag.setAttribute(`data-t-listened`, 'yes')
                     tag.addEventListener('load', ()=> {
@@ -89,6 +89,7 @@
                 this.contentY = -(this.childHeight * this.scrollBarY / this.parentHeight)
                 this.startPosition = this.endPosition
                 this.$refs.bar.style.transform = `translate(0px, ${this.scrollBarY}px)`
+                console.log(this.$refs.bar.style.transform)
             },
             calculateScrollBarY(delta) {
                 let newValue = parseInt(this.scrollBarY) + delta.y
