@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <t-scroll style="width: 300px; height: 400px;">
-            <p id="test2">123456789_10_11_12_13_14_15_16_17_189</p>
+            <p id="test2">1111122222222222333</p>
             <p>2</p>
             <p>3</p>
             <p>4</p>
@@ -11,7 +11,7 @@
             <p>8</p>
             <p>9</p>
             <p>10</p>
-            <img src="https://www.guidedogs.org/wp-content/uploads/2017/07/2O17-8819-purple-2-min-400x400.jpg" alt="">
+<!--            <img src="https://www.guidedogs.org/wp-content/uploads/2017/07/2O17-8819-purple-2-min-400x400.jpg" alt="">-->
             <p>11</p>
             <p>12</p>
             <p>13</p>
