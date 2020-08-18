@@ -137,10 +137,8 @@
         this.startPosition = {x: screenX, y: screenY}
       },
       onMouseMoveScrollBar(e) {
-        if (!this.isScrolling) {
-          return
-        }
-        this.endPosition = {x: e.screenX, y: screenY}
+        if (!this.isScrolling) {return}
+        this.endPosition = {x: e.screenX, y: e.screenY}
         let delta = {x: this.endPosition.x - this.startPosition.x, y: this.endPosition.y - this.startPosition.y}
         this.scrollBarY = this.calculateScrollBarY(delta)
         this.contentY = -(this.childHeight * this.scrollBarY / this.parentHeight)
