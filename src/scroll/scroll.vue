@@ -46,32 +46,9 @@
       this.listenToDocument()
       this.parentHeight = this.$refs.parent.getBoundingClientRect().height
       this.updateScrollBar()
-      this.listenToRemoteResources()
-      this.listenToDomChange()
     },
 
     methods: {
-      listenToRemoteResources() {
-        let tags = this.$refs.parent.querySelectorAll('img, video, audio')
-        Array.from(tags).map((tag) => {
-          if (tag.hasAttribute(`data-t-listened`)) {
-            return
-          }
-          tag.setAttribute(`data-t-listened`, 'yes')
-          tag.addEventListener('load', () => {
-            this.updateScrollBar()
-          })
-        })
-      },
-      listenToDomChange() {
-        const targetNode = this.$refs.child
-        const config = {attributes: true, childList: true, subtree: true} //配置，监听元素中的所以节点变化
-        const callback = () => {
-          this.listenToRemoteResources()
-        }
-        const observer = new MutationObserver(callback) //指定DOM发生变化时被调用
-        observer.observe(targetNode, config)
-      },
       listenToDocument() {
         document.addEventListener('mousemove', e => this.onMouseMoveScrollBar(e))
         document.addEventListener('mouseup', e => this.onMouseUpScrollBar())

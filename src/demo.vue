@@ -11,7 +11,7 @@
             <p>8</p>
             <p>9</p>
             <p>10</p>
-<!--            <img src="https://www.guidedogs.org/wp-content/uploads/2017/07/2O17-8819-purple-2-min-400x400.jpg" alt="">-->
+            <img src="https://www.guidedogs.org/wp-content/uploads/2017/07/2O17-8819-purple-2-min-400x400.jpg" alt="">
             <p>11</p>
             <p>12</p>
             <p>13</p>
