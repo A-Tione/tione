@@ -121,7 +121,6 @@
         this.contentY = -(this.childHeight * this.scrollBarY / this.parentHeight)
         this.startPosition = this.endPosition
         this.$refs.bar.style.transform = `translate(0px, ${this.scrollBarY}px)`
-        console.log(this.$refs.bar.style.transform)
       },
       calculateScrollBarY(delta) {
         let newValue = parseInt(this.scrollBarY) + delta.y
@@ -141,7 +140,6 @@
       onSelectStartScrollBar(e) {
         e.preventDefault()
       }
-
     }
   }
 </script>
